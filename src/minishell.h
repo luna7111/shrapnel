@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/04/16 23:45:58 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/17 15:34:23 by ldel-val          ``                     */
+/*   Updated: 2025/04/25 18:50:44 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,16 @@
 
 // memory management
 # include "../garbage_control.h"
+
+////////////////////////////
+//    Macros & enums    ////
+////////////////////////////
+//garbage control block macros
+# define LOOP_BLOCK 2
+
 ///////////////////////////////
 //    Function prototypes    //
 ///////////////////////////////
-
 // Aux functions
 size_t	ft_strnlen(char *str);
 char	*ft_strchr(char *str, char chr);
