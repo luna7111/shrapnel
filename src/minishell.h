@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/04/16 23:45:58 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/17 15:34:23 by ldel-val          ``                     */
+/*   Updated: 2025/04/27 20:54:30 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # include <errno.h>
 
 // memory management
-# include "../garbage_control.h"
+# include "../gctrl/src/garbage_control.h"
 ///////////////////////////////
 //    Function prototypes    //
 ///////////////////////////////
