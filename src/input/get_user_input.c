@@ -6,17 +6,27 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/04/25 18:40:17 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/25 19:15:30 by ldel-val          ``                     */
+/*   Updated: 2025/04/27 16:43:03 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-typedef int t_data;
+static int	input_has_content(char *input)
+{
+	while (*input == ' ')
+		input++;
+	return (*input != '\0');
+}
+
+static int	input_is_repeated(t_data *data, char *input)
+{
+	return (!ft_strcmp(data->))
+}
 
 static void	history_insertion(char *input)
 {
-	if (*input)
+	if (input_has_content(input) && !input_is_repeated(input))
 		add_history(input);
 }
 
