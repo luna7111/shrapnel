@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/04/16 23:45:58 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/27 20:54:30 by ldel-val          ``                     */
+/*   Updated: 2025/04/29 14:28:16 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,38 @@
 
 // memory management
 # include "../gctrl/src/garbage_control.h"
+
+////////////////////////////
+//    Macros & enums    ////
+////////////////////////////
+//garbage control block macros
+# define PROG_BLOCK 1
+# define LOOP_BLOCK 2
+
+///////////////////
+//    Structs    //
+///////////////////
+/*
+
+ main struct with useful information for all the program:
+
+ char*	last_input:
+    the last input that was registered
+    in the readline history, this is useful to avoid having the same
+    input in the history two times in a row.
+
+*/
+typedef struct	s_data
+{
+	char	*last_input;
+}	t_data;
+
 ///////////////////////////////
 //    Function prototypes    //
 ///////////////////////////////
-
 // Aux functions
 size_t	ft_strnlen(char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(char *str, char chr);
 char	*ft_strrchr(char *str, char chr);
 
