@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/04/16 23:45:58 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/27 16:27:33 by ldel-val          ``                     */
+/*   Updated: 2025/04/28 01:49:52 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct	s_data
 ///////////////////////////////
 // Aux functions
 size_t	ft_strnlen(char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(char *str, char chr);
 char	*ft_strrchr(char *str, char chr);
 
