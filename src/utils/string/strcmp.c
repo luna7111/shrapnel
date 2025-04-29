@@ -6,7 +6,7 @@
 /*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 18:59:31 by nmagro-r          #+#    #+#             */
-/*   Updated: 2025/04/27 20:58:14 by ldel-val          ``                     */
+/*   Updated: 2025/04/28 01:51:12 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 // i of both strings are the same and are not '\0'.
 // returns the subs
 
-
-
+/*
 int main(void)
 {
 	printf("%d\n", ft_strcmp("b", "a")); // 1
@@ -39,4 +38,4 @@ int main(void)
 	printf("%d\n", ft_strcmp("0a", "")); // 48
 	printf("%d\n", ft_strcmp(NULL, "a")); //segfault
 }
-
+*/
