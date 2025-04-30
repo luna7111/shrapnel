@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   substr.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 16:58:38 by nmagro-r          #+#    #+#             */
-/*   Updated: 2025/04/30 17:55:48 by nmagro-r         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
 
 char	*ft_substr(char *str, unsigned int start, size_t len)
@@ -43,8 +31,7 @@ char	*ft_substr(char *str, unsigned int start, size_t len)
 //Moves the pointer to the start position
 //Adds '\0' terminator to the end of the string
 //Iterates backwards copying each character from str to result :)
-
-
+//
 /*
 int main(void)
 {
