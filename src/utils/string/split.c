@@ -6,7 +6,7 @@
 /*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:05:45 by nmagro-r          #+#    #+#             */
-/*   Updated: 2025/04/30 16:54:40 by nmagro-r         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:48:54 by nmagro-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <string.h>
 # include <unistd.h>
 
-static char	*copy_words(const char *s, int *i, char delim)
+static char	*copy_words(char *s, int *i, char delim)
 {
 	char	*words;
 	int		fin;
@@ -28,7 +28,7 @@ static char	*copy_words(const char *s, int *i, char delim)
 	fin = *i;
 	while (s[fin] != '\0' && s[fin] != delim)
 		fin++;
-	words = substr(s, *i, (fin - *i));
+	words = ft_substr(s, *i, (fin - *i));
 	*i = fin;
 	return (words);
 }
@@ -75,7 +75,7 @@ static void	ft_free(char **ret, int j)
 //Va liberando una por una las strings guardadas en ret desde la última posición usada (j) hacia la primera (0)
 //Se hace hacia atrás porque si algo falla en ret[j], los anteriores ya fueron reservados correctamente
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**ret;   // Array que almacenará los punteros a las palabras
 	int		count;   // Número total de palabras que encontraremos
@@ -112,9 +112,9 @@ char	**ft_split(const char *s, char c)
 
 int	main (void)
 {
-	const char *pepe ="hola que tal"; 
+	char pepe[] = "hola que tal"; 
 	char c = ' ';
-	char **temp = ft_split(&pepe,c);
+	char **temp = ft_split(pepe,c);
 	int i = 0;
 	while (temp[i] != NULL)
 	{
