@@ -6,7 +6,7 @@
 /*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:05:45 by nmagro-r          #+#    #+#             */
-/*   Updated: 2025/04/30 18:48:54 by nmagro-r         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:18:03 by nmagro-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_split(char *s, char c)
 	i = 0;          // Inicializamos el índice de recorrido de la cadena original
 
 	count = count_words(s, c);
-	ret = calloc(count + 1, sizeof(char *));
+	ret = ft_calloc(count + 1, sizeof(char *));
 	if (ret == NULL)
 		return (NULL);
 	while (j < count)
