@@ -99,7 +99,7 @@ typedef struct s_iter
 //    Function prototypes    //
 ///////////////////////////////
 // Aux functions
-size_t	ft_strnlen(char *str);
+size_t	ft_strlen(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(char *str, char chr);
 char	*ft_strrchr(char *str, char chr);
