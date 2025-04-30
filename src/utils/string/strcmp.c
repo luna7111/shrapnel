@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   strcmp.c                                       .' .-'`        *          */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 18:59:31 by nmagro-r          #+#    #+#             */
-/*   Updated: 2025/04/28 01:51:12 by ldel-val          ``                     */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -19,7 +7,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
-	return(s1[i] - s2[i]);
+	return (s1[i] - s2[i]);
 }
 // Returns the difference between the first different character netween two
 // strings.

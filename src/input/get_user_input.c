@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                    _.._  .           .     */
-/*   get_user_input.c                               .' .-'`        *          */
-/*                                                 /  /       +        *      */
-/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
-/*                                                 \  '.___.;       +         */
-/*   Created: 2025/04/25 18:40:17 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/29 18:48:33 by ldel-val          ``                     */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
 
 static int	input_has_content(char *input)
@@ -49,7 +37,7 @@ static void	history_insertion(t_gctrl *gctrl, t_data *data, char *input)
 char	*get_user_input(t_gctrl *gctrl, t_data *data)
 {
 	char	*input;
-	
+
 	input = readline("prompt placeholder> ");
 	gctrl_track_ptr(gctrl, input, PROG_BLOCK);
 	history_insertion(gctrl, data, input);

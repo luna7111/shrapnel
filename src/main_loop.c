@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                    _.._  .           .     */
-/*   main_loop.c                                    .' .-'`        *          */
-/*                                                 /  /       +        *      */
-/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
-/*                                                 \  '.___.;       +         */
-/*   Created: 2025/04/30 11:43:13 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/04/30 12:37:05 by ldel-val          ``                     */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
 
 static t_data	*init_data(t_gctr *gctrl)
@@ -20,7 +8,7 @@ static t_data	*init_data(t_gctr *gctrl)
 	data->last_input = NULL;
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
 	t_data	*data;
