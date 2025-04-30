@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 23:45:58 by ldel-val          #+#    #+#             */
-/*   Updated: 2025/04/30 17:27:20 by nmagro-r         ###   ########.fr       */
+/*                                                    _.._  .           .     */
+/*   minishell.h                                    .' .-'`        *          */
+/*                                                 /  /       +        *      */
+/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
+/*                                                 \  '.___.;       +         */
+/*   Created: 2025/04/16 23:45:58 by ldel-val       '._  _.'   .        .     */
+/*   Updated: 2025/04/30 12:38:21 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,26 @@
     input in the history two times in a row.
 
 */
-typedef struct	s_data
+typedef struct s_data
 {
 	char	*last_input;
 }	t_data;
+
+/*
+
+ struct with the information needed by each iteration of the loop:
+
+	char* raw_input:
+		the input received by readline, unprocessed.
+
+	char* expanded_input:
+		the input, with the env variables expended.
+*/
+typedef struct s_iter
+{
+	char	*raw_input;
+	char	*expanded_input;
+}	t_iter;
 
 ///////////////////////////////
 //    Function prototypes    //
@@ -88,4 +104,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(char *str, char chr);
 char	*ft_strrchr(char *str, char chr);
 
+// Other functions
+char	*get_user_input(t_gctrl *gctrl, t_data *data);
 #endif
