@@ -6,7 +6,7 @@
 /*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 23:45:58 by ldel-val          #+#    #+#             */
-/*   Updated: 2025/04/30 18:45:03 by nmagro-r         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:53:21 by nmagro-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(char *str, char chr);
 char	*ft_strrchr(char *str, char chr);
 char	*ft_substr(char *str, unsigned int start, size_t len);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
