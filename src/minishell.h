@@ -86,12 +86,26 @@ typedef struct s_iter
 ///////////////////////////////
 //    Function prototypes    //
 ///////////////////////////////
+//
 // Aux functions
-size_t	ft_strlen(char *str);
-int		ft_strcmp(const char *s1, const char *s2);
+//
+// String
+char	**ft_split(char *s, char c);
 char	*ft_strchr(char *str, char chr);
+int     ft_strcmp(const char *s1, const char *s2);
+char	*ft_strdup(const char *s);
+void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlen(char *str);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strrchr(char *str, char chr);
+char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char *str, unsigned int start, size_t len);
+
 void	*ft_calloc(size_t nmemb, size_t size);
 
 // Other functions
