@@ -11,12 +11,11 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ptr = malloc(bytes);
 	if (ptr == NULL)
 		return (NULL);
-	while(bytes-- > 0)
+	while (bytes-- > 0)
 		((char *)ptr)[bytes] = 0;
 	return (ptr);
 }
 //allocates memory and sets all bytes to 0
-
 //checks if size * nmemb is bigger than SIZE_MAX
 //allocates the memory
 //checks the malloc worked fine (returns null if not)
