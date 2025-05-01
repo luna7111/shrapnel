@@ -95,10 +95,10 @@ char	**ft_split(char *s, char c)
 // we free all the memory already reserved
 // Move to the next slot in the array
 // Return the NULL-terminated array of words
-
+/*
 int	main(void)
 {
-	char	pepe[] = "hola que tal";
+	char	pepe[] = " a    a ";
 	char	c;
 	char	**temp;
 	int		i;
@@ -109,7 +109,9 @@ int	main(void)
 	while (temp[i] != NULL)
 	{
 		printf("%s\n", temp[i]);
+		free(temp[i]);
 		i++;
 	}
+	free(temp);
 	return (0);
-}
+}*/
