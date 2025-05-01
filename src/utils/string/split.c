@@ -6,7 +6,7 @@
 /*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:05:45 by nmagro-r          #+#    #+#             */
-/*   Updated: 2025/04/30 19:18:03 by nmagro-r         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:58:49 by nmagro-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static char	*copy_words(char *s, int *i, char delim)
 	*i = fin;
 	return (words);
 }
-// Saltamos los delimitadores iniciales (espacios)
-// Guardamos el inicio de la palabra
-// Avanzamos hasta encontrar el siguiente delimitador o el final de la cadena
-// Extraemos la palabra usando ft_substr desde *i hasta fin - *i
-// Actualizamos *i para continuar después de esta palabra
+// Skip the initial delimiters (spaces)
+// Save the beginning of the word
+// Advance until we find the next delimiter or the end of the string
+// Extract the word using ft_substr from *i to end - *i
+// Update *i to continue after this word
 
 static int	count_words(const char *str, char delim)
 {
@@ -55,13 +55,14 @@ static int	count_words(const char *str, char delim)
 	}
 	return (count);  
 }
-// Inicializamos contador de palabras
-// Empezamos desde el primer carácter de la cadena
-// Recorremos la cadena completa
-// Si el carácter actual no es el delimitador y el siguiente carácter es delimitador o fin de cadena,significa que encontramos el final de una palabra
-// Contamos una palabra
-// Avanzamos al siguiente carácter
-// Devolvemos el total de palabras encontradas
+// Initialize word counter
+// Start from the first character of the string
+// We go through the whole string
+// If the current character is not the delimiter and the next character is the
+//delimiter or end of the string, it means that we have found the end of a word
+// We count a word
+// We advance to the next character
+// We return the total number of words found
 
 static void	ft_free(char **ret, int j)
 {
@@ -72,18 +73,18 @@ static void	ft_free(char **ret, int j)
 	}
 	free(ret);
 }
-//Va liberando una por una las strings guardadas en ret desde la última posición usada (j) hacia la primera (0)
-//Se hace hacia atrás porque si algo falla en ret[j], los anteriores ya fueron reservados correctamente
+//It releases one by one the strings stored in ret from the last used position (j) to the first (0).
+//It is done backwards because if something fails in ret[j], the previous ones were already reserved correctly.
 
 char	**ft_split(char *s, char c)
 {
-	char	**ret;   // Array que almacenará los punteros a las palabras
-	int		count;   // Número total de palabras que encontraremos
-	int		j;       // Índice para recorrer el array 'ret'
-	int		i;       // Índice para recorrer la string original 's'
+	char	**ret;   // Array that will store the pointers to the words
+	int		count;   // Total number of words we will find
+	int		j;       // Index to traverse the array 'ret'
+	int		str_index;       // Index to traverse the original string 's'
 
-	j = 0;          // Inicializamos el índice del array
-	i = 0;          // Inicializamos el índice de recorrido de la cadena original
+	j = 0;			// Initialize the array index
+	i = 0;          // Initialize the index to traverse the original string
 
 	count = count_words(s, c);
 	ret = ft_calloc(count + 1, sizeof(char *));
@@ -101,14 +102,14 @@ char	**ft_split(char *s, char c)
 	}
 	return (ret);
 }
-// Contamos cuántas palabras hay separadas por el delimitador 'c'
-// Reservamos memoria para 'count' punteros a palabras, más 1 para el NULL final
-// Si falla la reserva, retornamos NULL
-// Iteramos mientras no hayamos copiado todas las palabras detectadas
-// Copiamos la siguiente palabra desde 's' usando el índice actual 'i'
-// Si hubo error al copiar la palabra, liberamos toda la memoria ya reservada
-// Pasamos al siguiente slot del array
-// Devolvemos el array de palabras terminado en NULL
+// We count how many words there are separated by the delimiter 'c'.
+// We reserve memory for 'count' pointers to words, plus 1 for the final NULL
+// If the reservation fails, we return NULL
+// Iterate as long as we have not copied all detected words
+// Copy the next word from 's' using the current index 'i'.
+// If there was an error while copying the word, we free all the memory already reserved
+// Move to the next slot in the array
+// Return the NULL-terminated array of words
 
 int	main (void)
 {
