@@ -45,6 +45,10 @@
 ////////////////////////////
 //    Macros & enums    ////
 ////////////////////////////
+//libft
+# define BUFFER_SIZE 100
+# define MAX_FD 1024
+
 //garbage control block macros
 # define PROG_BLOCK 1
 # define LOOP_BLOCK 2
@@ -113,6 +117,14 @@ int     ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
+
+// IO
+int	    ft_dprintf(int fd, char const *format, ...);
+char	*get_next_line(int fd);
+
+// Conversion
+int	    ft_atoi(const char *nptr);
+char	*ft_itoa(int n);
 
 // Other functions
 char	*get_user_input(t_gctrl *gctrl, t_data *data);
