@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 23:45:58 by ldel-val          #+#    #+#             */
-/*   Updated: 2025/05/01 16:53:21 by nmagro-r         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -74,10 +62,26 @@
     input in the history two times in a row.
 
 */
-typedef struct	s_data
+typedef struct s_data
 {
 	char	*last_input;
 }	t_data;
+
+/*
+
+ struct with the information needed by each iteration of the loop:
+
+	char* raw_input:
+		the input received by readline, unprocessed.
+
+	char* expanded_input:
+		the input, with the env variables expended.
+*/
+typedef struct s_iter
+{
+	char	*raw_input;
+	char	*expanded_input;
+}	t_iter;
 
 ///////////////////////////////
 //    Function prototypes    //
@@ -90,4 +94,6 @@ char	*ft_strrchr(char *str, char chr);
 char	*ft_substr(char *str, unsigned int start, size_t len);
 void	*ft_calloc(size_t nmemb, size_t size);
 
+// Other functions
+char	*get_user_input(t_gctrl *gctrl, t_data *data);
 #endif
