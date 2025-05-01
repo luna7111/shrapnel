@@ -71,7 +71,7 @@ char	**ft_split(char *s, char c)
 	array_index = 0;
 	str_index = 0;
 	word_count = count_words(s, c);
-	ret = ft_calloc(count + 1, sizeof(char *));
+	ret = ft_calloc(word_count + 1, sizeof(char *));
 	if (ret == NULL)
 		return (NULL);
 	while (array_index < word_count)
