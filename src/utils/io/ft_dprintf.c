@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                    _.._  .           .     */
-/*   ft_dprintf.c                                   .' .-'`        *          */
-/*                                                 /  /       +        *      */
-/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
-/*                                                 \  '.___.;       +         */
-/*   Created: 2024/10/26 15:10:53 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/01/26 19:00:40 by ldel-val          ``                     */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../libft.h"
 
 int	ft_dprint_specifier(int fd, char const *format, va_list arguments)
