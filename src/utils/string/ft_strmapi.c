@@ -1,4 +1,4 @@
-#include "../libft.h"
+#include <minishell.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

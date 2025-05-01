@@ -1,4 +1,4 @@
-#include "../../libft.h"
+#include <minishell.h>
 
 long	ft_find_lbreak(char *string)
 {

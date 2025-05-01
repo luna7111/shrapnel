@@ -1,4 +1,4 @@
-#include "../libft.h"
+#include <minishell.h>
 
 static int	ft_itob(int nb)
 {

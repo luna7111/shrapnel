@@ -1,4 +1,4 @@
-#include "../libft.h"
+#include <minishell.h>
 
 char	*ft_strdup(const char *s)
 {
