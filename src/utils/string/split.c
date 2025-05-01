@@ -1,18 +1,18 @@
 #include <minishell.h>
 
-static char	*copy_words(char *s, int *i, char delim)
+static char	*copy_word(char *str, int *position, char delimiter)
 {
-	char	*words;
-	int		fin;
+	char	*word;
+	int		end;
 
-	while (s[*i] == delim)
-		(*i)++;
-	fin = *i;
-	while (s[fin] != '\0' && s[fin] != delim)
-		fin++;
-	words = ft_substr(s, *i, (fin - *i));
-	*i = fin;
-	return (words);
+	while (str[*position] == delimiter)
+		(*position)++;
+	end = *position;
+	while (str[end] != '\0' && str[end] != delimiter)
+		end++;
+	word = ft_substr(str, *position, (end - *position));
+	*position = end;
+	return (word);
 }
 // Skip the initial delimiters (spaces)
 // Save the beginning of the word
@@ -25,62 +25,64 @@ static int	count_words(const char *str, char delim)
 	int	count;
 	int	i;
 
-	count = 0;     
-	i = 0;          
+	count = 0;
+	i = 0;
 	while (str[i] != '\0')
 	{
 		if ((str[i] != delim) && (str[i + 1] == delim || str[i + 1] == '\0'))
 		{
-			count++; 
+			count++;
 		}
-		i++;  
+		i++;
 	}
-	return (count);  
+	return (count);
 }
 // Initialize word counter
 // Start from the first character of the string
 // We go through the whole string
 // If the current character is not the delimiter and the next character is the
-//delimiter or end of the string, it means that we have found the end of a word
+// delimiter or end of the string, it means that we have found the
+// end of a word
 // We count a word
 // We advance to the next character
 // We return the total number of words found
 
-static void	ft_free(char **ret, int j)
+static void	ft_free(char **ret, int array_index)
 {
-	while (j >= 0)
+	while (array_index >= 0)
 	{
-		free(ret[j]);
-		j--;
+		free(ret[array_index]);
+		array_index--;
 	}
 	free(ret);
 }
-//It releases one by one the strings stored in ret from the last used position (j) to the first (0).
-//It is done backwards because if something fails in ret[j], the previous ones were already reserved correctly.
+// It releases one by one the strings stored in ret from the
+// last used position (array_index) to the first (0).
+// It is done backwards because if something fails in ret[array_index],
+// the previous ones were already reserved correctly.
 
 char	**ft_split(char *s, char c)
 {
-	char	**ret;   // Array that will store the pointers to the words
-	int		count;   // Total number of words we will find
-	int		j;       // Index to traverse the array 'ret'
-	int		str_index;       // Index to traverse the original string 's'
+	char	**ret;
+	int		word_count;
+	int		array_index;
+	int		str_index;
 
-	j = 0;			// Initialize the array index
-	i = 0;          // Initialize the index to traverse the original string
-
-	count = count_words(s, c);
+	array_index = 0;
+	str_index = 0;
+	word_count = count_words(s, c);
 	ret = ft_calloc(count + 1, sizeof(char *));
 	if (ret == NULL)
 		return (NULL);
-	while (j < count)
+	while (array_index < word_count)
 	{
-		ret[j] = copy_words(s, &i, c);
-		if (ret[j] == NULL)
+		ret[array_index] = copy_word(s, &str_index, c);
+		if (ret[array_index] == NULL)
 		{
-			ft_free(ret, j);
+			ft_free(ret, array_index);
 			return (NULL);
 		}
-		j++; 
+		array_index++;
 	}
 	return (ret);
 }
@@ -89,19 +91,24 @@ char	**ft_split(char *s, char c)
 // If the reservation fails, we return NULL
 // Iterate as long as we have not copied all detected words
 // Copy the next word from 's' using the current index 'i'.
-// If there was an error while copying the word, we free all the memory already reserved
+// If there was an error while copying the word,
+// we free all the memory already reserved
 // Move to the next slot in the array
 // Return the NULL-terminated array of words
 
-int	main (void)
+int	main(void)
 {
-	char pepe[] = "hola que tal"; 
-	char c = ' ';
-	char **temp = ft_split(pepe,c);
-	int i = 0;
+	char	pepe[] = "hola que tal";
+	char	c;
+	char	**temp;
+	int		i;
+
+	c = ' ';
+	temp = ft_split(pepe, c);
+	i = 0;
 	while (temp[i] != NULL)
 	{
-		printf("%s\n",temp[i]);
+		printf("%s\n", temp[i]);
 		i++;
 	}
 	return (0);
