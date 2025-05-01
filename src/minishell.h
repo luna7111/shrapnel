@@ -91,6 +91,8 @@ size_t	ft_strlen(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(char *str, char chr);
 char	*ft_strrchr(char *str, char chr);
+char	*ft_substr(char *str, unsigned int start, size_t len);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 // Other functions
 char	*get_user_input(t_gctrl *gctrl, t_data *data);
