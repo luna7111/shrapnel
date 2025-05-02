@@ -58,6 +58,28 @@
 ///////////////////
 /*
 
+ struct for the nodes of the enviroment linked list
+
+ char* raw:
+	raw variable ej: "NAME=NACHETE"
+
+ char* name:
+	name of the variable ej: "NAME"
+
+ char* content:
+	content of the variable ej: "NACHETE"
+
+*/
+typedef struct	s_enviroment
+{
+	char				*raw;
+	char				*name;
+	char				*content;
+	struct s_enviroment	*next;
+}	t_enviroment;
+
+/*
+
  main struct with useful information for all the program:
 
  char*	last_input:
