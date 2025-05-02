@@ -118,6 +118,7 @@ typedef struct s_iter
 // Aux
 // Enviroment management
 t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable);
+t_enviroment	*env_to_list(t_gctrl *gctrl, char **env);
 // Other functions
 char	*get_user_input(t_gctrl *gctrl, t_data *data);
 #endif
