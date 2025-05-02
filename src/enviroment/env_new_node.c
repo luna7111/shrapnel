@@ -11,6 +11,7 @@ t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable)
 	node->name = ft_substr(raw_variable, 0, eq_sign_position);
 	node->content = ft_substr(raw_variable, eq_sign_position + 1,
 		ft_strlen(raw_variable));
+	node->next = NULL;
 	gctrl_track_ptr(gctrl, node->raw, PROG_BLOCK);
 	gctrl_track_ptr(gctrl, node->name, PROG_BLOCK);
 	gctrl_track_ptr(gctrl, node->content, PROG_BLOCK);
