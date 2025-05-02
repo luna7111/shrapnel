@@ -14,7 +14,7 @@ t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable)
 	gctrl_track_ptr(gctrl, node->raw, PROG_BLOCK);
 	gctrl_track_ptr(gctrl, node->name, PROG_BLOCK);
 	gctrl_track_ptr(gctrl, node->content, PROG_BLOCK);
-	return (NULL);
+	return (node);
 }
 
 /*

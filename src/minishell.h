@@ -73,7 +73,7 @@
 	content of the variable ej: "NACHETE"
 
 */
-typedef struct	s_enviroment
+typedef struct s_enviroment
 {
 	char				*raw;
 	char				*name;
@@ -116,6 +116,8 @@ typedef struct s_iter
 //    Function prototypes    //
 ///////////////////////////////
 // Aux
+// Enviroment management
+t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable);
 // Other functions
 char	*get_user_input(t_gctrl *gctrl, t_data *data);
 #endif
