@@ -1,6 +1,6 @@
 #include "../libft.h"
 
-static char	*copy_word(char *str, int *position, char delimiter)
+static char	*copy_word(char const *str, int *position, char delimiter)
 {
 	char	*word;
 	int		end;
@@ -61,7 +61,7 @@ static void	ft_free(char **ret, int array_index)
 // It is done backwards because if something fails in ret[array_index],
 // the previous ones were already reserved correctly.
 
-char	**ft_split(char *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**ret;
 	int		word_count;
