@@ -10,6 +10,9 @@ t_enviroment	*env_new_node(t_gctrl *gctrl, char *raw_variable)
 	node->raw = ft_strdup(raw_variable);
 	node->name = ft_substr(raw_variable, 0, eq_sign_position);
 	node->content = ft_substr(raw_variable, eq_sign_position + 1, ft_strlen(raw_variable));
+	gctrl_track_ptr(node->raw);
+	gctrl_track_ptr(node->name);
+	gctrl_track_ptr(node->content);
 	printf("raw: %s\nname: %s\ncontent: %s\n", node->raw, node->name, node->content);
 	return (NULL);
 }
