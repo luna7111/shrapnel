@@ -29,6 +29,7 @@ char/ft_tolower.c\
 string/ft_strchr.c\
 string/ft_strrchr.c\
 string/ft_strncmp.c\
+string/ft_strcmp.c\
 memory/ft_memchr.c\
 memory/ft_memcmp.c\
 string/ft_strnstr.c\
