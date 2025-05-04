@@ -15,7 +15,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	*data;
 	t_iter	*iter_struct;
 
-	gctrl = gctrl_innit();
+	gctrl = gctrl_init();
 	data = init_data(gctrl, env);
 	while (1)
 	{
