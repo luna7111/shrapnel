@@ -16,6 +16,9 @@ SRC 	:= 	env_delete_node.c\
 			get_user_input.c\
 			main_loop.c
 
+GCTRL	:=	gctrl/garbage_control.c
+LIBFT	:=	libft/libft.c
+
 OBJ 	:=	$(SRC:.c=.o)
 
 ###
@@ -23,7 +26,7 @@ OBJ 	:=	$(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(GCTRL) $(LIBFT)
 
 clean:
 	rm -f $(OBJ)
