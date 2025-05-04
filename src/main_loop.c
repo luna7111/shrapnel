@@ -6,6 +6,7 @@ static t_data	*init_data(t_gctr *gctrl)
 
 	data = gctrl_malloc(gctrl, sizeof(t_data), PROG_BLOCK);
 	data->last_input = NULL;
+	data->env = env_to_list(env);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -15,7 +16,7 @@ int	main(int argc, char **argv, char **env)
 	t_iter	*iter_struct;
 
 	gctrl = gctrl_innit();
-	data = init_data(gctrl);
+	data = init_data(gctrl, env);
 	while (1)
 	{
 		iter_struct->raw_input = get_user_input(gctrl, data);
