@@ -4,7 +4,10 @@ CC		:=	cc
 
 CFLAGS	:=	-Wall -Wextra -Werror -Isrc
 
-VPATH	:=	src/enviroment src/input src/builtins
+VPATH	:=	src\
+			src/enviroment\
+			src/input\
+			src/builtins
 
 SRC 	:= 	env_delete_node.c\
 			env_find_node.c\
