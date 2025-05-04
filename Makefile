@@ -2,7 +2,7 @@ NAME	:=	minishell
 
 CC		:=	cc
 
-CFLAGS	:=	-Wall -Wextra -Werror -Isrc
+CFLAGS	:=	-Wall -Wextra -Werror -Isrc -lreadline -fsanitize=address
 
 VPATH	:=	src\
 			src/enviroment\
@@ -16,8 +16,8 @@ SRC 	:= 	env_delete_node.c\
 			get_user_input.c\
 			main_loop.c
 
-GCTRL	:=	gctrl/garbage_control.c
-LIBFT	:=	libft/libft.c
+GCTRL	:=	gctrl/garbage_control.a
+LIBFT	:=	libft/libft.a
 
 OBJ 	:=	$(SRC:.c=.o)
 
