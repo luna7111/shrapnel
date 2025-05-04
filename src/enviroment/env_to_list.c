@@ -25,7 +25,8 @@ int main(int argc, char **argv, char **env)
 	envlist = env_to_list(gctrl, env);
 	while (envlist != NULL)
 	{
-		printf("...\n%s\n%s\n%s\n...\n", envlist->raw, envlist->name, envlist->content);
+		printf("...\n%s\n%s\n%s\n...\n", envlist->raw, envlist->name,
+			envlist->content);
 		envlist = envlist->next;
 	}
 	gctrl_terminate(gctrl);
