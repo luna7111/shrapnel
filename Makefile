@@ -1,32 +1,49 @@
-NAME	:=	minishell
+##########################################
 
-CC		:=	cc
+NAME		:=	minishell
 
-CFLAGS	:=	-Wall -Wextra -Werror -Isrc -lreadline -fsanitize=address
+CC			:=	cc
 
-VPATH	:=	src\
-			src/enviroment\
-			src/input\
-			src/builtins
+CFLAGS		:=	-Wall -Wextra -Werror -Isrc -lreadline -fsanitize=address
 
-SRC 	:= 	env_delete_node.c\
-			env_find_node.c\
-			env_new_node.c\
-			env_to_list.c\
-			get_user_input.c\
-			main_loop.c
+SRC 		:= 	src/enviroment/env_delete_node.c\
+			src/enviroment/env_find_node.c\
+			src/enviroment/env_new_node.c\
+			src/enviroment/env_to_list.c\
+			src/input/get_user_input.c\
+			src/main_loop.c
 
-GCTRL	:=	gctrl/garbage_control.a
-LIBFT	:=	libft/libft.a
+OBJ 		:=	$(SRC:.c=.o)
 
-OBJ 	:=	$(SRC:.c=.o)
+###########################################
 
-###
+GCTRL		:=	gctrl/garbage_control.a
+GCTRLDIR	:=	gctrl
+
+LIBFT		:=	libft/libft.a
+LIBFTDIR	:=	libft
+
+###########################################
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(LIBFT):
+	make -C $(LIBFTDIR)
+
+$(GCTRL):
+	make -C $(GCTRLDIR)
+
+$(NAME): $(LIBFT) $(GCTRL) $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(GCTRL) $(LIBFT)
 
 clean:
 	rm -f $(OBJ)
+	make -C $(GCTRLDIR) fclean
+	make -C $(LIBFTDIR) fclean
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean $(NAME)
+
+.PHONY: all clean fclean re
