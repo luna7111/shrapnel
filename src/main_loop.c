@@ -38,3 +38,4 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)argc;
 }
+//the exit condition isn't the built in!!!
