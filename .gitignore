@@ -3,3 +3,6 @@
 *.a
 *.ignore.c
 .vscode
+minishell
+shrapnel
+test
