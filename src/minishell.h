@@ -93,6 +93,7 @@ typedef struct s_enviroment
 */
 typedef struct s_data
 {
+	t_gctrl			*gctrl;
 	t_enviroment	*env;
 	char			*last_input;
 }	t_data;
