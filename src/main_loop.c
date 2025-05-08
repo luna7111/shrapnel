@@ -27,10 +27,12 @@ int	main(int argc, char **argv, char **env)
 
 	gctrl = gctrl_init();
 	data = init_data(gctrl, env);
+	data->gctrl = gctrl;
 	iter_struct = init_iter(gctrl);
 	while (1)
 	{
-		iter_struct->raw_input = get_user_input(gctrl, data);
+		iter_struct->raw_input = get_user_input(data->gctrl, data);
+		printf("%s\n", iter_struct->raw_input);
 		if (!ft_strcmp(iter_struct->raw_input, "exit"))
 			break ;
 	}
