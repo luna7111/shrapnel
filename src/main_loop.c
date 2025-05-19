@@ -1,5 +1,5 @@
 #include <minishell.h>
-/*
+
 static t_data	*init_data(t_gctrl *gctrl, char **env)
 {
 	t_data	*data;
@@ -37,5 +37,5 @@ int	main(int argc, char **argv, char **env)
 	gctrl_terminate(gctrl);
 	(void)argv;
 	(void)argc;
-}*/
+}
 //the exit condition isn't the built in!!!
