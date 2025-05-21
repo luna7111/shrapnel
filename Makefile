@@ -12,7 +12,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_to_list.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
-			src/builtins/echo.c\
+			src/builtins/ft_echo.c\
 
 OBJ 		:=	$(SRC:.c=.o)
 
