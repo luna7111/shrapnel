@@ -4,14 +4,15 @@ NAME		:=	minishell
 
 CC			:=	cc
 
-CFLAGS		:=	-Wall -Wextra -Werror -Isrc -lreadline -fsanitize=address
+CFLAGS		:=	-Wall -Wextra -Werror -Isrc -fsanitize=address
 
 SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_find_node.c\
 			src/enviroment/env_new_node.c\
 			src/enviroment/env_to_list.c\
 			src/input/get_user_input.c\
-			src/main_loop.c
+			src/main_loop.c\
+			src/builtins/ft_echo.c\
 
 OBJ 		:=	$(SRC:.c=.o)
 
@@ -34,7 +35,7 @@ $(GCTRL):
 	make -C $(GCTRLDIR)
 
 $(NAME): $(LIBFT) $(GCTRL) $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(GCTRL) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(GCTRL) $(LIBFT) -lreadline 
 
 clean:
 	rm -f $(OBJ)
