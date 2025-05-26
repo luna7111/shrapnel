@@ -45,6 +45,9 @@
 // libft
 # include "../libft/libft.h"
 
+// types, macros
+# include <stddef.h>
+
 ////////////////////////////
 //    Macros & enums    ////
 ////////////////////////////
@@ -96,6 +99,7 @@ typedef struct s_data
 	t_gctrl			*gctrl;
 	t_enviroment	*env;
 	char			*last_input;
+	int				last_exit_code;
 }	t_data;
 
 /*
@@ -125,4 +129,6 @@ t_enviroment	*env_to_list(t_gctrl *gctrl, char **env);
 void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
+// Expansion
+char			*expand_input(t_data *data, char *str);
 #endif
