@@ -11,6 +11,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_new_node.c\
 			src/enviroment/env_to_list.c\
 			src/expand/expand_input.c\
+			src/expand/expand_aux.c\
 			src/input/get_user_input.c\
 			src/main_loop.c
 
