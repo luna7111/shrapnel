@@ -117,5 +117,6 @@ char	*expand_input(t_data *data, char *str)
 		gctrl_track_ptr(data->gctrl, output, LOOP_BLOCK);
 		str += current_chunk.input_size;
 	}
+	(void)expand_text(data, str);
 	return (output);
 }
