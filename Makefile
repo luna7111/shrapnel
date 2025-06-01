@@ -9,7 +9,10 @@ CFLAGS		:=	-Wall -Wextra -Werror -Isrc -fsanitize=address
 SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_find_node.c\
 			src/enviroment/env_new_node.c\
+			src/enviroment/env_add_node.c\
 			src/enviroment/env_to_list.c\
+			src/enviroment/env_set_node.c\
+			src/enviroment/env_set_raw.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
