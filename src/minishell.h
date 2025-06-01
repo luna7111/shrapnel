@@ -125,6 +125,7 @@ typedef struct s_iter
 t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable);
 t_enviroment	*env_find_node(t_enviroment *head, const char *name);
 t_enviroment	*env_to_list(t_gctrl *gctrl, char **env);
+void			env_add_node(t_data *data, const char *raw_var);
 void			env_set_node(t_data *data, const char *name, const char *val);
 void			env_set_raw(t_data *data, const char *raw_var);
 void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
