@@ -7,7 +7,6 @@ void	env_set_node(t_data *data, const char *name, const char *val)
 	size_t			vallen;
 
 	node = env_find_node(data->env, name);
-	printf("Before: %s\n", node->raw);
 	gctrl_free(data->gctrl, node->content);
 	gctrl_free(data->gctrl, node->raw);
 	node->content = ft_strdup(val);
@@ -19,5 +18,4 @@ void	env_set_node(t_data *data, const char *name, const char *val)
 	node->raw[namelen] = '=';
 	ft_memcpy(&node->raw[namelen + 1], node->content, vallen);
 	node->raw[namelen + vallen + 1] = '\0';
-	printf("After: %s\n", node->raw);
 }
