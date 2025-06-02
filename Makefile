@@ -17,6 +17,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
 			src/builtins/ft_export.c\
+			src/builtins/ft_exit.c\
 
 OBJ 		:=	$(SRC:.c=.o)
 
