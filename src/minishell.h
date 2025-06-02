@@ -133,4 +133,5 @@ void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 // built-ins
 int	ft_echo(char **args);
+int	ft_export(t_data *data, char **args);
 #endif
