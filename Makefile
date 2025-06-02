@@ -16,6 +16,11 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
+			src/builtins/ft_cd/cd_env_utils.c\
+			src/builtins/ft_cd/cd_errors.c\
+			src/builtins/ft_cd/cd_helpers.c\
+			src/builtins/ft_cd/cd_target.c\
+			src/builtins/ft_cd/ft_cd.c
 
 OBJ 		:=	$(SRC:.c=.o)
 

@@ -133,4 +133,11 @@ void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 // built-ins
 int	ft_echo(char **args);
+static void	update_pwd_oldpwd(t_enviroment *env, char *oldpwd),
+static	int	cd_error_too_many_arg(void);
+void	save_oldpwd(t_data *data, char *oldpwd);
+static int	try_cd_fallback(t_data *data);
+int	handle_chdir(t_data *data, char *target, char *oldpwd);
+static char *get_target_path(t_data *data, char **args, int *print_path);
+int	ft_cd(t_data *data, char **args);
 #endif
