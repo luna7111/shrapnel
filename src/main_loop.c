@@ -33,8 +33,11 @@ int	main(int argc, char **argv, char **env)
 	{
 		iter_struct->raw_input = get_user_input(data->gctrl, data);
 		printf("%s\n", iter_struct->raw_input);
+		if (!ft_strncmp(iter_struct->raw_input, "cd", 2))
+			ft_cd(data, ft_split(iter_struct->raw_input, ' '));
 		if (!ft_strcmp(iter_struct->raw_input, "exit"))
 			break ;
+		printf("%s\n", env_find_node(data->env, "PWD")->content);
 	}
 	gctrl_terminate(gctrl);
 	(void)argv;

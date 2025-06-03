@@ -4,7 +4,7 @@
 #include <limits.h>
 #include <string.h>
 
-static void	update_pwd_oldpwd(t_enviroment *env, char *oldpwd)
+void	update_pwd_oldpwd(t_data *data, char *oldpwd)
 {
 	char	newpwd[PATH_MAX];
 
@@ -13,14 +13,14 @@ static void	update_pwd_oldpwd(t_enviroment *env, char *oldpwd)
 		perror("minishell: cd");
 		return ;
 	}
-	env_set_node(env, "OLDPWD", oldpwd);
-	env_set_node(env, "PWD", newpwd);
+	env_set_node(data, "OLDPWD", oldpwd);
+	env_set_node(data, "PWD", newpwd);
 }
 //Actualiza las variables PWD y OLDPWD tras hacer cd.
-//Creamos un buffer local donde guardaremos el nuevo directorio actual(tras chdir).
+//Creamos un buffer donde guardaremos el nuevo directorio actual(tras chdir).
 //Getcwd obtiene el directorio actual del proceso y lo guarda en newpwd. 
 //Si getcwd falla mostramos error.
 //oldpwd es el directorio en el que estábamos antes de hacer cd.
-//Actualizamos OLPWD en mi lista de entorno,con el valor que tenía antes del chdir.
-//Luego actualizamos PWD,el path actual,con lo que acabamos de obtener de getcwd.
+//Actualizmos OLPWD en mi lista de entorno,con el valor antes del chdir.
+//Actualizamos PWD,el path actual,con lo que acabamos de obtener de getcwd.
 //Esto refleja correctamente el nuevo directorio tras el c
