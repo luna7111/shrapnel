@@ -7,6 +7,7 @@ static t_data	*init_data(t_gctrl *gctrl, char **env)
 	data = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_data));
 	data->last_input = NULL;
 	data->env = env_to_list(gctrl, env);
+	data->last_exit_code = 69;
 	return (data);
 }
 
@@ -32,9 +33,10 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		iter_struct->raw_input = get_user_input(data->gctrl, data);
-		printf("%s\n", iter_struct->raw_input);
+		printf("%s\n", expand_input(data, iter_struct->raw_input));
 		if (!ft_strcmp(iter_struct->raw_input, "exit"))
 			break ;
+		gctrl_cleanup(gctrl, LOOP_BLOCK);
 	}
 	gctrl_terminate(gctrl);
 	(void)argv;
