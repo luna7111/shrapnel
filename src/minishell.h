@@ -62,6 +62,10 @@
 # define PROG_BLOCK 1
 # define LOOP_BLOCK 2
 
+//pretoken types
+# define TEXT 1
+# define SIMBOL 2
+
 ///////////////////
 //    Structs    //
 ///////////////////
@@ -118,8 +122,21 @@ typedef struct s_data
 typedef struct s_iter
 {
 	char	*raw_input;
-	char	*expanded_input;
+	char	*pretokenized_input;
 }	t_iter;
+
+/*
+
+ struct for the pretokens:
+
+*/
+typedef struct s_pretoken
+{
+	char	*str;
+	int		type;
+	size_t	input_len;
+	size_t	output_len;
+}	t_pretoken;
 
 ///////////////////////////////
 //    Function prototypes    //
@@ -138,6 +155,9 @@ char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
 // Expansion
 char			*expand_input(t_data *data, char *str);
+
+//pretoken
+t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 
 // built-ins
 int	ft_echo(char **args);
