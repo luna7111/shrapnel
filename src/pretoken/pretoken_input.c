@@ -4,7 +4,7 @@
 #define SIMPLE_QUOTES 1
 #define DOUBLE_QUOTES 2
 
-ptrdiff_t	get_heredoc_len(char *str)
+static ptrdiff_t	get_heredoc_len(char *str)
 {
 	char	*cursor;
 
@@ -22,7 +22,7 @@ ptrdiff_t	get_heredoc_len(char *str)
 	return (cursor - str);
 }
 
-ptrdiff_t	get_token_len(char *str)
+static ptrdiff_t	get_token_len(char *str)
 {
 	char	*cursor;
 
@@ -44,7 +44,7 @@ ptrdiff_t	get_token_len(char *str)
 	return (cursor - str);
 }
 
-t_pretoken	get_next_token(t_data *data, char *str)
+static t_pretoken	get_next_token(t_data *data, char *str)
 {
 	t_pretoken	token;
 	char		*raw_piece;
@@ -70,20 +70,20 @@ t_pretoken	get_next_token(t_data *data, char *str)
 	return (token);
 }
 
-t_pretoken	*dup_array_size(t_data *data, t_pretoken *original, size_t *size)
+static t_pretoken	*dup_array_len(t_data *data, t_pretoken *prev, size_t *len)
 {
 	t_pretoken	*new;
 	size_t		i;
 
-	new = gctrl_malloc(data->gctrl, LOOP_BLOCK, *size * sizeof(t_pretoken) * 2);
+	new = gctrl_malloc(data->gctrl, LOOP_BLOCK, *len * sizeof(t_pretoken) * 2);
 	i = 0;
-	while (i < *size)
+	while (i < *len)
 	{
-		new[i] = original[i];
+		new[i] = prev[i];
 		i++;
 	}
-	gctrl_free(data->gctrl, original);
-	*size *= 2;
+	gctrl_free(data->gctrl, prev);
+	*len *= 2;
 	return (new);
 }
 
@@ -107,7 +107,7 @@ t_pretoken	*pretokenize_input(t_data *data, char *raw_input)
 		raw_input += current_token.input_len;
 		i++;
 		if (i >= array_size - 1)
-			token_array = dup_array_size(data, token_array, &array_size);
+			token_array = dup_array_len(data, token_array, &array_size);
 	}
 	token_array[i].input_len = 0;
 	token_array[i].output_len = 0;
