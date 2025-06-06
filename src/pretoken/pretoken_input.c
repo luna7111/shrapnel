@@ -111,7 +111,7 @@ t_pretoken	*pretokenize_input(t_data *data, char *raw_input)
 	}
 	token_array[i].input_len = 0;
 	token_array[i].output_len = 0;
-	token_array[i].str = ft_strdup("");
-	gctrl_track_ptr(data->gctrl, token_array[i].str, LOOP_BLOCK);
+	token_array[i].str = NULL;
+	token_array[i].type = END;
 	return (token_array);
 }

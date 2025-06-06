@@ -63,6 +63,7 @@
 # define LOOP_BLOCK 2
 
 //pretoken types
+# define END 0
 # define TEXT 1
 # define SIMBOL 2
 
