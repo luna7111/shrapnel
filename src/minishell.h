@@ -121,6 +121,36 @@ typedef struct s_iter
 	char	*expanded_input;
 }	t_iter;
 
+/*
+	structs for tokens
+*/
+typedef enum e_token_type
+{
+    T_BUILTIN,
+    T_PIPE,
+    T_REDIR_IN,
+    T_REDIR_OUT,
+    T_APPEND,
+    T_HEREDOC
+}   t_token_type;
+
+# define END 0
+# define COMMAND 1
+# define BUILTIN 2
+# define PIPE 3
+# define INFILE 4
+# define OUTFILE 5
+# define APPEND 6
+# define HEREDOC 7
+
+typedef struct s_token
+{
+    char			*str;
+	size_t			output_len;
+    t_token_type	type;
+	struct s_token	*next;
+}   t_token;
+
 ///////////////////////////////
 //    Function prototypes    //
 ///////////////////////////////
