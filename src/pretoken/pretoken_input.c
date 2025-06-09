@@ -115,3 +115,67 @@ t_pretoken	*pretokenize_input(t_data *data, char *raw_input)
 	token_array[i].type = END;
 	return (token_array);
 }
+// The function takes a string (such as "cat << end | wc -l > $FILE")
+// and divides it into tokens, this step is necessary to prevent literal
+// characters to be identified as redirection symbols further in the tokening
+// process.
+//
+// Ej:
+// Given an env variable "$PIPE" containing the string "|", the input
+// "echo hello world $PIPE cat -e" would print "hello world | cat -e" as a
+// literal string.
+//
+// Expansion has to happen before the main tokening because a variable can
+// expand to a valid command, which should execute.
+//
+// Pretokens are structs arranged in an array. They contain the following
+// members:
+//
+// char* str         -> the pretoken string.
+// size_t input_len  -> the length the pretoken occupies in the original
+//                      string, for example $FILE would expand to filename.txt
+//                      but the input_len whould be set to 5, bc that's how
+//                      long the original string was.
+// size_t output_len -> the length of the string contained by the pretoken
+//                      in the previous example, it would be 12 bc that's how
+//                      much filename.txt occupies.
+// int type          -> this is the type of the pretoken. TEXT (1) SIMBOL (2)
+//                      and END (0). 
+//
+// The first example would be pretokenized as such:
+//
+// ---
+// "cat"
+// 4
+// 3
+// TEXT
+// ---
+// "<< end"
+// 6
+// 6
+// SIMBOL
+// ---
+// "|"
+// 1
+// 1
+// SIMBOL
+// ---
+// "wc -l"
+// 6
+// 5
+// TEXT
+// ---
+// ">"
+// 1
+// 1
+// SIMBOL
+// ---
+// "filename.txt"
+// 5 
+// 12
+// TEXT
+// ---
+// (null)
+// 0
+// 0
+// END
