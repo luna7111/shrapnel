@@ -65,7 +65,7 @@
 //pretoken types
 # define END 0
 # define TEXT 1
-# define SIMBOL 2
+# define SYMBOL 2
 
 ///////////////////
 //    Structs    //

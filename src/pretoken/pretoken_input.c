@@ -53,10 +53,10 @@ static t_pretoken	get_next_token(t_data *data, char *str)
 	token.input_len = get_token_len(str);
 	raw_piece = ft_substr(str, 0, token.input_len);
 	if (*raw_piece == '<' || *raw_piece == '>' || *raw_piece == '|')
-		token.type = SIMBOL;
+		token.type = SYMBOL;
 	else
 		token.type = TEXT;
-	if (token.type == SIMBOL)
+	if (token.type == SYMBOL)
 		token.str = ft_strtrim(raw_piece, " ");
 	else
 	{
@@ -139,7 +139,7 @@ t_pretoken	*pretokenize_input(t_data *data, char *raw_input)
 // size_t output_len -> the length of the string contained by the pretoken
 //                      in the previous example, it would be 12 bc that's how
 //                      much filename.txt occupies.
-// int type          -> this is the type of the pretoken. TEXT (1) SIMBOL (2)
+// int type          -> this is the type of the pretoken. TEXT (1) SYMBOL (2)
 //                      and END (0). 
 //
 // The first example would be pretokenized as such:
@@ -153,12 +153,12 @@ t_pretoken	*pretokenize_input(t_data *data, char *raw_input)
 // "<< end"
 // 6
 // 6
-// SIMBOL
+// SYMBOL
 // ---
 // "|"
 // 1
 // 1
-// SIMBOL
+// SYMBOL
 // ---
 // "wc -l"
 // 6
@@ -168,7 +168,7 @@ t_pretoken	*pretokenize_input(t_data *data, char *raw_input)
 // ">"
 // 1
 // 1
-// SIMBOL
+// SYMBOL
 // ---
 // "filename.txt"
 // 5 
