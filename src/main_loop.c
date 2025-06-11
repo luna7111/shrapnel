@@ -24,17 +24,17 @@ int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
 	t_data	*data;
-	t_iter	*iter_struct;
+	t_iter	*iter;
 
 	gctrl = gctrl_init();
 	data = init_data(gctrl, env);
 	data->gctrl = gctrl;
-	iter_struct = init_iter(gctrl);
+	iter = init_iter(gctrl);
 	while (1)
 	{
-		iter_struct->raw_input = get_user_input(data->gctrl, data);
-		printf("%s\n", expand_input(data, iter_struct->raw_input));
-		if (!ft_strcmp(iter_struct->raw_input, "exit"))
+		iter->raw_input = get_user_input(data->gctrl, data);
+		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
+		if (!ft_strcmp(iter->raw_input, "exit"))
 			break ;
 		gctrl_cleanup(gctrl, LOOP_BLOCK);
 	}
