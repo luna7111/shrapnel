@@ -124,22 +124,6 @@ typedef struct s_pretoken
 }	t_pretoken;
 
 /*
-
- struct with the information needed by each iteration of the loop:
-
-	char* raw_input:
-		the input received by readline, unprocessed.
-
-	char* expanded_input:
-		the input, with the env variables expended.
-*/
-typedef struct s_iter
-{
-	char		*raw_input;
-	t_pretoken	*pretokenized_input;
-}	t_iter;
-
-/*
 	structs for tokens
 */
 
@@ -159,8 +143,26 @@ typedef struct s_token
     char			*str;
 	size_t			output_len;
     int				type;
+	int				quoted;
 	struct s_token	*next;
 }   t_token;
+
+/*
+
+ struct with the information needed by each iteration of the loop:
+
+	char* raw_input:
+		the input received by readline, unprocessed.
+
+	char* expanded_input:
+		the input, with the env variables expended.
+*/
+typedef struct s_iter
+{
+	char		*raw_input;
+	t_pretoken	*pretokenized_input;
+	t_token		*tokens;
+}	t_iter;
 
 ///////////////////////////////
 //    Function prototypes    //
@@ -186,5 +188,5 @@ t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 // built-ins
 int	ft_echo(char **args);
 
-t_token *tokenize(t_data *data, t_pretoken *input)
+t_token *tokenize(t_data *data, t_pretoken *input);
 #endif

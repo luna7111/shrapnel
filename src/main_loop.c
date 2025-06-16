@@ -20,6 +20,15 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 	return (iter);
 }
 
+void	print_tokens(t_token *list)
+{
+	while (list)
+	{
+		printf("str: %-12s | type: %-2d | quoted: %d\n", list->str, list->type, list->quoted);
+		list = list->next;
+	}
+	printf("---\n");
+}
 int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
@@ -34,6 +43,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		iter->raw_input = get_user_input(data->gctrl, data);
 		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
+		iter->tokens = tokenize(data, iter->pretokenized_input);
+		print_tokens(iter->tokens);
 		if (!ft_strcmp(iter->raw_input, "exit"))
 			break ;
 		gctrl_cleanup(gctrl, LOOP_BLOCK);
