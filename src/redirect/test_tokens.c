@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/10 01:28:35 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/18 16:25:59 by ldel-val          ``                     */
+/*   Updated: 2025/06/18 18:25:57 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,18 @@ t_token *gen_test1(t_data *data)
 		t_token *list = NULL;
 		token_add_back(&list, create_token(data->gctrl, "cat", COMMAND, 3));
 		token_add_back(&list, create_token(data->gctrl, "<", INFILE, 1));
-		token_add_back(&list, create_token(data->gctrl, "log.temp", FILENAME, 8));
+		token_add_back(&list, create_token(data->gctrl, "file1", FILENAME, 8));
 		token_add_back(&list, create_token(data->gctrl, "<", INFILE, 1));
-		token_add_back(&list, create_token(data->gctrl, "Makefile", FILENAME, 8));
+		token_add_back(&list, create_token(data->gctrl, "file2", FILENAME, 8));
+		token_add_back(&list, create_token(data->gctrl, ">", OUTFILE, 1));
+		token_add_back(&list, create_token(data->gctrl, "file3", FILENAME, 8));
+		token_add_back(&list, create_token(data->gctrl, ">>", APPEND, 1));
+		token_add_back(&list, create_token(data->gctrl, "file4", FILENAME, 8));
 		token_add_back(&list, create_token(data->gctrl, "-e", COMMAND, 2));
 		token_add_back(&list, create_token(data->gctrl, "-a", COMMAND, 2));
 		token_add_back(&list, create_token(data->gctrl, "|", PIPE, 1));
 		token_add_back(&list, create_token(data->gctrl, "wc", COMMAND, 2));
 		token_add_back(&list, create_token(data->gctrl, "-l", COMMAND, 2));
-		token_add_back(&list, create_token(data->gctrl, "<", INFILE, 1));
-		token_add_back(&list, create_token(data->gctrl, "testfile1", FILENAME, 8));
 
 		return (list);
 }
