@@ -20,6 +20,27 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 	return (iter);
 }
 
+void	print_pretokens(t_pretoken *pret)
+{
+	size_t i = 0;
+
+	while (pret[i].type != END)
+	{
+		printf("\n---\n%s\n%ld\n%ld\n%d\n---\n", pret[i].str, pret[i].input_len, pret[i].output_len, pret[i].type);
+		i++;
+	}
+}
+
+void	print_tokens(t_token *tokens)
+{
+	while (tokens)
+	{
+		printf("\n---\n%s\n%ld\n%d\n---\n", tokens->str, tokens->output_len, tokens->type);
+		tokens = tokens->next;
+	}
+}
+
+t_token *create_token(t_gctrl *gctrl, const char *str, int type, size_t output_len);
 int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
@@ -34,6 +55,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		iter->raw_input = get_user_input(data->gctrl, data);
 		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
+		iter->tokens = gen_test1(data);
+		iter->exec_list = redirect_tokens(data, iter->tokens);
 		if (!ft_strcmp(iter->raw_input, "exit"))
 			break ;
 		gctrl_cleanup(gctrl, LOOP_BLOCK);
