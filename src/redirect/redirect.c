@@ -48,10 +48,8 @@ int	open_fd_in(t_data *data, t_token *tokens, int fd)
 				if (fd > 2)
 				{
 					close(fd);
-					printf("closed fd %d\n", fd);
 				}
 				fd = open(tokens->next->str, O_RDONLY);
-				printf("oppened file (infile): %s fd: %d\n", tokens->next->str, fd);
 			}
 			else
 				printf("\n:(\nUncatched error: no filename after infile\n:(\n");
@@ -71,20 +69,18 @@ int	open_fd_out(t_data *data, t_token *tokens, int fd)
 {
 	while (tokens && tokens->type != PIPE)	
 	{
-		if (tokens->type == INFILE || tokens->type == APPEND)
+		if (tokens->type == OUTFILE || tokens->type == APPEND)
 		{
 			if (tokens->next->type == FILENAME)
 			{
 				if (fd > 2)
 				{
 					close(fd);
-					printf("closed df %d\n", fd);
 				}
 				if (tokens->type == INFILE)
 					fd = open(tokens->next->str, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 				else if (tokens->type == APPEND)
 					fd = open(tokens->next->str, O_WRONLY | O_CREAT | O_APPEND, 0666);
-				printf("oppened file (outfile/append): %s fd: %d\n", tokens->next->str, fd);
 			}
 			else
 				printf("\n:(\nUncatched error: no filename after infile\n:(\n");
@@ -100,6 +96,19 @@ int	open_fd_out(t_data *data, t_token *tokens, int fd)
 	return (fd);
 }
 
+int	open_next_pipe(t_token *tokens, int fildes[2])
+{
+	while (tokens && tokens->type != PIPE)
+		tokens = tokens->next;
+	if (tokens == NULL)
+	{
+		fildes[STDOUT] = STDOUT;
+		fildes[STDIN] = STDIN;
+		return (2);
+	}
+	return (pipe(fildes));
+}
+
 t_redir	*redirect_tokens(t_data *data, t_token *tokens)
 {
 	t_redir *array;
@@ -112,21 +121,41 @@ t_redir	*redirect_tokens(t_data *data, t_token *tokens)
 	pipe[STDOUT] = STDOUT;
 	array_size = 8;
 	array = gctrl_malloc(data->gctrl, LOOP_BLOCK, sizeof(t_redir) * array_size);
-//
-	array[i].cmd = command_tokens_to_array(data, tokens);
-	printf("\n\n\n");
-	array[i].fd_in = open_fd_in(data, tokens, pipe[STDIN]);
-	printf("\n\n\n");
-	array[i].fd_out = open_fd_out(data, tokens, pipe[STDOUT]);
-	//
-	printf("\n\n\n");
-	int y = 0;
-	while (array[i].cmd[y])
+	
+	while (tokens != NULL)
 	{
-		printf("cmd: %s\n", array[i].cmd[y]);
-		y++;
+		array[i].cmd = command_tokens_to_array(data, tokens);
+		array[i].fd_in = open_fd_in(data, tokens, pipe[STDIN]);
+		open_next_pipe(tokens, pipe);
+		array[i].fd_out = open_fd_out(data, tokens, pipe[STDOUT]);
+		if (array[i].fd_in == -1 || array[i].fd_out == -1)
+			return (NULL);
+		while (tokens != NULL && tokens->type != PIPE)
+			tokens = tokens->next;
+		if (tokens != NULL && tokens->type == PIPE)
+			tokens = tokens->next;
+		i++;
 	}
-	printf("fd_in: %d\n", array[i].fd_in);
-	printf("fd_out: %d\n", array[i].fd_out);
+	array[i].cmd = NULL;
+	
+//	debug, print all redirection nodes;
+	i = 0;
+	int y = 0;
+	while (array[i].cmd != NULL)
+	{
+		printf("\n--------------\n");
+		printf("command:\n\n");
+		while (array[i].cmd[y] != NULL)
+		{
+			printf("%s\n", array[i].cmd[y]);
+			y++;
+		}
+		printf("\n");
+		printf("fd in: %d\n", array[i].fd_in);
+		printf("fd out: %d\n", array[i].fd_out);
+		printf("--------------\n");
+		i++;
+		y = 0;
+	}
 	return (NULL);
 }
