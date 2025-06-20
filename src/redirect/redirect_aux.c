@@ -38,22 +38,33 @@ char	**command_tokens_to_array(t_data *data, t_token *tokens)
 	return (array);
 }
 
+int	open_heredoc(t_data *data, t_token *tokens)
+{
+	char	*hdoc_content;
+	int		pipe_fd[2];
+
+	pipe(pipe_fd);
+	hdoc_content = get_heredoc(data, tokens->next);
+	write(pipe_fd[STDOUT], hdoc_content, ft_strlen(hdoc_content));
+	close(pipe_fd[STDOUT]);
+	return (pipe_fd[STDIN]);
+}
+
 int	open_fd_in(t_data *data, t_token *tokens, int fd)
 {
 	while (tokens && tokens->type != PIPE)
 	{
-		if (tokens->type == INFILE)
+		if (tokens->type == HEREDOC)
 		{
-			if (tokens->next->type == FILENAME)
-			{
-				if (fd > 2)
-				{
-					close(fd);
-				}
-				fd = open(tokens->next->str, O_RDONLY);
-			}
-			else
-				printf("\n:(\nUncatched error: no filename after infile\n:(\n");
+			if (fd > 2)
+				close(fd);
+			fd = open_heredoc(data, tokens);
+		}
+		else if (tokens->type == INFILE)
+		{
+			if (fd > 2)
+				close(fd);
+			fd = open(tokens->next->str, O_RDONLY);
 			if (fd == -1)
 			{
 				perror(tokens->next->str);

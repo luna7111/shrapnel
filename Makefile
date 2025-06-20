@@ -12,6 +12,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_add_node.c\
 			src/enviroment/env_to_list.c\
 			src/expand/expand_input.c\
+			src/expand/expand_hdoc.c\
 			src/expand/expand_aux.c\
 			src/pretoken/pretoken_input.c\
 			src/enviroment/env_set_node.c\
@@ -19,6 +20,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
+			src/heredoc/get_heredoc.c\
 			src/redirect/redirect.c\
 			src/redirect/redirect_aux.c
 
