@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		iter->raw_input = get_user_input(data->gctrl, data);
 		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
-		iter->tokens = gen_test1(data);
+		//iter->tokens = tokenize(data, iter->pretokenized_input);
 		iter->exec_list = redirect_tokens(data, iter->tokens);
 		if (!ft_strcmp(iter->raw_input, "exit"))
 			break ;
