@@ -77,7 +77,7 @@ int	open_fd_out(t_data *data, t_token *tokens, int fd)
 				{
 					close(fd);
 				}
-				if (tokens->type == INFILE)
+				if (tokens->type == OUTFILE)
 					fd = open(tokens->next->str, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 				else if (tokens->type == APPEND)
 					fd = open(tokens->next->str, O_WRONLY | O_CREAT | O_APPEND, 0666);
@@ -109,42 +109,81 @@ int	open_next_pipe(t_token *tokens, int fildes[2])
 	return (pipe(fildes));
 }
 
+static size_t	duplicate_array(t_data *data, t_redir **array, size_t size)
+{
+	t_redir	*new_array;
+	size_t	i;
+
+	new_array = gctrl_malloc(data->gctrl, LOOP_BLOCK, sizeof(t_redir) * size * 2);
+	i = 0;
+	while (i < size)
+	{
+		new_array[i] = (*array)[i];
+		i++;
+	}
+	*array = new_array;
+	return (size * 2);
+}
+
+t_redir redir_single_node(t_data* data, t_token *tokens, int fd_out, int fd_in)
+{
+	t_redir node;
+
+	node.cmd = command_tokens_to_array(data, tokens);
+	node.fd_in = open_fd_in(data, tokens, fd_in);
+	if (node.fd_in == -1)
+	{
+		node.flag = RE_SKIP;
+		return (node);
+	}
+	node.fd_out = open_fd_out(data, tokens, fd_out);
+	if (node.fd_out == -1)
+	{
+		close(node.fd_in);
+		node.flag = RE_SKIP;
+	}
+	else
+		node.flag = RE_OK;
+	return (node);
+}
+
 t_redir	*redirect_tokens(t_data *data, t_token *tokens)
 {
 	t_redir *array;
 	size_t	array_size;
 	size_t	i;
 	int		pipe[2];
+	int		last_fd;
 
 	i = 0;
 	pipe[STDIN] = STDIN;
 	pipe[STDOUT] = STDOUT;
 	array_size = 8;
 	array = gctrl_malloc(data->gctrl, LOOP_BLOCK, sizeof(t_redir) * array_size);
-	
 	while (tokens != NULL)
 	{
-		array[i].cmd = command_tokens_to_array(data, tokens);
-		array[i].fd_in = open_fd_in(data, tokens, pipe[STDIN]);
+		last_fd = pipe[STDIN];
 		open_next_pipe(tokens, pipe);
-		array[i].fd_out = open_fd_out(data, tokens, pipe[STDOUT]);
-		if (array[i].fd_in == -1 || array[i].fd_out == -1)
-			return (NULL);
+		array[i] = redir_single_node(data, tokens, pipe[STDOUT], last_fd);
 		while (tokens != NULL && tokens->type != PIPE)
 			tokens = tokens->next;
 		if (tokens != NULL && tokens->type == PIPE)
 			tokens = tokens->next;
 		i++;
+		if (i == array_size)
+			array_size = duplicate_array(data, &array, array_size);
 	}
-	array[i].cmd = NULL;
+	array[i].flag = RE_END;
 	
-//	debug, print all redirection nodes;
+//	debug, print all redirection nodes (and close fds);
 	i = 0;
 	int y = 0;
-	while (array[i].cmd != NULL)
+	while (array[i].flag != RE_END)
 	{
 		printf("\n--------------\n");
 		printf("command:\n\n");
+		if (array[i].flag == RE_SKIP)
+			printf("(THIS COMMAND WILL NOT BE EXECUTED)\n\n\n");
 		while (array[i].cmd[y] != NULL)
 		{
 			printf("%s\n", array[i].cmd[y]);
@@ -152,7 +191,11 @@ t_redir	*redirect_tokens(t_data *data, t_token *tokens)
 		}
 		printf("\n");
 		printf("fd in: %d\n", array[i].fd_in);
+		if (array[i].fd_in > 2)
+			close(array[i].fd_in);
 		printf("fd out: %d\n", array[i].fd_out);
+		if (array[i].fd_out > 2)
+			close(array[i].fd_out);
 		printf("--------------\n");
 		i++;
 		y = 0;
