@@ -145,9 +145,14 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+#define RE_END 0
+#define RE_OK 1
+#define RE_SKIP 2
+
 typedef struct s_redir
 {
 	char	**cmd;
+	int		flag;
 	int		fd_in;
 	int		fd_out;
 }	t_redir;
@@ -206,4 +211,5 @@ t_token *gen_test1(t_data *data);
 char	*get_heredoc(t_data *data, t_token *token);
 
 t_redir	*redirect_tokens(t_data *data, t_token *tokens);
+
 #endif
