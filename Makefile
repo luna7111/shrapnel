@@ -19,6 +19,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
+			src/syntax_check/syntax_check.c
 
 OBJ 		:=	$(SRC:.c=.o)
 

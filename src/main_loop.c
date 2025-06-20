@@ -33,9 +33,12 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		iter->raw_input = get_user_input(data->gctrl, data);
-		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
-		if (!ft_strcmp(iter->raw_input, "exit"))
-			break ;
+		if (syntax_check(iter->raw_input) == 1)
+		{
+			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
+			if (!ft_strcmp(iter->raw_input, "exit"))
+				break ;
+		}
 		gctrl_cleanup(gctrl, LOOP_BLOCK);
 	}
 	gctrl_terminate(gctrl);
