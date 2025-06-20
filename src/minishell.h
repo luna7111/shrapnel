@@ -162,4 +162,7 @@ t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 
 // built-ins
 int	ft_echo(char **args);
+
+// syntax_check
+int	syntax_check(char *input);
 #endif
