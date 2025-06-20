@@ -63,7 +63,7 @@ static t_chunk	expand_text(t_data *data, char *str)
 	t_chunk		chunk;
 
 	i = 0;
-	while (str[i] != '\0' && varname_len(&str[i]) == 0)	
+	while (str[i] != '\0' && varname_len(&str[i]) == 0)
 		i++;
 	chunk.input_size = i;
 	chunk.str = ft_substr(str, 0, i);
