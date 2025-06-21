@@ -5,8 +5,8 @@
 # include <stdio.h>
 
 // rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history:
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
 // exit, getenv:
 # include <stdlib.h>
@@ -16,8 +16,8 @@
 # include <unistd.h>
 
 // open, stat, lstat, fstat:
-# include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 
 // wait, waitpid, wait3, wait4:
 # include <sys/wait.h>
@@ -26,8 +26,8 @@
 # include <signal.h>
 
 // opendir, readdir, closedir:
-# include <sys/types.h>
 # include <dirent.h>
+# include <sys/types.h>
 
 // strerror:
 # include <string.h>
@@ -54,11 +54,11 @@
 ////////////////////////////
 //    Macros & enums    ////
 ////////////////////////////
-//libft
+// libft
 # define BUFFER_SIZE 100
 # define MAX_FD 1024
 
-//garbage control block macros
+// garbage control block macros
 # define PROG_BLOCK 1
 # define LOOP_BLOCK 2
 
@@ -90,16 +90,16 @@ typedef struct s_enviroment
 	char				*name;
 	char				*content;
 	struct s_enviroment	*next;
-}	t_enviroment;
+}						t_enviroment;
 
 /*
 
  main struct with useful information for all the program:
 
  char*	last_input:
-    the last input that was registered
-    in the readline history, this is useful to avoid having the same
-    input in the history two times in a row.
+	the last input that was registered
+	in the readline history, this is useful to avoid having the same
+	input in the history two times in a row.
 
 */
 typedef struct s_data
@@ -210,13 +210,15 @@ typedef struct s_iter
 ///////////////////////////////
 // Aux
 // Enviroment management
-t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable);
-t_enviroment	*env_find_node(t_enviroment *head, const char *name);
-t_enviroment	*env_to_list(t_gctrl *gctrl, char **env);
-void			env_add_node(t_data *data, const char *raw_var);
-void			env_set_node(t_data *data, const char *name, const char *val);
-void			env_set_raw(t_data *data, const char *raw_var);
-void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
+t_enviroment			*env_new_node(t_gctrl *gctrl, const char *raw_variable);
+t_enviroment			*env_find_node(t_enviroment *head, const char *name);
+t_enviroment			*env_to_list(t_gctrl *gctrl, char **env);
+void					env_add_node(t_data *data, const char *raw_var);
+void					env_set_node(t_data *data, const char *name,
+							const char *val);
+void					env_set_raw(t_data *data, const char *raw_var);
+void					env_delete_node(t_gctrl *g, t_enviroment **l,
+							t_enviroment *n);
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
@@ -235,6 +237,7 @@ t_token *tokenize(t_data *data, t_pretoken *input);
 
 // built-ins
 int				ft_echo(char **args);
+int       ft_cd(t_data *data, char **args);
 
 char	*get_heredoc(t_data *data, t_token *token);
 
