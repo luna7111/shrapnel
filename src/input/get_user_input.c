@@ -34,11 +34,23 @@ static void	history_insertion(t_gctrl *gctrl, t_data *data, char *input)
 //entry. if so, adds the input to history and changes data->last_input to the
 //current entry
 
+#define MAGENTA "\001\x1B[35m\002"
+#define RESET "\001\x1B[0m\002"
+
 char	*get_user_input(t_gctrl *gctrl, t_data *data)
 {
-	char	*input;
+	char			*input;
+	char			*prompt;
+	t_enviroment	*user;
 
-	input = readline("prompt placeholder> ");
+	user = env_find_node(data->env, "USER");
+	if (user == NULL)
+		prompt = ft_strdup("shrapnel > "RESET);
+	else
+		prompt = ft_strjoin(user->content, "@shrapnel > "RESET);
+	gctrl_track_ptr(data->gctrl, prompt, LOOP_BLOCK);
+	printf(MAGENTA);
+	input = readline(prompt);
 	gctrl_track_ptr(gctrl, input, PROG_BLOCK);
 	history_insertion(gctrl, data, input);
 	return (input);
