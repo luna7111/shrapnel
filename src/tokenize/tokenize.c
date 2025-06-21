@@ -65,7 +65,6 @@ static void	extract_tokens_from_pretoken(t_data *data, t_token **list,
 {
 	size_t		i;
 	size_t		len;
-	int			quoted;
 	static int	last_type = START;
 
 	i = 0;
@@ -77,15 +76,11 @@ static void	extract_tokens_from_pretoken(t_data *data, t_token **list,
 	}
 	while (pre->str[i])
 	{
-		quoted = 0;
 		while (pre->str[i] == ' ')
 			i++;
 		if (!pre->str[i])
 			break ;
 		len = get_word_len(&pre->str[i]);
-		if (ft_strnchr(&pre->str[i], '\'', len) || ft_strnchr(&pre->str[i], '"',
-				len))
-			quoted = 1;
 		create_and_add_token(data, list, &pre->str[i], len);
 		last_node(*list)->type = get_token_type(last_node(*list), last_type,
 			pre->type);
