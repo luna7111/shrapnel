@@ -123,6 +123,70 @@ typedef struct s_pretoken
 	size_t	output_len;
 }	t_pretoken;
 
+// FOR TESTING PURPOSES ONLY, THIS PIECE OF CODE DOESN'T BELONG IN THE MAIN
+// BRANCH!!!!!!!!!!!!!!!!!!!!!!!
+# define START 1
+# define COMMAND 2
+# define BUILTIN 3
+# define PIPE 4
+# define HEREDOC 5
+# define DELIMITER 6
+# define INFILE 7
+# define OUTFILE 8
+# define APPEND 9
+# define FILENAME 10
+
+typedef struct s_token
+{
+	char			*str;
+	size_t			output_len;
+	int				type;
+	int				quoted;
+	struct s_token	*next;
+}	t_token;
+
+#define RE_END 0
+#define RE_OK 1
+#define RE_SKIP 2
+
+typedef struct s_redir
+{
+	char	**cmd;
+	int		flag;
+	int		fd_in;
+	int		fd_out;
+}	t_redir;
+
+typedef struct	s_hdoc
+{
+	char	*content;
+	int		fd;
+
+} t_hdoc;
+/*
+	structs for tokens
+*/
+
+# define START 1
+# define COMMAND 2
+# define BUILTIN 3
+# define PIPE 4
+# define HEREDOC 5
+# define DELIMITER 6
+# define INFILE 7
+# define OUTFILE 8
+# define APPEND 9
+# define FILENAME 10
+
+typedef struct s_token
+{
+    char			*str;
+	size_t			output_len;
+    int				type;
+	int				quoted;
+	struct s_token	*next;
+}   t_token;
+
 /*
 
  struct with the information needed by each iteration of the loop:
@@ -137,6 +201,8 @@ typedef struct s_iter
 {
 	char		*raw_input;
 	t_pretoken	*pretokenized_input;
+	t_token		*tokens;
+	t_redir		*exec_list;
 }	t_iter;
 
 ///////////////////////////////
@@ -154,15 +220,24 @@ void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
+// syntax_check
+int	syntax_check(char *input);
+
 // Expansion
 char			*expand_input(t_data *data, char *str);
+char			*expand_heredoc(t_data *data, char *str);
 
 //pretoken
 t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 
+//tokenize
+t_token *tokenize(t_data *data, t_pretoken *input);
+
 // built-ins
 int	ft_echo(char **args);
 
-// syntax_check
-int	syntax_check(char *input);
+char	*get_heredoc(t_data *data, t_token *token);
+
+t_redir	*redirect_tokens(t_data *data, t_token *tokens);
+
 #endif
