@@ -20,6 +20,18 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 	return (iter);
 }
 
+void	print_pretokens(t_pretoken *pret)
+{
+	size_t i = 0;
+
+	while (pret[i].type != END)
+	{
+		printf("\n---\n%s\n%ld\n%ld\n%d\n---\n", pret[i].str, pret[i].input_len,
+			pret[i].output_len, pret[i].type);
+		i++;
+	}
+}
+
 void	print_tokens(t_token *list)
 {
 	while (list)
@@ -29,6 +41,34 @@ void	print_tokens(t_token *list)
 	}
 	printf("---\n");
 }
+
+void	print_exec_list(t_redir *list)
+{
+	size_t i = 0;
+	size_t j;
+
+	while (list[i].flag != RE_END)
+	{
+		j = 0;
+		printf("\n---\n\nNode\n\n");
+		if (list[i].flag == RE_SKIP)
+			printf("(This node will be skiped by execution)\n\n");
+		printf("Command args:\n");
+		while (list[i].cmd[j])	
+		{
+			printf("%s\n", list[i].cmd[j]);
+			j++;
+		}
+		printf("\nfd in: %d\n", list[i].fd_in);
+		if (list[i].fd_in > 2)
+			close(list[i].fd_in);
+		printf("fd out: %d\n", list[i].fd_out);
+		if (list[i].fd_out > 2)
+			close(list[i].fd_out);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
@@ -46,7 +86,8 @@ int	main(int argc, char **argv, char **env)
 		{
 			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
 		    iter->tokens = tokenize(data, iter->pretokenized_input);
-			print_tokens(iter->tokens);
+			iter->exec_list = redirect_tokens(data, iter->tokens);
+			print_exec_list(iter->exec_list);
 			if (!ft_strcmp(iter->raw_input, "exit"))
 				break ;
 		}
