@@ -238,6 +238,7 @@ t_token *tokenize(t_data *data, t_pretoken *input);
 // built-ins
 int				ft_echo(char **args);
 int       ft_cd(t_data *data, char **args);
+int ft_exit(t_data *data, char **args);
 
 char	*get_heredoc(t_data *data, t_token *token);
 
