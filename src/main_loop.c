@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
 		    iter->tokens = tokenize(data, iter->pretokenized_input);
 			iter->exec_list = redirect_tokens(data, iter->tokens);
-			print_exec_list(iter->exec_list);
+			execute(data, iter->exec_list);
 			if (!ft_strcmp(iter->raw_input, "exit"))
 				break ;
 		}

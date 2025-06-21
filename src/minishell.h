@@ -1,4 +1,5 @@
 #ifndef MINISHELL_H
+
 # define MINISHELL_H
 
 // printf, readline, perror:
@@ -23,6 +24,7 @@
 # include <sys/wait.h>
 
 // signal, sigaction:
+
 # include <signal.h>
 
 // opendir, readdir, closedir:
@@ -217,6 +219,8 @@ void			env_add_node(t_data *data, const char *raw_var);
 void			env_set_node(t_data *data, const char *name, const char *val);
 void			env_set_raw(t_data *data, const char *raw_var);
 void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
+size_t			env_len(t_enviroment *env);
+
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
@@ -239,5 +243,7 @@ int	ft_echo(char **args);
 char	*get_heredoc(t_data *data, t_token *token);
 
 t_redir	*redirect_tokens(t_data *data, t_token *tokens);
+
+void	execute(t_data *data, t_redir *exec_list);
 
 #endif

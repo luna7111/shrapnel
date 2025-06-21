@@ -11,12 +11,15 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_new_node.c\
 			src/enviroment/env_add_node.c\
 			src/enviroment/env_to_list.c\
+			src/enviroment/env_len.c\
 			src/expand/expand_input.c\
 			src/expand/expand_hdoc.c\
 			src/expand/expand_aux.c\
 			src/pretoken/pretoken_input.c\
 			src/enviroment/env_set_node.c\
 			src/enviroment/env_set_raw.c\
+			src/execution/execute.c\
+			src/execution/execute_aux.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
