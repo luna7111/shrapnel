@@ -15,9 +15,9 @@ static int	is_n_flag(char *arg)
 	}
 	return (1);
 }
-// Función que verifica si el argumento es un flag -n, permitiendo múltiples n (como -nnn).
-//Si el argumento es nulo, no empieza con -, o el segundo carácter no es n, retorna 0, no es flag válida.
-// Inicia iteración desde el tercer carácter y recorre el resto del string.
+//verifica si el argumento es un flag -n, permitiendo múltiples n (como -nnn).
+//Si argumento es nulo,no empieza con -,o el segundo carácter no es n,retorna 0
+//Inicia iteración desde el tercer carácter y recorre el resto del string.
 //Si encuentra un carácter diferente de n, no es un flag válido.
 //Todos los caracteres son n, se confirma como flag válido -n.
 
