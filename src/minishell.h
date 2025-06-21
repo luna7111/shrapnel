@@ -164,6 +164,30 @@ typedef struct	s_hdoc
 
 } t_hdoc;
 /*
+	structs for tokens
+*/
+
+# define START 1
+# define COMMAND 2
+# define BUILTIN 3
+# define PIPE 4
+# define HEREDOC 5
+# define DELIMITER 6
+# define INFILE 7
+# define OUTFILE 8
+# define APPEND 9
+# define FILENAME 10
+
+typedef struct s_token
+{
+    char			*str;
+	size_t			output_len;
+    int				type;
+	int				quoted;
+	struct s_token	*next;
+}   t_token;
+
+/*
 
  struct with the information needed by each iteration of the loop:
 
@@ -196,6 +220,9 @@ void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
+// syntax_check
+int	syntax_check(char *input);
+
 // Expansion
 char			*expand_input(t_data *data, char *str);
 char			*expand_heredoc(t_data *data, char *str);
@@ -203,10 +230,11 @@ char			*expand_heredoc(t_data *data, char *str);
 //pretoken
 t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 
+//tokenize
+t_token *tokenize(t_data *data, t_pretoken *input);
+
 // built-ins
 int	ft_echo(char **args);
-
-t_token *gen_test1(t_data *data);
 
 char	*get_heredoc(t_data *data, t_token *token);
 
