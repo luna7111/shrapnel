@@ -179,15 +179,19 @@ void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
+// syntax_check
+int	syntax_check(char *input);
+
 // Expansion
 char			*expand_input(t_data *data, char *str);
 
 //pretoken
 t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 
+//tokenize
+t_token *tokenize(t_data *data, t_pretoken *input);
+
 // built-ins
 int	ft_echo(char **args);
-
-t_token *tokenize(t_data *data, t_pretoken *input);
 
 #endif

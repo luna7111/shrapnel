@@ -21,6 +21,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/builtins/ft_echo.c\
 			src/tokenize/tokenize.c\
 			src/tokenize/tokenize_utils.c\
+			src/syntax_check/syntax_check.c
 
 OBJ 		:=	$(SRC:.c=.o)
 
