@@ -20,6 +20,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/main_loop.c\
 			src/builtins/ft_echo.c\
 			src/tokenize/tokenize.c\
+			src/tokenize/tokenize_utils.c\
 
 OBJ 		:=	$(SRC:.c=.o)
 

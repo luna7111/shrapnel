@@ -189,4 +189,5 @@ t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 int	ft_echo(char **args);
 
 t_token *tokenize(t_data *data, t_pretoken *input);
+
 #endif
