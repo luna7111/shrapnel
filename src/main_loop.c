@@ -20,7 +20,6 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 	return (iter);
 }
 
-<<<<<<< HEAD
 void	print_pretokens(t_pretoken *pret)
 {
 	size_t i = 0;
