@@ -2,6 +2,8 @@
 
 static int	input_has_content(char *input)
 {
+	if (input == NULL)
+		return (0);
 	while (*input == ' ')
 		input++;
 	return (*input != '\0');
