@@ -1,8 +1,6 @@
 #include <minishell.h>
 #include "cd_utils.h"
 
-
-
 int	cd_error_too_many_args(void)
 {
 	ft_putstr_fd("minishell: cd: too many arguments\n", 2);

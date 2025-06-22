@@ -1,11 +1,11 @@
 #include <minishell.h>
 #define ANYPID -1
 
-char *identify_command(t_data *data, char *cmd_name, char *path);
+char	*identify_command(t_data *data, char *cmd_name, char *path);
 
 int	is_builtin(t_redir *exectlist)
 {
-	char *name;
+	char	*name;
 
 	name = exectlist->cmd[0];
 	if (!ft_strcmp(name, "cd"))
@@ -34,9 +34,9 @@ int	is_only_builtin(t_redir *execlist)
 	return (0);
 }
 
-static char **dup_array(char **original)
+static char	**dup_array(char **original)
 {
-	char 	**array;
+	char	**array;
 	size_t	size;
 	size_t	i;
 
@@ -54,16 +54,16 @@ static char **dup_array(char **original)
 	return (array);
 }
 
-static	char **env_to_array(t_enviroment *head)
+static char	**env_to_array(t_enviroment *head)
 {
-	char **enviroment;
+	char	**enviroment;
 	size_t	i;
 
 	enviroment = malloc((env_len(head) + 1) * sizeof(char *));
 	i = 0;
 	while (head)
 	{
-		enviroment[i] = ft_strdup(head->raw);	
+		enviroment[i] = ft_strdup(head->raw);
 		head = head->next;
 		i ++;
 	}
@@ -93,8 +93,8 @@ void	free_arrays(char **cmd, char **env)
 
 void	execute_buiiltin(t_data *data, t_redir *exectlist)
 {
-	char **env;
-	char *name;
+	char	**env;
+	char	*name;
 
 	env = env_to_array(data->env);
 	name = exectlist->cmd[0];
@@ -131,8 +131,8 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 		dup2(execlist->fd_out, STDOUT);
 		close(execlist->fd_out);
 	}
-	if (is_builtin(execlist))//asd
-		execute_buiiltin(data, execlist);//oashdoi
+	if (is_builtin(execlist))
+		execute_buiiltin(data, execlist);
 	cmd = dup_array(execlist->cmd);
 	cmd_name = identify_command(data, cmd[0],
 			env_find_node(data->env, "PATH")->content);
@@ -149,24 +149,27 @@ void	execute(t_data *data, t_redir *execlist)
 {
 	pid_t	pid;
 	size_t	process_count;
-	
+
 	process_count = 0;
 	if (is_only_builtin(execlist))
 		execute_buiiltin(data, execlist);
-	else while (execlist->flag != RE_END)
+	else
 	{
-		if (execlist->flag == RE_OK)
+		while (execlist->flag != RE_END)
 		{
-			signal(SIGINT, SIG_IGN);
-			pid = fork();
-			if (pid == 0)
-				execute_comand(data, execlist);
-			if (execlist->fd_in > 2)
-				close(execlist->fd_in);
-			if (execlist->fd_out > 2)
-				close(execlist->fd_out);
-			process_count ++;
-			execlist ++;
+			if (execlist->flag == RE_OK)
+			{
+				signal(SIGINT, SIG_IGN);
+				pid = fork();
+				if (pid == 0)
+					execute_comand(data, execlist);
+				if (execlist->fd_in > 2)
+					close(execlist->fd_in);
+				if (execlist->fd_out > 2)
+					close(execlist->fd_out);
+				process_count ++;
+				execlist ++;
+			}
 		}
 	}
 	while (process_count > 0)

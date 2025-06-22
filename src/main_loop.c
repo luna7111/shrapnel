@@ -22,8 +22,9 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 
 void	print_pretokens(t_pretoken *pret)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (pret[i].type != END)
 	{
 		printf("\n---\n%s\n%ld\n%ld\n%d\n---\n", pret[i].str, pret[i].input_len,
@@ -36,7 +37,8 @@ void	print_tokens(t_token *list)
 {
 	while (list)
 	{
-		printf("str: %-12s | type: %-2d | quoted: %d\n", list->str, list->type, list->quoted);
+		printf("str: %-12s | type: %-2d | quoted: %d\n",
+			list->str, list->type, list->quoted);
 		list = list->next;
 	}
 	printf("---\n");
@@ -44,9 +46,10 @@ void	print_tokens(t_token *list)
 
 void	print_exec_list(t_redir *list)
 {
-	size_t i = 0;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
+	i = 0;
 	while (list[i].flag != RE_END)
 	{
 		j = 0;
@@ -54,7 +57,7 @@ void	print_exec_list(t_redir *list)
 		if (list[i].flag == RE_SKIP)
 			printf("(This node will be skiped by execution)\n\n");
 		printf("Command args:\n");
-		while (list[i].cmd[j])	
+		while (list[i].cmd[j])
 		{
 			printf("%s\n", list[i].cmd[j]);
 			j++;
@@ -86,11 +89,12 @@ int	main(int argc, char **argv, char **env)
 		set_handlers();
 		iter->raw_input = get_user_input(data->gctrl, data);
 		if (iter->raw_input == NULL)
-				break ;
-		if (input_has_content(iter->raw_input) && syntax_check(iter->raw_input) == 1)
+			break ;
+		if (input_has_content(iter->raw_input)
+			&& syntax_check(iter->raw_input) == 1)
 		{
 			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
-		    iter->tokens = tokenize(data, iter->pretokenized_input);
+			iter->tokens = tokenize(data, iter->pretokenized_input);
 			if (token_check(iter->tokens))
 			{
 				iter->exec_list = redirect_tokens(data, iter->tokens);

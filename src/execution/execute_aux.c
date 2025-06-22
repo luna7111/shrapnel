@@ -24,7 +24,7 @@ char	*identify_command(t_data *data, char *cmd_name, char *path)
 	if (path == NULL)
 		return (NULL);
 	split_path = ft_split(path, ':');
-	i  = 0;
+	i = 0;
 	while (split_path[i])
 	{
 		gctrl_track_ptr(data->gctrl, split_path[i], LOOP_BLOCK);
@@ -40,7 +40,7 @@ char	*identify_command(t_data *data, char *cmd_name, char *path)
 		i++;
 	}
 	free_str_array(split_path);
-	printf("Command not found.\n");//
+	printf("Command not found.\n");
 	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
-	exit(-1);//
+	exit(-1);
 }
