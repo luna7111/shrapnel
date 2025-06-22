@@ -69,6 +69,8 @@ void	print_exec_list(t_redir *list)
 	}
 }
 
+int	g_exit_status = 0;
+
 int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
@@ -81,7 +83,10 @@ int	main(int argc, char **argv, char **env)
 	iter = init_iter(gctrl);
 	while (1)
 	{
+		set_handlers();
 		iter->raw_input = get_user_input(data->gctrl, data);
+		if (iter->raw_input == NULL)
+				break ;
 		if (syntax_check(iter->raw_input) == 1)
 		{
 			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);

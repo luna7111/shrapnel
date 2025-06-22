@@ -22,6 +22,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/execution/execute_aux.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
+			src/signals/signals.c\
 			src/builtins/ft_echo.c\
 			src/builtins/ft_pwd.c\
 			src/builtins/ft_export.c\

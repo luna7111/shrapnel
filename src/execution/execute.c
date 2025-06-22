@@ -138,6 +138,7 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 			env_find_node(data->env, "PATH")->content);
 	env = env_to_array(data->env);
 	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
+	signal(SIGINT, SIG_DFL);
 	execve(cmd_name, cmd, env);
 	printf("something something command not found\n");
 	free_arrays(cmd, env);
@@ -159,7 +160,7 @@ void	execute(t_data *data, t_redir *execlist)
 				execute_buiiltin(data, execlist);//aoskjfno
 				break ;
 			}
-			signal(SIGINT, SIG_IGN);
+			signal(SIGINT, sigint_newline);
 			pid = fork();
 			if (pid == 0)
 				execute_comand(data, execlist);
