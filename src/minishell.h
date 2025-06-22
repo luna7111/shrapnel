@@ -1,4 +1,5 @@
 #ifndef MINISHELL_H
+
 # define MINISHELL_H
 
 // printf, readline, perror:
@@ -23,6 +24,7 @@
 # include <sys/wait.h>
 
 // signal, sigaction:
+
 # include <signal.h>
 
 // opendir, readdir, closedir:
@@ -125,6 +127,26 @@ typedef struct s_pretoken
 	size_t	output_len;
 }	t_pretoken;
 
+# define START 1
+# define COMMAND 2
+# define BUILTIN 3
+# define PIPE 4
+# define HEREDOC 5
+# define DELIMITER 6
+# define INFILE 7
+# define OUTFILE 8
+# define APPEND 9
+# define FILENAME 10
+
+typedef struct s_token
+{
+	char			*str;
+	size_t			output_len;
+	int				type;
+	int				quoted;
+	struct s_token	*next;
+}	t_token;
+
 #define RE_END 0
 #define RE_OK 1
 #define RE_SKIP 2
@@ -190,15 +212,16 @@ typedef struct s_iter
 ///////////////////////////////
 // Aux
 // Enviroment management
-t_enviroment			*env_new_node(t_gctrl *gctrl, const char *raw_variable);
-t_enviroment			*env_find_node(t_enviroment *head, const char *name);
-t_enviroment			*env_to_list(t_gctrl *gctrl, char **env);
-void					env_add_node(t_data *data, const char *raw_var);
-void					env_set_node(t_data *data, const char *name,
-							const char *val);
-void					env_set_raw(t_data *data, const char *raw_var);
-void					env_delete_node(t_gctrl *g, t_enviroment **l,
-							t_enviroment *n);
+
+t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable);
+t_enviroment	*env_find_node(t_enviroment *head, const char *name);
+t_enviroment	*env_to_list(t_gctrl *gctrl, char **env);
+void			env_add_node(t_data *data, const char *raw_var);
+void			env_set_node(t_data *data, const char *name, const char *val);
+void			env_set_raw(t_data *data, const char *raw_var);
+void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
+size_t			env_len(t_enviroment *env);
+
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
@@ -222,10 +245,14 @@ int	ft_echo(char **args);
 int ft_cd(t_data *data, char **args);
 int ft_exit(t_data *data, char **args);
 int ft_unset(t_data *data, char **args);
+int	ft_pwd(t_data *data);
+int ft_env(char **env);
 
 char	*get_heredoc(t_data *data, t_token *token);
 
 t_redir	*redirect_tokens(t_data *data, t_token *tokens);
+
+void	execute(t_data *data, t_redir *exec_list);
 
 //signals
 void	sigint_handler(int sig);

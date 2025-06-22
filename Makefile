@@ -11,30 +11,35 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_new_node.c\
 			src/enviroment/env_add_node.c\
 			src/enviroment/env_to_list.c\
+			src/enviroment/env_len.c\
 			src/expand/expand_input.c\
 			src/expand/expand_hdoc.c\
 			src/expand/expand_aux.c\
 			src/pretoken/pretoken_input.c\
 			src/enviroment/env_set_node.c\
 			src/enviroment/env_set_raw.c\
+			src/execution/execute.c\
+			src/execution/execute_aux.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
 			src/signals/signals.c\
 			src/builtins/ft_echo.c\
+			src/builtins/ft_pwd.c\
 			src/builtins/ft_export.c\
 			src/builtins/ft_unset.c\
 			src/builtins/ft_exit.c\
+			src/builtins/ft_env.c\
+			src/builtins/ft_cd/cd_env_utils.c\
+			src/builtins/ft_cd/cd_errors.c\
+			src/builtins/ft_cd/cd_helpers.c\
+			src/builtins/ft_cd/cd_target.c\
+			src/builtins/ft_cd/ft_cd.c\
 			src/heredoc/get_heredoc.c\
 			src/redirect/redirect.c\
 			src/redirect/redirect_aux.c\
 			src/tokenize/tokenize.c\
 			src/tokenize/tokenize_utils.c\
 			src/syntax_check/syntax_check.c
-#			src/builtins/ft_cd/cd_env_utils.c\
-#			src/builtins/ft_cd/cd_errors.c\
-#			src/builtins/ft_cd/cd_helpers.c\
-#			src/builtins/ft_cd/cd_target.c\
-#			src/builtins/ft_cd/ft_cd.c\#
 
 OBJ 		:=	$(SRC:.c=.o)
 
