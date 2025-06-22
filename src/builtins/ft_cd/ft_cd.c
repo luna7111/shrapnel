@@ -1,9 +1,5 @@
-#include "cd_utils.h"
-#include <errno.h>
-#include <limits.h>
 #include <minishell.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "cd_utils.h"
 
 int	ft_cd(t_data *data, char **args)
 {
