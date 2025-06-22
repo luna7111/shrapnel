@@ -18,7 +18,7 @@ void	sigquit_handler(int sig)
 	g_exit_status = 131;
 }
 
-void	get_handlers(void)
+void	set_handlers(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);

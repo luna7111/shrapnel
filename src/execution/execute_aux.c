@@ -13,16 +13,22 @@ void	free_str_array(char **array)
 	free(array);
 }
 
-char	*identify_command(t_data *data, char *cmd_name, char *path)
+char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env)
 {
 	char	**split_path;
 	char	*cmd_path;
+	char	*path;
 	size_t	i;
 
 	if (ft_strchr(cmd_name, '/'))
 		return (ft_strdup(cmd_name));
-	if (path == NULL)
-		return (NULL);
+	if (path_env == NULL)
+	{
+		printf("Command not found.\n");
+		gctrl_cleanup(data->gctrl, ALL_BLOCKS);
+		exit (-1);
+	}
+	path = path_env->content;
 	split_path = ft_split(path, ':');
 	i = 0;
 	while (split_path[i])
@@ -42,5 +48,5 @@ char	*identify_command(t_data *data, char *cmd_name, char *path)
 	free_str_array(split_path);
 	printf("Command not found.\n");
 	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
-	exit(-1);
+	exit(-1);//
 }
