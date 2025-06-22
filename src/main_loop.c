@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 		iter->raw_input = get_user_input(data->gctrl, data);
 		if (iter->raw_input == NULL)
 				break ;
-		if (syntax_check(iter->raw_input) == 1)
+		if (input_has_content(iter->raw_input) && syntax_check(iter->raw_input) == 1)
 		{
 			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
 		    iter->tokens = tokenize(data, iter->pretokenized_input);

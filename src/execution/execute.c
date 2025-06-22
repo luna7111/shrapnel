@@ -157,12 +157,7 @@ void	execute(t_data *data, t_redir *execlist)
 	{
 		if (execlist->flag == RE_OK)
 		{
-			if (is_only_builtin(execlist))
-			{
-				execute_buiiltin(data, execlist);
-				break ;
-			}
-			signal(SIGINT, sigint_newline);
+			signal(SIGINT, SIG_IGN);
 			pid = fork();
 			if (pid == 0)
 				execute_comand(data, execlist);

@@ -34,12 +34,6 @@ void sigint_handler(int sig)
     g_exit_status = 130;
 }
 
-void sigint_newline(int sig)
-{
-    (void)sig;
-    write(1, "\n", 1);
-}
-
 void sigquit_handler(int sig)
 {
     (void)sig;
