@@ -6,15 +6,25 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/05/30 22:25:17 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/02 14:34:43 by ldel-val          ``                     */
+/*   Updated: 2025/06/23 00:55:42 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include <minishell.h>
 #include <termios.h>
-#include <stdlib.h>
 #include <sys/ioctl.h>
+
+void	shnake_sigint_handler(int sig)
+{
+	(void)sig;
+	g_exit_status = 130;
+}
+
+void	shnake_sigquit_handler(int sig)
+{
+	(void)sig;
+	g_exit_status = 131;
+}
 
 void	set_terminal_mode(int mode)
 {
@@ -46,9 +56,8 @@ void	set_terminal_mode(int mode)
 
 int get_head_direction(int	current)
 {
-	char	buf[64];
+	char	buf[128];
 	int		n;
-	int		direction;
 
 	ioctl(STDIN_FILENO, FIONREAD, &n);
 	if (n <= 0)
@@ -232,7 +241,11 @@ int	check_death(t_snake *snake)
 	return (0);
 }
 
-int	main(void)
+#define EMPTYLINE "                   \n"
+#define FULLLINE "###################\n"
+#define MIDLINE "#                 #\n"
+
+int	shnake(void)
 {
 	t_snake	*snake;
 	unsigned long	wait_time;
@@ -241,21 +254,26 @@ int	main(void)
 	set_terminal_mode(1);
 	wait_time = 200000000;
 
-	while (1)
+	while (g_exit_status == 0)
 	{
 		snake->snake_direction = get_head_direction(snake->snake_direction);
 		move_snake(snake);
 		if (snake->body[0][X_POS] == snake->apple[X_POS] && snake->body[0][Y_POS] == snake->apple[Y_POS])
 			eat_apple(snake);
+		if (g_exit_status != 0)
+			break;
 		print_map(snake);
 		busy_wait(wait_time);
 		wait_time -= wait_time / 250;
 		if (check_death(snake))
 			break ;
 	}
-	printf("You lost! :(     \n");
-	printf("Your score: %s%i%s          \n", GREEN, snake->snake_len, RESET);
+	printf(EMPTYLINE FULLLINE MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE);
+	printf("#   You lost! :(  #\n");
+	printf("#    Score: %s%-3i%s   #\n", GREEN, snake->snake_len, RESET);
+	printf(MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE FULLLINE EMPTYLINE);
 	set_terminal_mode(0);
 	free(snake);
+	g_exit_status = 0;
 	return (0);
 }

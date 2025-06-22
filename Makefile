@@ -4,7 +4,7 @@ NAME		:=	minishell
 
 CC			:=	cc
 
-CFLAGS		:=	-Wall -Wextra -Werror -Isrc
+CFLAGS		:=	-Wall -Wextra -Werror -Isrc -fsanitize=thread
 
 SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_find_node.c\
@@ -34,6 +34,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/builtins/ft_cd/cd_helpers.c\
 			src/builtins/ft_cd/cd_target.c\
 			src/builtins/ft_cd/ft_cd.c\
+			src/builtins/shnake/shnake.c\
 			src/heredoc/get_heredoc.c\
 			src/redirect/redirect.c\
 			src/redirect/redirect_aux.c\
