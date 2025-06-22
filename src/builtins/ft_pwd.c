@@ -16,8 +16,9 @@ int	ft_pwd(t_data *data)
 	t_enviroment *pwd_node = env_find_node(data->env, "PWD");
 	if (pwd_node)
 	{
-		free(pwd_node->content);
+		gctrl_free(data->gctrl, pwd_node->content);
 		pwd_node->content = ft_strdup(path);
+		gctrl_track_ptr(data->gctrl, pwd_node->content, PROG_BLOCK);
 	}
 	return (0);
 }
