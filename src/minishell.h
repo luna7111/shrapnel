@@ -69,6 +69,8 @@
 # define TEXT 1
 # define SYMBOL 2
 
+extern int g_exit_status;
+
 ///////////////////
 //    Structs    //
 ///////////////////
@@ -124,26 +126,6 @@ typedef struct s_pretoken
 	size_t	input_len;
 	size_t	output_len;
 }	t_pretoken;
-
-# define START 1
-# define COMMAND 2
-# define BUILTIN 3
-# define PIPE 4
-# define HEREDOC 5
-# define DELIMITER 6
-# define INFILE 7
-# define OUTFILE 8
-# define APPEND 9
-# define FILENAME 10
-
-typedef struct s_token
-{
-	char			*str;
-	size_t			output_len;
-	int				type;
-	int				quoted;
-	struct s_token	*next;
-}	t_token;
 
 #define RE_END 0
 #define RE_OK 1
@@ -252,5 +234,11 @@ char	*get_heredoc(t_data *data, t_token *token);
 t_redir	*redirect_tokens(t_data *data, t_token *tokens);
 
 void	execute(t_data *data, t_redir *exec_list);
+
+//signals
+void	sigint_handler(int sig);
+void	sigint_newline(int sig);
+void	sigquit_handler(int sig);
+void    set_handlers(void);
 
 #endif
