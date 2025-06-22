@@ -27,7 +27,7 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/builtins/ft_cd/cd_errors.c\
 			src/builtins/ft_cd/cd_helpers.c\
 			src/builtins/ft_cd/cd_target.c\
-			src/builtins/ft_cd/ft_cd.c
+			src/builtins/ft_cd/ft_cd.c\
 			src/heredoc/get_heredoc.c\
 			src/redirect/redirect.c\
 			src/redirect/redirect_aux.c\
