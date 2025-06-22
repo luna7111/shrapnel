@@ -8,51 +8,30 @@ int	is_builtin(t_redir *exectlist)
 	char *name;
 
 	name = exectlist->cmd[0];
-	if (ft_strcmp(name, "cd"))
+	if (!ft_strcmp(name, "cd"))
 		return (1);
-	if (ft_strcmp(name, "pwd"))
+	if (!ft_strcmp(name, "pwd"))
 		return (1);
-	if (ft_strcmp(name, "echo"))
+	if (!ft_strcmp(name, "echo"))
 		return (1);
-	if (ft_strcmp(name, "unset"))
+	if (!ft_strcmp(name, "unset"))
 		return (1);
-	if (ft_strcmp(name, "export"))
+	if (!ft_strcmp(name, "export"))
 		return (1);
-	if (ft_strcmp(name, "env"))
+	if (!ft_strcmp(name, "env"))
 		return (1);
-	if (ft_strcmp(name, "exit"))
+	if (!ft_strcmp(name, "exit"))
 		return (1);
-	if (ft_strcmp(name, "shnake"))
+	if (!ft_strcmp(name, "shnake"))
 		return (1);
 	return (0);
 }
 
 int	is_only_builtin(t_redir *exectlist)
 {
-	if (is_builtin(exectlist) && exectlist->next->flag = RE_END)
+	if (is_builtin(exectlist) && exectlist[1].flag == RE_END)
 		return (1);
 	return (0);
-}
-
-void	execute_buiiltin(t_data *data, t_redir *exectlist)
-{
-	char *name;
-
-	name = exectlist->cmd[0];
-	if (ft_strcmp(name, "cd"))
-		ft_cd(data, exectlist->cmd);
-	else if (ft_strcmp(name, "echo"))
-		ft_echo(exectlist->cmd);
-	else if (ft_strcmp(name, "env"))
-		ft_env(exectlist->cmd);
-	else if (ft_strcmp(name, "exit"))
-		ft_exit(data, exectlist->cmd);
-	else if (ft_strcmp(name, "export"))
-		ft_export(data, exectlist->cmd);
-	else if (ft_strcmp(name, "pwd"))
-		ft_pwd(data);
-	else if (ft_strcmp(name, "unset"))
-		ft_unset(data, exectlist->cmd);
 }
 
 static char **dup_array(char **original)
@@ -110,6 +89,30 @@ void	free_arrays(char **cmd, char **env)
 		i++;
 	}
 	free(env);
+}
+
+void	execute_buiiltin(t_data *data, t_redir *exectlist)
+{
+	char **env;
+	char *name;
+
+	env = env_to_array(data->env);
+	name = exectlist->cmd[0];
+	if (!ft_strcmp(name, "cd"))
+		ft_cd(data, exectlist->cmd);
+	else if (!ft_strcmp(name, "echo"))
+		ft_echo(exectlist->cmd);
+	else if (!ft_strcmp(name, "env"))
+		ft_env(env);
+	else if (!ft_strcmp(name, "exit"))
+		ft_exit(data, exectlist->cmd);
+	else if (!ft_strcmp(name, "export"))
+		ft_export(data, exectlist->cmd);
+	else if (!ft_strcmp(name, "pwd"))
+		ft_pwd(data);
+	else if (!ft_strcmp(name, "unset"))
+		ft_unset(data, exectlist->cmd);
+	free_strarray(env);
 }
 
 static void	execute_comand(t_data *data, t_redir *execlist)
