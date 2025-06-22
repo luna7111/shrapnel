@@ -4,7 +4,7 @@ NAME		:=	minishell
 
 CC			:=	cc
 
-CFLAGS		:=	-Wall -Wextra -Werror -Isrc -fsanitize=address
+CFLAGS		:=	-Wall -Wextra -Werror -Isrc
 
 SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_find_node.c\
