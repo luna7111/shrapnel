@@ -1,7 +1,7 @@
 #include <minishell.h>
 #define ANYPID -1
 
-char	*identify_command(t_data *data, char *cmd_name, char *path);
+char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env);
 
 int	is_builtin(t_redir *exectlist)
 {
@@ -112,6 +112,8 @@ void	execute_buiiltin(t_data *data, t_redir *exectlist)
 		ft_pwd(data);
 	else if (!ft_strcmp(name, "unset"))
 		ft_unset(data, exectlist->cmd);
+	else if (!ft_strcmp(name, "shnake"))
+		shnake();
 	free_strarray(env);
 }
 
@@ -135,7 +137,7 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 		execute_buiiltin(data, execlist);
 	cmd = dup_array(execlist->cmd);
 	cmd_name = identify_command(data, cmd[0],
-			env_find_node(data->env, "PATH")->content);
+			env_find_node(data->env, "PATH"));
 	env = env_to_array(data->env);
 	gctrl_terminate(data->gctrl);
 	signal(SIGINT, SIG_DFL);
