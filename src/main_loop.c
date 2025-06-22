@@ -1,13 +1,27 @@
 #include <minishell.h>
 
+int	is_valid_number(char *str)
+{
+	char *buf;
+
+	buf = ft_itoa(ft_atoi(str));
+	if (ft_strcmp(str, buf))
+	{
+		free(buf);
+		return (0);
+	}
+	free(buf);
+	return (1);
+}
+
 static t_data	*init_data(t_gctrl *gctrl, char **env)
 {
-	t_data	*data;
+	t_data			*data;
 
 	data = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_data));
 	data->last_input = NULL;
 	data->env = env_to_list(gctrl, env);
-	data->last_exit_code = 69;
+	data->last_exit_code = 0;
 	return (data);
 }
 
@@ -42,6 +56,23 @@ void	print_tokens(t_token *list)
 		list = list->next;
 	}
 	printf("---\n");
+}
+void	set_shlvl(t_data *data)
+{
+	t_enviroment	*shlvl;
+	char			*shlvl_val;
+
+	shlvl = env_find_node(data->env, "SHLVL");
+	if (shlvl == NULL)
+		env_add_node(data, "SHLVL=1");
+	else if (is_valid_number(shlvl->content))
+	{
+		shlvl_val = ft_itoa(ft_atoi(shlvl->content) + 1);
+		env_set_node(data, "SHLVL", shlvl_val);
+		free(shlvl_val);
+	}
+	else
+		env_set_node(data, "SHLVL", "1");
 }
 
 void	print_exec_list(t_redir *list)
@@ -84,6 +115,7 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(gctrl, env);
 	data->gctrl = gctrl;
 	iter = init_iter(gctrl);
+	set_shlvl(data);
 	while (1)
 	{
 		set_handlers();
