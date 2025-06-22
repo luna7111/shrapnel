@@ -236,6 +236,7 @@ void	execute(t_data *data, t_redir *exec_list);
 
 //signals
 void	sigint_handler(int sig);
+void	sigint_newline(int sig);
 void	sigquit_handler(int sig);
 void    set_handlers(void);
 

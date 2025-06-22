@@ -160,7 +160,7 @@ void	execute(t_data *data, t_redir *execlist)
 				execute_buiiltin(data, execlist);//aoskjfno
 				break ;
 			}
-			signal(SIGINT, SIG_IGN);
+			signal(SIGINT, sigint_newline);
 			pid = fork();
 			if (pid == 0)
 				execute_comand(data, execlist);
