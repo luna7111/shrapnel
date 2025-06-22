@@ -47,6 +47,7 @@ void	print_exec_list(t_redir *list)
 	size_t i = 0;
 	size_t j;
 
+	signal(SIGINT, ft_sigint_handler);
 	while (list[i].flag != RE_END)
 	{
 		j = 0;

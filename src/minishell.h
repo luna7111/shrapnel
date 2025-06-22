@@ -123,28 +123,6 @@ typedef struct s_pretoken
 	size_t	output_len;
 }	t_pretoken;
 
-// FOR TESTING PURPOSES ONLY, THIS PIECE OF CODE DOESN'T BELONG IN THE MAIN
-// BRANCH!!!!!!!!!!!!!!!!!!!!!!!
-# define START 1
-# define COMMAND 2
-# define BUILTIN 3
-# define PIPE 4
-# define HEREDOC 5
-# define DELIMITER 6
-# define INFILE 7
-# define OUTFILE 8
-# define APPEND 9
-# define FILENAME 10
-
-typedef struct s_token
-{
-	char			*str;
-	size_t			output_len;
-	int				type;
-	int				quoted;
-	struct s_token	*next;
-}	t_token;
-
 #define RE_END 0
 #define RE_OK 1
 #define RE_SKIP 2
@@ -238,13 +216,16 @@ t_token *tokenize(t_data *data, t_pretoken *input);
 // built-ins
 
 int	ft_export(t_data *data, char **args);
-int				ft_echo(char **args);
-int       ft_cd(t_data *data, char **args);
+int	ft_echo(char **args);
+int ft_cd(t_data *data, char **args);
 int ft_exit(t_data *data, char **args);
 int ft_unset(t_data *data, char **args);
 
 char	*get_heredoc(t_data *data, t_token *token);
 
 t_redir	*redirect_tokens(t_data *data, t_token *tokens);
+
+//signals
+void ft_sigint_handler(int sig);
 
 #endif

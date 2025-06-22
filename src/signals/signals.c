@@ -1,15 +1,18 @@
 #include <minishell.h>
+#define MAGENTA "\001\x1B[35m\002"
+#define RESET "\001\x1B[0m\002"
 
 ////variable global - 
 
 void ft_sigint_handler(int sig)
 {
     (void)sig;
-    write(STDOUT_FILENO, "\n", 1);
+    printf(MAGENTA);
+    write(STDOUT, "\n", 1);
     rl_replace_line("", 0);
     rl_on_new_line();
-    rl_redisplay(); 
-    g_exit_status = 130;               
+    rl_redisplay();   
+    //g_exit_status = 130;               
 }
 //salta de línea para limpiar lo anterior.
 //borra lo que el usuario estaba escribiendo.
