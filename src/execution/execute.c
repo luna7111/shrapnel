@@ -3,6 +3,58 @@
 
 char *identify_command(t_data *data, char *cmd_name, char *path);
 
+int	is_builtin(t_redir *exectlist)
+{
+	char *name;
+
+	name = exectlist->cmd[0];
+	if (ft_strcmp(name, "cd"))
+		return (1);
+	if (ft_strcmp(name, "pwd"))
+		return (1);
+	if (ft_strcmp(name, "echo"))
+		return (1);
+	if (ft_strcmp(name, "unset"))
+		return (1);
+	if (ft_strcmp(name, "export"))
+		return (1);
+	if (ft_strcmp(name, "env"))
+		return (1);
+	if (ft_strcmp(name, "exit"))
+		return (1);
+	if (ft_strcmp(name, "shnake"))
+		return (1);
+	return (0);
+}
+
+int	is_only_builtin(t_redir *exectlist)
+{
+	if (is_builtin(exectlist) && exectlist->next->flag = RE_END)
+		return (1);
+	return (0);
+}
+
+void	execute_buiiltin(t_data *data, t_redir *exectlist)
+{
+	char *name;
+
+	name = exectlist->cmd[0];
+	if (ft_strcmp(name, "cd"))
+		ft_cd(data, exectlist->cmd);
+	else if (ft_strcmp(name, "echo"))
+		ft_echo(exectlist->cmd);
+	else if (ft_strcmp(name, "env"))
+		ft_env(exectlist->cmd);
+	else if (ft_strcmp(name, "exit"))
+		ft_exit(data, exectlist->cmd);
+	else if (ft_strcmp(name, "export"))
+		ft_export(data, exectlist->cmd);
+	else if (ft_strcmp(name, "pwd"))
+		ft_pwd(data);
+	else if (ft_strcmp(name, "unset"))
+		ft_unset(data, exectlist->cmd);
+}
+
 static char **dup_array(char **original)
 {
 	char 	**array;
@@ -76,10 +128,12 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 		dup2(execlist->fd_out, STDOUT);
 		close(execlist->fd_out);
 	}
-	cmd = dup_array(execlist->cmd);//to do
+	if (is_builtin(execlist))//asd
+		execute_buiiltin(data, execlist);//oashdoi
+	cmd = dup_array(execlist->cmd);
 	cmd_name = identify_command(data, cmd[0],
 			env_find_node(data->env, "PATH")->content);
-	env = env_to_array(data->env);//to do
+	env = env_to_array(data->env);
 	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
 	execve(cmd_name, cmd, env);
 	printf("something something command not found\n");
@@ -97,6 +151,12 @@ void	execute(t_data *data, t_redir *execlist)
 	{
 		if (execlist->flag == RE_OK)
 		{
+			if (is_only_builtin(execlist))
+			{
+				execute_buiiltin(data, execlist);//aoskjfno
+				break ;
+			}
+			signal(SIGINT, SIG_IGN);
 			pid = fork();
 			if (pid == 0)
 				execute_comand(data, execlist);
