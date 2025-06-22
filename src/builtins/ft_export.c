@@ -4,7 +4,6 @@
 
 void	export_set_or_append(t_data *data, const char *arg)
 {
-	char	*raw;
 	char	*name;
 	size_t	eq_sign;
 
@@ -21,6 +20,7 @@ void	export_set_or_append(t_data *data, const char *arg)
 		else
 			env_set_node(data, arg, "");
 	}
+	free(name);
 }
 //Recibe una string tipo "VAR=value" o "VAR"
 // - Si contiene '=', se pasa directamente a env_set_raw (que llama a env_set_node)
