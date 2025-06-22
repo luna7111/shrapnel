@@ -67,6 +67,8 @@
 # define TEXT 1
 # define SYMBOL 2
 
+extern int g_exit_status;
+
 ///////////////////
 //    Structs    //
 ///////////////////
@@ -226,6 +228,8 @@ char	*get_heredoc(t_data *data, t_token *token);
 t_redir	*redirect_tokens(t_data *data, t_token *tokens);
 
 //signals
-void ft_sigint_handler(int sig);
+void	sigint_handler(int sig);
+void	sigquit_handler(int sig);
+void    set_handlers(void);
 
 #endif

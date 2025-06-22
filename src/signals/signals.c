@@ -1,37 +1,49 @@
 #include <minishell.h>
-#define MAGENTA "\001\x1B[35m\002"
-#define RESET "\001\x1B[0m\002"
 
-////variable global - 
+void    ctrl_minishell(int signal)
+{
+    if (signal == SIGINT)
+    {
+        write(1, "\n", 1);
+        rl_replace_line("", 0);
+        rl_on_new_line();
+        g_exit_status = 130;
+    }
+    else if (signal == SIGQUIT)
+    {
+        rl_on_new_line();
+        rl_redisplay();
+        g_exit_status = 131;
+    }
+}
+//Imprime un salto de línea (\n) para que el prompt no se mezcle con lo que había antes.
+//Borra la línea actual de readline con rl_replace_line.
+//Usa rl_on_new_line() para mover el cursor.
+//Usa rl_redisplay() para mostrar el prompt limpio otra vez.
+//Guarda g_exit_status = 130, que representa una interrupción por señal.
+//Solo redibuja el prompt para ignorar visualmente la señal.
+//Asigna g_exit_status = 131, que representa terminación con SIGQUIT.
 
-void ft_sigint_handler(int sig)
+void sigint_handler(int sig)
 {
     (void)sig;
-    printf(MAGENTA);
-    write(STDOUT, "\n", 1);
+    write(1, "\n", 1);
     rl_replace_line("", 0);
     rl_on_new_line();
-    rl_redisplay();   
-    //g_exit_status = 130;               
+    rl_redisplay();
+    g_exit_status = 130;
 }
-//salta de línea para limpiar lo anterior.
-//borra lo que el usuario estaba escribiendo.
-//posiciona el cursor en la nueva línea.
-//redibuja el prompt limpio.
-//código de salida para Ctrl+C.
 
-void ft_sigquit_handler(int sig)
+void sigquit_handler(int sig)
 {
     (void)sig;
+    rl_on_new_line();
+    rl_redisplay();
+    g_exit_status = 131;
 }
-// No hace nada en modo intreactivo.
 
-////Ctrl + D en main_loop, readline()== NULL
-
-
-void ft_sigint_heredoc(int sig)
+void    set_handlers(void)
 {
-	(void)sig;
-
+    signal(SIGINT, sigint_handler);
+    signal(SIGQUIT, sigquit_handler);
 }
-//maneja ctrld dentro del heredoc

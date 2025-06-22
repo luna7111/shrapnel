@@ -47,7 +47,6 @@ void	print_exec_list(t_redir *list)
 	size_t i = 0;
 	size_t j;
 
-	signal(SIGINT, ft_sigint_handler);
 	while (list[i].flag != RE_END)
 	{
 		j = 0;
@@ -70,6 +69,8 @@ void	print_exec_list(t_redir *list)
 	}
 }
 
+int	g_exit_status = 0;
+
 int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
@@ -82,6 +83,7 @@ int	main(int argc, char **argv, char **env)
 	iter = init_iter(gctrl);
 	while (1)
 	{
+		set_handlers();
 		iter->raw_input = get_user_input(data->gctrl, data);
 		if (syntax_check(iter->raw_input) == 1)
 		{
