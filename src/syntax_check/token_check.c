@@ -29,7 +29,12 @@ int	token_check(t_token *token)
 				return (printf("Syntax error near '%s\'\n", token->str), 0);
 		}
 		if (token && token->type == PIPE)
-			token = token->next;
+		{
+			if (token->next == NULL)
+				return (printf("Syntax error near '%s\'\n", token->str), 0);
+			else
+				token = token->next;
+		}
 	}
 	return (1);
 }
