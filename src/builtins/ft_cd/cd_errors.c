@@ -1,8 +1,5 @@
 #include <minishell.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <errno.h>
+#include "cd_utils.h"
 
 int	cd_error_too_many_args(void)
 {

@@ -1,7 +1,9 @@
 #include <minishell.h>
 
-static int	input_has_content(char *input)
+int	input_has_content(char *input)
 {
+	if (input == NULL)
+		return (0);
 	while (*input == ' ')
 		input++;
 	return (*input != '\0');
@@ -45,9 +47,13 @@ char	*get_user_input(t_gctrl *gctrl, t_data *data)
 
 	user = env_find_node(data->env, "USER");
 	if (user == NULL)
-		prompt = ft_strdup("shrapnel > "RESET);
+		prompt = ft_strjoin(MAGENTA, "shrapnel > "RESET);
 	else
+	{
 		prompt = ft_strjoin(user->content, "@shrapnel > "RESET);
+		gctrl_track_ptr(data->gctrl, prompt, LOOP_BLOCK);
+		prompt = ft_strjoin(MAGENTA, prompt);
+	}
 	gctrl_track_ptr(data->gctrl, prompt, LOOP_BLOCK);
 	printf(MAGENTA);
 	input = readline(prompt);
