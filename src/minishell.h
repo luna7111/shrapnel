@@ -123,27 +123,6 @@ typedef struct s_pretoken
 	size_t	output_len;
 }	t_pretoken;
 
-// FOR TESTING PURPOSES ONLY, THIS PIECE OF CODE DOESN'T BELONG IN THE MAIN
-// BRANCH!!!!!!!!!!!!!!!!!!!!!!!
-# define START 1
-# define COMMAND 2
-# define BUILTIN 3
-# define PIPE 4
-# define HEREDOC 5
-# define DELIMITER 6
-# define INFILE 7
-# define OUTFILE 8
-# define APPEND 9
-# define FILENAME 10
-
-typedef struct s_token
-{
-	char			*str;
-	size_t			output_len;
-	int				type;
-	int				quoted;
-	struct s_token	*next;
-}	t_token;
 
 #define RE_END 0
 #define RE_OK 1
