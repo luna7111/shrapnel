@@ -5,14 +5,21 @@
 void	export_set_or_append(t_data *data, const char *arg)
 {
 	char	*raw;
+	char	*name;
+	size_t	eq_sign;
 
-	if (ft_strchr(arg, '='))
-		env_set_raw(data, arg);
+	eq_sign = 0;
+	while (arg[eq_sign] && arg[eq_sign] != '=')
+		eq_sign++;
+	name = ft_substr(arg, 0, eq_sign);
+	if (env_find_node(data->env, name) == NULL)
+		env_add_node(data, arg);
 	else
 	{
-		raw = ft_strjoin(arg, "=");
-		env_set_raw(data, raw);
-		free(raw);
+		if (ft_strchr(arg, '='))
+			env_set_raw(data, arg);
+		else
+			env_set_node(data, arg, "");
 	}
 }
 //Recibe una string tipo "VAR=value" o "VAR"
