@@ -229,6 +229,7 @@ int				ft_exit(t_data *data, char **args);
 int				ft_unset(t_data *data, char **args);
 int				ft_pwd(t_data *data);
 int				ft_env(char **env);
+int				shnake(void);
 
 char			*get_heredoc(t_data *data, t_token *token);
 
