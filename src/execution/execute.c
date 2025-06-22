@@ -27,9 +27,9 @@ int	is_builtin(t_redir *exectlist)
 	return (0);
 }
 
-int	is_only_builtin(t_redir *exectlist)
+int	is_only_builtin(t_redir *execlist)
 {
-	if (is_builtin(exectlist) && exectlist[1].flag == RE_END)
+	if (is_builtin(execlist) && execlist[1].flag == RE_END)
 		return (1);
 	return (0);
 }
@@ -137,7 +137,7 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 	cmd_name = identify_command(data, cmd[0],
 			env_find_node(data->env, "PATH")->content);
 	env = env_to_array(data->env);
-	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
+	gctrl_terminate(data->gctrl);
 	execve(cmd_name, cmd, env);
 	printf("something something command not found\n");
 	free_arrays(cmd, env);
@@ -150,15 +150,12 @@ void	execute(t_data *data, t_redir *execlist)
 	size_t	process_count;
 	
 	process_count = 0;
-	while (execlist->flag != RE_END)
+	if (is_only_builtin(execlist))
+		execute_buiiltin(data, execlist);
+	else while (execlist->flag != RE_END)
 	{
 		if (execlist->flag == RE_OK)
 		{
-			if (is_only_builtin(execlist))
-			{
-				execute_buiiltin(data, execlist);//aoskjfno
-				break ;
-			}
 			signal(SIGINT, SIG_IGN);
 			pid = fork();
 			if (pid == 0)
