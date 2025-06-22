@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-static int	input_has_content(char *input)
+int	input_has_content(char *input)
 {
 	if (input == NULL)
 		return (0);

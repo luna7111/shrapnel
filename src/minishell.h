@@ -204,6 +204,7 @@ size_t			env_len(t_enviroment *env);
 
 // Other functions
 char			*get_user_input(t_gctrl *gctrl, t_data *data);
+int				input_has_content(char *input);
 
 // syntax_check
 int	syntax_check(char *input);

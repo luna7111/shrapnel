@@ -39,12 +39,13 @@ int ft_exit(t_data *data, char **args)
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(args[1], 2);
 			ft_putendl_fd(": numeric argument required", 2);
-			exit(255);//puede que sea 2
+			exit(255);
 		}
 		if (args[2])
 			return (exit_error_too_many_args());
 		code = ft_atoi(args[1]);
 	}
+	gctrl_terminate(data->gctrl);
 	exit(code);
 }
 //Built-in exit: termina el minishell.
