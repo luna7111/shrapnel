@@ -1,8 +1,5 @@
 #include <minishell.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <string.h>
+#include "cd_utils.h"
 
 void	update_pwd_oldpwd(t_data *data, char *oldpwd)
 {

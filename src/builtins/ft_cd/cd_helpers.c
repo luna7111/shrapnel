@@ -1,9 +1,6 @@
-#include "cd_utils.h"
-#include <limits.h>
 #include <minishell.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+#include "cd_utils.h"
+
 
 void	save_oldpwd(t_data *data, char *oldpwd)
 {
