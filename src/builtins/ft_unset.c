@@ -1,8 +1,8 @@
-#include<minishell.h>
+#include <minishell.h>
 
-int unset_is_valid_key(const char *arg)
+int	unset_is_valid_key(const char *arg)
 {
-	int i;
+	int	i;
 
 	if (!arg || !arg[0] || ft_isdigit(arg[0]) || arg[0] == '=')
 		return (0);
@@ -18,9 +18,9 @@ int unset_is_valid_key(const char *arg)
 // Reutiliza la lógica de validación de export,
 // pero no permite que el nombre contenga '='.
 
-void unset_delete_var(t_data *data, const char *name)
+void	unset_delete_var(t_data *data, const char *name)
 {
-	t_enviroment *node;
+	t_enviroment	*node;
 
 	node = env_find_node(data->env, name);
 	if (node)
@@ -29,11 +29,13 @@ void unset_delete_var(t_data *data, const char *name)
 // Busca la variable en la lista y la elimina con env_delete_node.
 // No imprime error si no existe, simplemente no hace nada.
 
-int ft_unset(t_data *data, char **args)
+int	ft_unset(t_data *data, char **args)
 {
-	int i = 1;
-	int status = 0;
+	int	i;
+	int	status;
 
+	i = 1;
+	status = 0;
 	while (args[i])
 	{
 		if (!unset_is_valid_key(args[i]))

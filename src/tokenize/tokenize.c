@@ -84,7 +84,7 @@ static void	extract_tokens_from_pretoken(t_data *data, t_token **list,
 		create_and_add_token(data, list, &pre->str[i], len);
 		last_node(*list)->type = get_token_type(last_node(*list), last_type,
 			pre->type);
-        last_type = last_node(*list)->type;
+		last_type = last_node(*list)->type;
 		i += len;
 	}
 }

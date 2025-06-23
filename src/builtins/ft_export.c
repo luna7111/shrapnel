@@ -1,6 +1,6 @@
-#include<minishell.h>
-#include<stdlib.h>
-#include<stdio.h>
+#include <minishell.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void	export_set_or_append(t_data *data, const char *arg)
 {
@@ -23,7 +23,8 @@ void	export_set_or_append(t_data *data, const char *arg)
 	free(name);
 }
 //Recibe una string tipo "VAR=value" o "VAR"
-// - Si contiene '=', se pasa directamente a env_set_raw (que llama a env_set_node)
+// - Si contiene '=', se pasa directamente
+//   a env_set_raw (que llama a env_set_node)
 // - Si no contiene '=', se simula con "VAR=" para declararla sin valor
 
 int	export_is_valid_key(const char *arg)
@@ -62,9 +63,11 @@ int	export_print_sorted(t_data *data)
 
 int	ft_export(t_data *data, char **args)
 {
-	int	i = 1;
-	int	status = 0;
+	int	i;
+	int	status;
 
+	i = 1;
+	status = 0;
 	if (!args[1])
 	{
 		printf("aaa\n");

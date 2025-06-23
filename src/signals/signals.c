@@ -8,7 +8,7 @@ void sigint_handler(int sig)
     rl_on_new_line();
     rl_redisplay();
     g_exit_status = 130;
-}
+
 //Se activa cuando se pulsa Ctrl+C en el shell principal.
 //Imprime un salto de línea para mantener el prompt limpio.
 //Borra la línea actual de readline (rl_replace_line).
@@ -17,22 +17,23 @@ void sigint_handler(int sig)
 //Asigna el código de salida 130 (128 + número de SIGINT).
 
 
-void sigint_newline(int sig)
+void	sigquit_handler(int sig)
 {
-    (void)sig;
-    write(1, "\n", 1);
+	(void)sig;
+	rl_on_new_line();
+	rl_redisplay();
+	g_exit_status = 131;
 }
 //Se usa en procesos hijo (ej. cat) para que al pulsar Ctrl+C 
 //se imprima sólo un salto de línea.
 //No hace más (el proceso termina automáticamente por SIGINT).
 
-void sigquit_handler(int sig)
+void	set_handlers(void)
 {
-    (void)sig;
-    rl_on_new_line();
-    rl_redisplay();
-    g_exit_status = 131;
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 }
+
 //Se activa con Ctrl+\ en shell interactivo.
 //No termina el proceso, solo refresca el prompt.
 //Código de salida 131 (128 + SIGQUIT).

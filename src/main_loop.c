@@ -1,13 +1,27 @@
 #include <minishell.h>
 
+int	is_valid_number(char *str)
+{
+	char *buf;
+
+	buf = ft_itoa(ft_atoi(str));
+	if (ft_strcmp(str, buf))
+	{
+		free(buf);
+		return (0);
+	}
+	free(buf);
+	return (1);
+}
+
 static t_data	*init_data(t_gctrl *gctrl, char **env)
 {
-	t_data	*data;
+	t_data			*data;
 
 	data = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_data));
 	data->last_input = NULL;
 	data->env = env_to_list(gctrl, env);
-	data->last_exit_code = 69;
+	data->last_exit_code = 0;
 	return (data);
 }
 
@@ -22,8 +36,9 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 
 void	print_pretokens(t_pretoken *pret)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (pret[i].type != END)
 	{
 		printf("\n---\n%s\n%ld\n%ld\n%d\n---\n", pret[i].str, pret[i].input_len,
@@ -36,17 +51,36 @@ void	print_tokens(t_token *list)
 {
 	while (list)
 	{
-		printf("str: %-12s | type: %-2d | quoted: %d\n", list->str, list->type, list->quoted);
+		printf("str: %-12s | type: %-2d | quoted: %d\n",
+			list->str, list->type, list->quoted);
 		list = list->next;
 	}
 	printf("---\n");
 }
+void	set_shlvl(t_data *data)
+{
+	t_enviroment	*shlvl;
+	char			*shlvl_val;
+
+	shlvl = env_find_node(data->env, "SHLVL");
+	if (shlvl == NULL)
+		env_add_node(data, "SHLVL=1");
+	else if (is_valid_number(shlvl->content))
+	{
+		shlvl_val = ft_itoa(ft_atoi(shlvl->content) + 1);
+		env_set_node(data, "SHLVL", shlvl_val);
+		free(shlvl_val);
+	}
+	else
+		env_set_node(data, "SHLVL", "1");
+}
 
 void	print_exec_list(t_redir *list)
 {
-	size_t i = 0;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
+	i = 0;
 	while (list[i].flag != RE_END)
 	{
 		j = 0;
@@ -54,7 +88,7 @@ void	print_exec_list(t_redir *list)
 		if (list[i].flag == RE_SKIP)
 			printf("(This node will be skiped by execution)\n\n");
 		printf("Command args:\n");
-		while (list[i].cmd[j])	
+		while (list[i].cmd[j])
 		{
 			printf("%s\n", list[i].cmd[j]);
 			j++;
@@ -81,16 +115,18 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(gctrl, env);
 	data->gctrl = gctrl;
 	iter = init_iter(gctrl);
+	set_shlvl(data);
 	while (1)
 	{
 		set_handlers();
 		iter->raw_input = get_user_input(data->gctrl, data);
 		if (iter->raw_input == NULL)
-				break ;
-		if (syntax_check(iter->raw_input) == 1)
+			break ;
+		if (input_has_content(iter->raw_input)
+			&& syntax_check(iter->raw_input) == 1)
 		{
 			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
-		    iter->tokens = tokenize(data, iter->pretokenized_input);
+			iter->tokens = tokenize(data, iter->pretokenized_input);
 			if (token_check(iter->tokens))
 			{
 				iter->exec_list = redirect_tokens(data, iter->tokens);
