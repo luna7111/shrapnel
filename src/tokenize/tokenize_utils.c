@@ -14,8 +14,8 @@ t_token	*new_node(t_gctrl *gctrl)
 	node->next = NULL;
 	return (node);
 }
-// Crea un nuevo nodo vacio, con memoria del gctrl.
-// Inicializa todos los campos del nodo(str, len, quoted y next).
+// Create a new empty node, with memory from gctrl.
+// Initialise all fields of the node(str, len, quoted and next).
 
 void	token_add_back(t_token **lst, t_token *new)
 {
@@ -33,10 +33,10 @@ void	token_add_back(t_token **lst, t_token *new)
 		last = last->next;
 	last->next = new;
 }
-// Añade un nodo t_token al final de una lista enlazada.
-// Si la lista está vacía, el nuevo nodo se convierte en el primero.
-// Si la lista ya tiene elementos,
-//recorre hasta el final y enlaza el nuevo nodo..
+// Add a t_token node to the end of a linked list.
+// If the list is empty, the new node becomes the first one.
+// If the list already has elements,
+// runs to the end and links the new node...
 
 t_token	*last_node(t_token *lst)
 {
@@ -44,9 +44,9 @@ t_token	*last_node(t_token *lst)
 		lst = lst->next;
 	return (lst);
 }
-// Usada para obtener el último nodo de la lista de tokens.
-// Obtenemos el último token creado y
-// lo asignamos el tipo correcto en get_token_type.
+// Used to get the last node in the token list.
+// Get the last token created and
+// assign it the correct type in get_token_type.
 
 void	unquote_node(t_data *data, t_token *token)
 {
@@ -72,9 +72,9 @@ void	unquote_node(t_data *data, t_token *token)
 	token->str = unquoted;
 	token->output_len = ft_strlen(token->str);
 }
-// Usada para eliminiar comillas del contenido de un token.
-// Copia cada caracter al nuevo string excepto si es comilla.
-// Reemplaza el str original del token con la versión sin comillas.
+// Used to remove quotes from the contents of a token.
+// Copies each character to the new string except if it is a quote.
+// Replaces the original token string with the unquoted version.
 
 void	create_and_add_token(t_data *data, t_token **list, char *str,
 		size_t len)
@@ -97,8 +97,8 @@ void	create_and_add_token(t_data *data, t_token **list, char *str,
 	}
 	token_add_back(list, node);
 }
-// Creamos un nodo
-// Duplicamos el string con ft_substr.
-// Detecta si hay comillas usando ft_strnchr.
-// Si hay comillas, marca quoted = 1 y elimina las comillas(unquoted_node).
-// Añade el nodo a lista con add_back.
+// Create a node
+// Duplicate the string with ft_substr.
+// Detect if there are quotes using ft_strnchr.
+// If there are quotes, mark quoted = 1 and remove the quotes(unquoted_node).
+// Add the node to list with add_back.

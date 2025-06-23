@@ -1,24 +1,24 @@
 #include <minishell.h>
 
-void sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
-    (void)sig;
-    ioctl(1, TIOCSTI, "\n");
-    rl_on_new_line();
-    rl_replace_line("", 0);
-    g_exit_status = 130;
+	(void)sig;
+	ioctl(1, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_exit_status = 130;
 }
-//Se activa cuando se pulsa Ctrl+C en el shell principal.
-//Imprime un salto de línea para mantener el prompt limpio.
-//Borra la línea actual de readline (rl_replace_line).
-//Mueve el cursor a la línea nueva (rl_on_new_line).
-//Redisplay para mostrar el prompt otra vez (rl_redisplay).
-//Asigna el código de salida 130 (128 + número de SIGINT).
+// Activated when Ctrl+C is pressed in the main shell.
+// Print a line break to keep the prompt clean.
+// Delete the current line of readline (rl_replace_line).
+// Move the cursor to the new line (rl_on_new_line).
+// Redisplay to show the prompt again (rl_redisplay).
+// Assign the exit code 130 (128 + SIGINT number).
 
-void    sigint_newline(int sig)
+void	sigint_newline(int sig)
 {
-    (void)sig;
-    write(1, "\n", 1);
+	(void)sig;
+	write(1, "\n", 1);
 }
 
 void	sigquit_handler(int sig)
@@ -28,9 +28,10 @@ void	sigquit_handler(int sig)
 	rl_redisplay();
 	g_exit_status = 131;
 }
-//Se usa en procesos hijo (ej. cat) para que al pulsar Ctrl+C 
-//se imprima sólo un salto de línea.
-//No hace más (el proceso termina automáticamente por SIGINT).
+// Used in child processes (e.g. cat) so that when pressing Ctrl+C
+// only one line break is printed.
+// Does nothing else (the process is automatically terminated by SIGINT).
+// Se usa en procesos hijo (ej. cat) para que al pulsar Ctrl+C
 
 void	set_handlers(void)
 {
@@ -38,12 +39,12 @@ void	set_handlers(void)
 	signal(SIGQUIT, sigquit_handler);
 }
 
-//Se activa con Ctrl+\ en shell interactivo.
-//No termina el proceso, solo refresca el prompt.
-//Código de salida 131 (128 + SIGQUIT).
+// Activate with Ctrl+ in interactive shell.
+// Does not terminate the process, just refreshes the prompt.
+// Exit code 131 (128 + SIGQUIT).
 
-void set_child_handlers(void)
+void	set_child_handlers(void)
 {
-    signal(SIGINT, sigint_newline);
-    signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, sigint_newline);
+	signal(SIGQUIT, SIG_DFL);
 }
