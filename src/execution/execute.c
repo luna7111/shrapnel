@@ -3,11 +3,17 @@
 
 char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env);
 
-void	set_underscore(t_data *data, char *name)
+void	set_underscore(t_data *data, t_redir *node)
 {
 	t_enviroment	*envnode;
 	char		*rawvar;
+	char		*name;
+	size_t		i;
 
+	i = 0;
+	while (node->cmd[i + 1] != NULL)
+		i++;
+	name = node->cmd[i];
 	envnode = env_find_node(data->env, "_");
 	if (envnode == NULL)
 	{
@@ -117,23 +123,22 @@ void	execute_builtin(t_data *data, t_redir *exectlist)
 
 	env = env_to_array(data->env);
 	name = exectlist->cmd[0];
-	set_underscore(data, name);
 	if (!ft_strcmp(name, "cd"))
-		data->last_exit_code = ft_cd(data, exectlist->cmd);
+		g_exit_status = ft_cd(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "echo"))
-		data->last_exit_code = ft_echo(exectlist->cmd);
+		g_exit_status = ft_echo(exectlist->cmd);
 	else if (!ft_strcmp(name, "env"))
-		data->last_exit_code = ft_env(env);
+		g_exit_status = ft_env(env);
 	else if (!ft_strcmp(name, "exit"))
-		data->last_exit_code = ft_exit(data, exectlist->cmd);
+		g_exit_status = ft_exit(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "export"))
-		data->last_exit_code = ft_export(data, exectlist->cmd);
+		g_exit_status = ft_export(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "pwd"))
-		data->last_exit_code = ft_pwd(data);
+		g_exit_status = ft_pwd(data);
 	else if (!ft_strcmp(name, "unset"))
-		data->last_exit_code = ft_unset(data, exectlist->cmd);
+		g_exit_status = ft_unset(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "shnake"))
-		data->last_exit_code = shnake();
+		g_exit_status = shnake();
 	free_strarray(env);
 }
 
@@ -178,12 +183,12 @@ void	execute(t_data *data, t_redir *execlist)
 	pid_t	pid;
 	int		wstatus;
 	size_t	process_count;
-	char	*cmd_path;
 
 	process_count = 0;
 	if (is_only_builtin(execlist))
 	{
-		execute_buiiltin(data, execlist);
+		set_underscore(data, execlist);
+		execute_builtin(data, execlist);
 		if (execlist->fd_in > 2)
 			close(execlist->fd_in);
 		if (execlist->fd_out > 2)
@@ -196,10 +201,8 @@ void	execute(t_data *data, t_redir *execlist)
 			if (execlist->flag == RE_OK)
 			{
 				signal(SIGINT, SIG_IGN);
+				set_underscore(data, execlist);
 				pid = fork();
-				cmd_path = identify_command(data, execlist->cmd[0], env_find_node(data->env, "PATH"));
-				set_underscore(data, cmd_path);
-				free(cmd_path);
 				if (pid == 0)
 					execute_comand(data, execlist);
 				if (execlist->fd_in > 2)
@@ -222,7 +225,7 @@ void	execute(t_data *data, t_redir *execlist)
 	while (process_count > 0)
 	{
 		waitpid(ANYPID, &wstatus, 0);
-		data->last_exit_code = WEXITSTATUS(wstatus);
+		g_exit_status = WEXITSTATUS(wstatus);
 		process_count--;
 	}
 }

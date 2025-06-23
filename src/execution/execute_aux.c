@@ -26,7 +26,7 @@ char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env)
 	{
 		printf("Command not found.\n");
 		gctrl_cleanup(data->gctrl, ALL_BLOCKS);
-		exit (-1);
+		exit (127);
 	}
 	path = path_env->content;
 	split_path = ft_split(path, ':');
@@ -48,5 +48,5 @@ char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env)
 	free_str_array(split_path);
 	printf("Command not found.\n");
 	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
-	exit(127);//
+	exit(127);
 }

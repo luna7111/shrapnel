@@ -103,6 +103,26 @@ void	print_exec_list(t_redir *list)
 	}
 }
 
+void	set_pwd(t_data *data)
+{
+	char			pwd[PATH_MAX];
+	char			*rawvar;
+	t_enviroment	*node;
+
+	node = env_find_node(data->env, "PWD");
+	getcwd(pwd, sizeof(pwd));
+	if (node == NULL)
+	{
+		rawvar = ft_strjoin("PWD=", pwd);
+		env_add_node(data, rawvar);
+		free(rawvar);
+	}
+	else
+	{
+		env_set_node(data, "PWD", pwd);
+	}
+}
+
 int	g_exit_status = 0;
 
 int	main(int argc, char **argv, char **env)
@@ -116,6 +136,7 @@ int	main(int argc, char **argv, char **env)
 	data->gctrl = gctrl;
 	iter = init_iter(gctrl);
 	set_shlvl(data);
+	set_pwd(data);
 	while (1)
 	{
 		set_handlers();
@@ -132,7 +153,8 @@ int	main(int argc, char **argv, char **env)
 				iter->exec_list = redirect_tokens(data, iter->tokens);
 				if (g_exit_status != -1)
 					execute(data, iter->exec_list);
-				g_exit_status = 0;
+				else
+					g_exit_status = 0;
 			}
 		}
 		gctrl_cleanup(gctrl, LOOP_BLOCK);

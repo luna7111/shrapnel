@@ -44,7 +44,7 @@ static t_chunk	expand_variable(t_data *data, char *str, ptrdiff_t len)
 	gctrl_track_ptr(data->gctrl, varname, LOOP_BLOCK);
 	if (!ft_strcmp("?", varname))
 	{
-		chunk.str = ft_itoa(data->last_exit_code);
+		chunk.str = ft_itoa(g_exit_status);
 		gctrl_track_ptr(data->gctrl, chunk.str, LOOP_BLOCK);
 		return (chunk);
 	}
