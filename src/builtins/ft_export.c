@@ -1,6 +1,4 @@
 #include <minishell.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 void	export_set_or_append(t_data *data, const char *arg)
 {
@@ -22,10 +20,11 @@ void	export_set_or_append(t_data *data, const char *arg)
 	}
 	free(name);
 }
-//Recibe una string tipo "VAR=value" o "VAR"
-// - Si contiene '=', se pasa directamente
-//   a env_set_raw (que llama a env_set_node)
-// - Si no contiene '=', se simula con "VAR=" para declararla sin valor
+// Receives a string of type "VAR=value" or "VAR"
+// - If it contains '=', it is passed directly
+// to env_set_raw (which calls env_set_node)
+// - If it does not contain '=', it is simulated with
+//"VAR=" to declare it without value.
 
 int	export_is_valid_key(const char *arg)
 {
@@ -42,9 +41,9 @@ int	export_is_valid_key(const char *arg)
 	}
 	return (1);
 }
-//Verifica que el nombre de la variable sea válido para exportar.
-// - No debe comenzar con número ni ser vacío ni empezar con '='
-// - Solo permite letras, números o '_', antes del '='
+// Verify that the variable name is valid for export.
+// - Must not start with a number or be empty or start with '='
+// - Only allow letters, numbers or '_', before the '='.
 
 int	export_print_sorted(t_data *data)
 {
@@ -58,8 +57,8 @@ int	export_print_sorted(t_data *data)
 	}
 	return (42);
 }
-// Imprime variables exportadas, usando copia del entorno actual.
-// Formato: declare -x VAR="valor"
+// Print exported variables, using a copy of the current environment.
+// Format: declare -x VAR="value".
 
 int	ft_export(t_data *data, char **args)
 {
@@ -88,6 +87,6 @@ int	ft_export(t_data *data, char **args)
 	}
 	return (status);
 }
-//Función principal del built-in export.
-// - Sin argumentos: imprime el entorno ordenado
-// - Con argumentos: los valida y exporta si son correctos
+// Main function of built-in export.
+// - Without arguments: prints the sorted environment
+// - With arguments: validates and exports if correct

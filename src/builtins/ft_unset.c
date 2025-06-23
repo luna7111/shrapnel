@@ -15,8 +15,8 @@ int	unset_is_valid_key(const char *arg)
 	}
 	return (1);
 }
-// Reutiliza la lógica de validación de export,
-// pero no permite que el nombre contenga '='.
+// Reuse the validation logic of export,
+// but do not allow the name to contain '='.
 
 void	unset_delete_var(t_data *data, const char *name)
 {
@@ -26,8 +26,8 @@ void	unset_delete_var(t_data *data, const char *name)
 	if (node)
 		env_delete_node(data->gctrl, &data->env, node);
 }
-// Busca la variable en la lista y la elimina con env_delete_node.
-// No imprime error si no existe, simplemente no hace nada.
+// Searches for the variable in the list and deletes it with env_delete_node.
+// Doesn't print an error if it doesn't exist, it just does nothing.
 
 int	ft_unset(t_data *data, char **args)
 {
@@ -51,7 +51,7 @@ int	ft_unset(t_data *data, char **args)
 	}
 	return (status);
 }
-// Función principal del built-in unset.
-// - Recorre cada argumento.
-// - Si la clave es válida, la elimina si existe.
-// - Si no es válida, imprime error.
+// Main function of built-in unset.
+// - Loops through each argument.
+// - If the key is valid, removes it if it exists.
+// - If invalid, prints error.

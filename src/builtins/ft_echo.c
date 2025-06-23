@@ -15,11 +15,13 @@ static int	is_n_flag(char *arg)
 	}
 	return (1);
 }
-//verifica si el argumento es un flag -n, permitiendo múltiples n (como -nnn).
-//Si argumento es nulo,no empieza con -,o el segundo carácter no es n,retorna 0
-//Inicia iteración desde el tercer carácter y recorre el resto del string.
-//Si encuentra un carácter diferente de n, no es un flag válido.
-//Todos los caracteres son n, se confirma como flag válido -n.
+// checks if argument is an -n flag, allowing multiple n's (such as -nnn).
+// If argument is null, does not start with -,
+// or second character is not n, returns 0
+// Starts iteration from the third character
+// and runs through the rest of the string.
+// If a character other than n is found, it is not a valid flag.
+// All characters are n, valid flag -n is confirmed as valid flag -n.
 
 int	ft_echo(char **args)
 {
@@ -48,19 +50,12 @@ int	ft_echo(char **args)
 	}
 	return (0);
 }
-//Función que simula el comando echo, con soporte para el flag -n.
-//is_flaged = Bandera para indicar si se detectó el flag -n.
-//Mientras haya flags -n, continúa avanzando.
-//Marca que se encontró al menos un flag -n.
-//Recorre los argumentos restantes.
-//Imprime el argumento actual a la salida estándar.
-//Si no es el último argumento, imprime un espacio.
-//Si no se usó el flag -n, añade un salto de línea.
-//Si no hay argumentos, no imprime nada y retorna 0.
-/*
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	return (ft_echo(argv));
-}
-*/
+// Function that simulates the echo command, with support for the -n flag.
+// is_flaged = Flag to indicate whether the -n flag was detected.
+// While there are -n flags, continues to advance.
+// Marks that at least one -n flag was encountered.
+// Recorrects the remaining arguments.
+// Prints the current argument to standard output.
+// If it is not the last argument, prints a space.
+// If the -n flag was not used, adds a line break.
+// If there are no arguments, prints nothing and returns 0.

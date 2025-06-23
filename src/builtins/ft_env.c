@@ -16,25 +16,7 @@ int	ft_env(char **envp)
 	}
 	return (0);
 }
-//Función que imprime las variables de entorno recibidas como argumento.
-//Itera mientras haya variables de entorno (hasta llegar a NULL).
-//Verifica que el string no esté vacío y que contenga el carácter '='.
-//Imprime la variable de entorno completa en la salida estándar y salto de línea
-/*
-int	main(void)
-{
-	char *env[] = 
-	{
-		"USER=student",
-		"PWD=/home/student",
-		"PATH=/usr/bin:/bin",
-		"SHLVL=1",
-		"EMPTYVAR",
-		"TERM=xterm-256color",
-		NULL
-	};
-	ft_env(env);
-
-	return (0);
-}
-*/
+// Function that prints out the environment variables received as arguments.
+// It loops as long as there are environment variables (until NULL).
+// Checks that the string is not empty and that it contains the character '='.
+// Prints the complete environment variable to standard output and linefeed.
