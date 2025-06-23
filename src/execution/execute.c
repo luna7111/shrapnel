@@ -6,9 +6,9 @@ char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env);
 void	set_underscore(t_data *data, t_redir *node)
 {
 	t_enviroment	*envnode;
-	char		*rawvar;
-	char		*name;
-	size_t		i;
+	char			*rawvar;
+	char			*name;
+	size_t			i;
 
 	i = 0;
 	while (node->cmd[i + 1] != NULL)
@@ -26,7 +26,6 @@ void	set_underscore(t_data *data, t_redir *node)
 		env_set_node(data, "_", name);
 	}
 }
-
 
 int	is_builtin(t_redir *exectlist)
 {
@@ -142,12 +141,26 @@ void	execute_builtin(t_data *data, t_redir *exectlist)
 	free_strarray(env);
 }
 
-static void	execute_comand(t_data *data, t_redir *execlist)
+void	execute_system_comand(t_data *data, t_redir *execlist)
 {
 	char	*cmd_name;
 	char	**cmd;
 	char	**env;
 
+	cmd = dup_array(execlist->cmd);
+	cmd_name = identify_command(data, cmd[0],
+			env_find_node(data->env, "PATH"));
+	env = env_to_array(data->env);
+	gctrl_terminate(data->gctrl);
+	signal(SIGINT, SIG_DFL);
+	execve(cmd_name, cmd, env);
+	data->last_exit_code = errno;
+	perror("");
+	free_arrays(cmd, env);
+}
+
+static void	execute_comand(t_data *data, t_redir *execlist)
+{
 	if (execlist->fd_in != STDIN)
 	{
 		dup2(execlist->fd_in, STDIN);
@@ -161,56 +174,62 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 	if (is_builtin(execlist))
 		execute_builtin(data, execlist);
 	else
-	{
-		cmd = dup_array(execlist->cmd);
-		cmd_name = identify_command(data, cmd[0],
-		env_find_node(data->env, "PATH"));
-		env = env_to_array(data->env);
-		gctrl_terminate(data->gctrl);
-		signal(SIGINT, SIG_DFL);
-		execve(cmd_name, cmd, env);
-		data->last_exit_code = errno;
-		perror("");
-		free_arrays(cmd, env);
-	}
+		execute_system_comand(data, execlist);
 	exit(0);
-	
 }
 
-char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env);
-void	execute(t_data *data, t_redir *execlist)
+void	wait_for_processes(size_t nb)
+{
+	int		wstatus;
+
+	while (nb > 0)
+	{
+		waitpid(ANYPID, &wstatus, 0);
+		g_exit_status = WEXITSTATUS(wstatus);
+		nb--;
+	}
+}
+
+void	exec_only_builtin(t_data *data, t_redir *execlist)
+{
+	set_underscore(data, execlist);
+	execute_builtin(data, execlist);
+	if (execlist->fd_in > 2)
+		close(execlist->fd_in);
+	if (execlist->fd_out > 2)
+		close(execlist->fd_out);
+}
+
+void	pre_execute_command(t_data *data, t_redir *execlist)
 {
 	pid_t	pid;
-	int		wstatus;
+
+	signal(SIGINT, SIG_IGN);
+	set_underscore(data, execlist);
+	pid = fork();
+	if (pid == 0)
+		execute_comand(data, execlist);
+	if (execlist->fd_in > 2)
+		close(execlist->fd_in);
+	if (execlist->fd_out > 2)
+		close(execlist->fd_out);
+}
+
+void	execute(t_data *data, t_redir *execlist)
+{
 	size_t	process_count;
 
 	process_count = 0;
 	if (is_only_builtin(execlist))
-	{
-		set_underscore(data, execlist);
-		execute_builtin(data, execlist);
-		if (execlist->fd_in > 2)
-			close(execlist->fd_in);
-		if (execlist->fd_out > 2)
-			close(execlist->fd_out);
-	}
+		exec_only_builtin(data, execlist);
 	else
 	{
 		while (execlist->flag != RE_END)
 		{
 			if (execlist->flag == RE_OK)
 			{
-				signal(SIGINT, SIG_IGN);
-				set_underscore(data, execlist);
-				pid = fork();
-				if (pid == 0)
-					execute_comand(data, execlist);
-				if (execlist->fd_in > 2)
-					close(execlist->fd_in);
-				if (execlist->fd_out > 2)
-					close(execlist->fd_out);
+				pre_execute_command(data, execlist++);
 				process_count ++;
-				execlist ++;
 			}
 			else
 			{
@@ -222,10 +241,5 @@ void	execute(t_data *data, t_redir *execlist)
 			}
 		}
 	}
-	while (process_count > 0)
-	{
-		waitpid(ANYPID, &wstatus, 0);
-		g_exit_status = WEXITSTATUS(wstatus);
-		process_count--;
-	}
+	wait_for_processes(process_count);
 }

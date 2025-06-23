@@ -54,8 +54,8 @@
 # include <stddef.h>
 
 //ioctrl
-#include <termios.h>
-#include <sys/ioctl.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 
 ////////////////////////////
 //    Macros & enums    ////

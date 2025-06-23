@@ -2,7 +2,7 @@
 
 int	is_valid_number(char *str)
 {
-	char *buf;
+	char	*buf;
 
 	buf = ft_itoa(ft_atoi(str));
 	if (ft_strcmp(str, buf))
@@ -57,6 +57,7 @@ void	print_tokens(t_token *list)
 	}
 	printf("---\n");
 }
+
 void	set_shlvl(t_data *data)
 {
 	t_enviroment	*shlvl;
