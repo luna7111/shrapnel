@@ -1,19 +1,5 @@
 #include <minishell.h>
 
-int	is_valid_number(char *str)
-{
-	char	*buf;
-
-	buf = ft_itoa(ft_atoi(str));
-	if (ft_strcmp(str, buf))
-	{
-		free(buf);
-		return (0);
-	}
-	free(buf);
-	return (1);
-}
-
 static t_data	*init_data(t_gctrl *gctrl, char **env)
 {
 	t_data			*data;
@@ -32,96 +18,6 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 	iter = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_data));
 	iter->raw_input = NULL;
 	return (iter);
-}
-
-void	print_pretokens(t_pretoken *pret)
-{
-	size_t	i;
-
-	i = 0;
-	while (pret[i].type != END)
-	{
-		printf("\n---\n%s\n%ld\n%ld\n%d\n---\n", pret[i].str, pret[i].input_len,
-			pret[i].output_len, pret[i].type);
-		i++;
-	}
-}
-
-void	print_tokens(t_token *list)
-{
-	while (list)
-	{
-		printf("str: %-12s | type: %-2d | quoted: %d\n",
-			list->str, list->type, list->quoted);
-		list = list->next;
-	}
-	printf("---\n");
-}
-
-void	set_shlvl(t_data *data)
-{
-	t_enviroment	*shlvl;
-	char			*shlvl_val;
-
-	shlvl = env_find_node(data->env, "SHLVL");
-	if (shlvl == NULL)
-		env_add_node(data, "SHLVL=1");
-	else if (is_valid_number(shlvl->content))
-	{
-		shlvl_val = ft_itoa(ft_atoi(shlvl->content) + 1);
-		env_set_node(data, "SHLVL", shlvl_val);
-		free(shlvl_val);
-	}
-	else
-		env_set_node(data, "SHLVL", "1");
-}
-
-void	print_exec_list(t_redir *list)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (list[i].flag != RE_END)
-	{
-		j = 0;
-		printf("\n---\n\nNode\n\n");
-		if (list[i].flag == RE_SKIP)
-			printf("(This node will be skiped by execution)\n\n");
-		printf("Command args:\n");
-		while (list[i].cmd[j])
-		{
-			printf("%s\n", list[i].cmd[j]);
-			j++;
-		}
-		printf("\nfd in: %d\n", list[i].fd_in);
-		if (list[i].fd_in > 2)
-			close(list[i].fd_in);
-		printf("fd out: %d\n", list[i].fd_out);
-		if (list[i].fd_out > 2)
-			close(list[i].fd_out);
-		i++;
-	}
-}
-
-void	set_pwd(t_data *data)
-{
-	char			pwd[PATH_MAX];
-	char			*rawvar;
-	t_enviroment	*node;
-
-	node = env_find_node(data->env, "PWD");
-	getcwd(pwd, sizeof(pwd));
-	if (node == NULL)
-	{
-		rawvar = ft_strjoin("PWD=", pwd);
-		env_add_node(data, rawvar);
-		free(rawvar);
-	}
-	else
-	{
-		env_set_node(data, "PWD", pwd);
-	}
 }
 
 int	g_exit_status = 0;

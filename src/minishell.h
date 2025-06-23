@@ -195,8 +195,11 @@ typedef struct s_iter
 //    Function prototypes    //
 ///////////////////////////////
 // Aux
-// Enviroment management
+int				is_valid_number(char *str);
+void			set_shlvl(t_data *data);
+void			set_pwd(t_data *data);
 
+// Enviroment management
 t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable);
 t_enviroment	*env_find_node(t_enviroment *head, const char *name);
 t_enviroment	*env_to_list(t_gctrl *gctrl, char **env);
@@ -207,25 +210,34 @@ void			env_delete_node(t_gctrl *g, t_enviroment **l, t_enviroment *n);
 size_t			env_len(t_enviroment *env);
 
 // Other functions
-char			*get_user_input(t_gctrl *gctrl, t_data *data);
 int				input_has_content(char *input);
 
 // syntax_check
 int				syntax_check(char *input);
 int				token_check(t_token *tokens);
+// Get input
+char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
 // Expansion
 char			*expand_input(t_data *data, char *str);
 char			*expand_heredoc(t_data *data, char *str);
 
-//pretoken
+// Pretokenize
 t_pretoken		*pretokenize_input(t_data *data, char *raw_input);
 
-//tokenize
+// Tokenize
 t_token			*tokenize(t_data *data, t_pretoken *input);
 
-// built-ins
+// Redirect
+t_redir			*redirect_tokens(t_data *data, t_token *tokens);
 
+// Heredoc
+char			*get_heredoc(t_data *data, t_token *token);
+
+// Execute
+void			execute(t_data *data, t_redir *exec_list);
+
+// built-ins
 int				ft_export(t_data *data, char **args);
 int				ft_echo(char **args);
 int				ft_cd(t_data *data, char **args);
@@ -234,12 +246,6 @@ int				ft_unset(t_data *data, char **args);
 int				ft_pwd(t_data *data);
 int				ft_env(char **env);
 int				shnake(void);
-
-char			*get_heredoc(t_data *data, t_token *token);
-
-t_redir			*redirect_tokens(t_data *data, t_token *tokens);
-
-void			execute(t_data *data, t_redir *exec_list);
 
 //signals
 void			sigint_handler(int sig);

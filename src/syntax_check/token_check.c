@@ -4,10 +4,10 @@ int	check_infile_hdoc(t_token *token)
 {
 	if (token->type == INFILE || token->type == OUTFILE
 		|| token->type == APPEND)
-	if (token->next == NULL || token->next->type != FILENAME)
-		return (printf("Syntax error near '%s\'\n", token->str), 0);
+		if (token->next == NULL || token->next->type != FILENAME)
+			return (printf("Syntax error near '%s\'\n", token->str), 0);
 	if (token->type == HEREDOC && (token->next == NULL
-		|| token->next->type != DELIMITER))
+			|| token->next->type != DELIMITER))
 		return (printf("Syntax error near '%s\'\n", token->str), 0);
 	return (1);
 }

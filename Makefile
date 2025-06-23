@@ -4,7 +4,7 @@ NAME		:=	minishell
 
 CC			:=	cc
 
-CFLAGS		:=	-Wall -Wextra -Werror -Isrc -fsanitize=thread
+CFLAGS		:=	-Wall -Wextra -Werror -Isrc
 
 SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_find_node.c\
@@ -20,8 +20,11 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/enviroment/env_set_raw.c\
 			src/execution/execute.c\
 			src/execution/execute_aux.c\
+			src/execution/execute_aux2.c\
+			src/execution/execute_aux3.c\
 			src/input/get_user_input.c\
 			src/main_loop.c\
+			src/aux.c\
 			src/signals/signals.c\
 			src/builtins/ft_echo.c\
 			src/builtins/ft_pwd.c\
