@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/05/30 22:25:17 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 00:55:42 by ldel-val          ``                     */
+/*   Updated: 2025/06/23 14:51:53 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_terminal_mode(int mode)
 #define RESET "\001\x1B[0m\002"
 #define CURSOR_UP_16 "\033[16A"
 
-int get_head_direction(int	current)
+int	get_head_direction(int current)
 {
 	char	buf[128];
 	int		n;
@@ -79,7 +79,7 @@ int get_head_direction(int	current)
 
 void	busy_wait(unsigned long int units)
 {
-	volatile unsigned long int i;
+	volatile unsigned long int	i;
 
 	i = 0;
 	while (i < units)
@@ -87,7 +87,7 @@ void	busy_wait(unsigned long int units)
 	return ;
 }
 
-typedef struct	s_snake
+typedef struct s_snake
 {
 	int		apple[2];
 	int		snake_len;
@@ -122,7 +122,6 @@ void print_map(t_snake *snake)
 
 	x_iter = 0;
 	y_iter = 0;
-
 	while (y_iter < 16)
 	{
 		while (x_iter < 16)
@@ -135,11 +134,11 @@ void print_map(t_snake *snake)
 	}
 	map[snake->apple[Y_POS]][snake->apple[X_POS]] = '#';
 
-	
 	x_iter = 0;
 	while (x_iter < snake->snake_len && x_iter < 64)
 	{
-		if (snake->body[x_iter][Y_POS] >= 0 && snake->body[x_iter][Y_POS] < 16 && snake->body[x_iter][X_POS] >= 0 && snake->body[x_iter][X_POS] < 16)
+		if (snake->body[x_iter][Y_POS] >= 0 && snake->body[x_iter][Y_POS]
+	< 16 && snake->body[x_iter][X_POS] >= 0 && snake->body[x_iter][X_POS] < 16)
 		{
 			if (x_iter == 0)
 				c = 'O';
@@ -151,8 +150,6 @@ void print_map(t_snake *snake)
 		}
 		x_iter ++;
 	}
-
-
 	x_iter = 0;
 	y_iter = 0;
 	while (y_iter < 16)
@@ -185,8 +182,10 @@ void	move_snake(t_snake *snake)
 		snake_iterator = 63;
 	while (snake_iterator > 0)
 	{
-		snake->body[snake_iterator][X_POS] = snake->body[snake_iterator - 1][X_POS];
-		snake->body[snake_iterator][Y_POS] = snake->body[snake_iterator - 1][Y_POS];
+		snake->body[snake_iterator][X_POS]
+			= snake->body[snake_iterator - 1][X_POS];
+		snake->body[snake_iterator][Y_POS]
+			= snake->body[snake_iterator - 1][Y_POS];
 		snake_iterator --;
 	}
 	if (snake->snake_direction == D_UP)
@@ -245,20 +244,14 @@ int	check_death(t_snake *snake)
 #define FULLLINE "###################\n"
 #define MIDLINE "#                 #\n"
 
-int	shnake(void)
+void	shnake_loop(t_snake *snake, unsigned long wait_time)
 {
-	t_snake	*snake;
-	unsigned long	wait_time;
-
-	snake = init_snake();
-	set_terminal_mode(1);
-	wait_time = 200000000;
-
 	while (g_exit_status == 0)
 	{
 		snake->snake_direction = get_head_direction(snake->snake_direction);
 		move_snake(snake);
-		if (snake->body[0][X_POS] == snake->apple[X_POS] && snake->body[0][Y_POS] == snake->apple[Y_POS])
+		if (snake->body[0][X_POS] == snake->apple[X_POS]
+				&& snake->body[0][Y_POS] == snake->apple[Y_POS])
 			eat_apple(snake);
 		if (g_exit_status != 0)
 			break;
@@ -268,12 +261,27 @@ int	shnake(void)
 		if (check_death(snake))
 			break ;
 	}
+
+}
+
+int	shnake(void)
+{
+	t_snake	*snake;
+	unsigned long	wait_time;
+
+	snake = init_snake();
+	set_terminal_mode(1);
+	wait_time = 200000000;
+	signal(SIGINT, shnake_sigint_handler);
+	signal(SIGQUIT, shnake_sigquit_handler);
+	shnake_loop(snake, wait_time);
 	printf(EMPTYLINE FULLLINE MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE);
 	printf("#   You lost! :(  #\n");
 	printf("#    Score: %s%-3i%s   #\n", GREEN, snake->snake_len, RESET);
 	printf(MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE MIDLINE FULLLINE EMPTYLINE);
 	set_terminal_mode(0);
 	free(snake);
+	set_handlers();
 	g_exit_status = 0;
 	return (0);
 }
