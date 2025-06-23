@@ -1,5 +1,5 @@
-#include "cd_utils.h"
 #include <minishell.h>
+#include "cd_utils.h"
 
 char	*get_target_path(t_data *data, char **args, int *print_path)
 {
