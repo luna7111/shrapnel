@@ -126,6 +126,30 @@ void	set_pwd(t_data *data)
 
 int	g_exit_status = 0;
 
+int	main_loop(t_data *data, t_iter *iter)
+{
+	set_handlers();
+	iter->raw_input = get_user_input(data->gctrl, data);
+	if (iter->raw_input == NULL)
+		return (0);
+	if (input_has_content(iter->raw_input)
+		&& syntax_check(iter->raw_input) == 1)
+	{
+		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
+		iter->tokens = tokenize(data, iter->pretokenized_input);
+		if (token_check(iter->tokens))
+		{
+			iter->exec_list = redirect_tokens(data, iter->tokens);
+			if (g_exit_status != -1)
+				execute(data, iter->exec_list);
+			else
+				g_exit_status = 0;
+		}
+	}
+	gctrl_cleanup(data->gctrl, LOOP_BLOCK);
+	return (1);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_gctrl	*gctrl;
@@ -139,27 +163,8 @@ int	main(int argc, char **argv, char **env)
 	set_shlvl(data);
 	set_pwd(data);
 	while (1)
-	{
-		set_handlers();
-		iter->raw_input = get_user_input(data->gctrl, data);
-		if (iter->raw_input == NULL)
+		if (main_loop(data, iter) == 0)
 			break ;
-		if (input_has_content(iter->raw_input)
-			&& syntax_check(iter->raw_input) == 1)
-		{
-			iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
-			iter->tokens = tokenize(data, iter->pretokenized_input);
-			if (token_check(iter->tokens))
-			{
-				iter->exec_list = redirect_tokens(data, iter->tokens);
-				if (g_exit_status != -1)
-					execute(data, iter->exec_list);
-				else
-					g_exit_status = 0;
-			}
-		}
-		gctrl_cleanup(gctrl, LOOP_BLOCK);
-	}
 	gctrl_terminate(gctrl);
 	(void)argv;
 	(void)argc;
