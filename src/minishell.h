@@ -207,6 +207,7 @@ char			*get_user_input(t_gctrl *gctrl, t_data *data);
 
 // syntax_check
 int	syntax_check(char *input);
+int	token_check(t_token *tokens);
 
 // Expansion
 char			*expand_input(t_data *data, char *str);
