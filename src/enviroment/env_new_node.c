@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                    _.._  .           .     */
+/*   env_new_node.c                                 .' .-'`        *          */
+/*                                                 /  /       +        *      */
+/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
+/*                                                 \  '.___.;       +         */
+/*   Created: 2025/06/23 21:41:24 by ldel-val       '._  _.'   .        .     */
+/*   Updated: 2025/06/23 21:41:25 by ldel-val          ``                     */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 t_enviroment	*env_new_node(t_gctrl *gctrl, const char *raw_variable)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                    _.._  .           .     */
+/*   env_find_node.c                                .' .-'`        *          */
+/*                                                 /  /       +        *      */
+/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
+/*                                                 \  '.___.;       +         */
+/*   Created: 2025/06/23 21:41:10 by ldel-val       '._  _.'   .        .     */
+/*   Updated: 2025/06/23 21:41:10 by ldel-val          ``                     */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 t_enviroment	*env_find_node(t_enviroment *head, const char *name)

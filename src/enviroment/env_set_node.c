@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                    _.._  .           .     */
+/*   env_set_node.c                                 .' .-'`        *          */
+/*                                                 /  /       +        *      */
+/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
+/*                                                 \  '.___.;       +         */
+/*   Created: 2025/06/23 21:41:31 by ldel-val       '._  _.'   .        .     */
+/*   Updated: 2025/06/23 21:41:32 by ldel-val          ``                     */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	env_set_node(t_data *data, const char *name, const char *val)

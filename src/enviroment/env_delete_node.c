@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                    _.._  .           .     */
+/*   env_delete_node.c                              .' .-'`        *          */
+/*                                                 /  /       +        *      */
+/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
+/*                                                 \  '.___.;       +         */
+/*   Created: 2025/06/23 21:41:03 by ldel-val       '._  _.'   .        .     */
+/*   Updated: 2025/06/23 21:41:04 by ldel-val          ``                     */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	env_delete_node(t_gctrl *gctrl, t_enviroment **list, t_enviroment *node)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                    _.._  .           .     */
+/*   ft_split.c                                     .' .-'`        *          */
+/*                                                 /  /       +        *      */
+/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
+/*                                                 \  '.___.;       +         */
+/*   Created: 2025/06/23 21:43:29 by ldel-val       '._  _.'   .        .     */
+/*   Updated: 2025/06/23 21:43:29 by ldel-val          ``                     */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
 static char	*copy_word(char const *str, int *position, char delimiter)
