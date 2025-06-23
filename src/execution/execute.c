@@ -3,6 +3,25 @@
 
 char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env);
 
+void	set_underscore(t_data *data, char *name)
+{
+	t_enviroment	*envnode;
+	char		*rawvar;
+
+	envnode = env_find_node(data->env, "_");
+	if (envnode == NULL)
+	{
+		rawvar = ft_strjoin("_=", name);
+		env_add_node(data, rawvar);
+		free(rawvar);
+	}
+	else
+	{
+		env_set_node(data, "_", name);
+	}
+}
+
+
 int	is_builtin(t_redir *exectlist)
 {
 	char	*name;
@@ -91,13 +110,14 @@ void	free_arrays(char **cmd, char **env)
 	free(env);
 }
 
-void	execute_buiiltin(t_data *data, t_redir *exectlist)
+void	execute_builtin(t_data *data, t_redir *exectlist)
 {
 	char	**env;
 	char	*name;
 
 	env = env_to_array(data->env);
 	name = exectlist->cmd[0];
+	set_underscore(data, name);
 	if (!ft_strcmp(name, "cd"))
 		ft_cd(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "echo"))
@@ -134,7 +154,7 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 		close(execlist->fd_out);
 	}
 	if (is_builtin(execlist))
-		execute_buiiltin(data, execlist);
+		execute_builtin(data, execlist);
 	else
 	{
 		cmd = dup_array(execlist->cmd);
@@ -151,14 +171,16 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 	
 }
 
+char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env);
 void	execute(t_data *data, t_redir *execlist)
 {
 	pid_t	pid;
 	size_t	process_count;
+	char	*cmd_path;
 
 	process_count = 0;
 	if (is_only_builtin(execlist))
-		execute_buiiltin(data, execlist);
+		execute_builtin(data, execlist);
 	else
 	{
 		while (execlist->flag != RE_END)
@@ -167,6 +189,9 @@ void	execute(t_data *data, t_redir *execlist)
 			{
 				signal(SIGINT, SIG_IGN);
 				pid = fork();
+				cmd_path = identify_command(data, execlist->cmd[0], env_find_node(data->env, "PATH"));
+				set_underscore(data, cmd_path);
+				free(cmd_path);
 				if (pid == 0)
 					execute_comand(data, execlist);
 				if (execlist->fd_in > 2)
