@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                    _.._  .           .     */
-/*   shnake.c                                       .' .-'`        *          */
-/*                                                 /  /       +        *      */
-/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
-/*                                                 \  '.___.;       +         */
-/*   Created: 2025/05/30 22:25:17 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 00:55:42 by ldel-val          ``                     */
+/*                                                        :::      ::::::::   */
+/*   shnake.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmagro-r <nmagro-r@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/30 22:25:17 by ldel-val          #+#    #+#             */
+/*   Updated: 2025/06/23 12:48:16 by nmagro-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <termios.h>
-#include <sys/ioctl.h>
 
 void	shnake_sigint_handler(int sig)
 {

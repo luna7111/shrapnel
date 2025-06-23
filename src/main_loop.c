@@ -130,7 +130,9 @@ int	main(int argc, char **argv, char **env)
 			if (token_check(iter->tokens))
 			{
 				iter->exec_list = redirect_tokens(data, iter->tokens);
-				execute(data, iter->exec_list);
+				if (g_exit_status != -1)
+					execute(data, iter->exec_list);
+				g_exit_status = 0;
 			}
 		}
 		gctrl_cleanup(gctrl, LOOP_BLOCK);
