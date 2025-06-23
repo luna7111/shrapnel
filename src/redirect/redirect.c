@@ -40,6 +40,7 @@ static t_redir	redir_node(t_data *data, t_token *tokens, int fd_out, int fd_in)
 	if (node.fd_in == -1)
 	{
 		node.flag = RE_SKIP;
+		node.fd_out = fd_out;
 		return (node);
 	}
 	node.fd_out = open_fd_out(data, tokens, fd_out);

@@ -48,5 +48,5 @@ char	*identify_command(t_data *data, char *cmd_name, t_enviroment *path_env)
 	free_str_array(split_path);
 	printf("Command not found.\n");
 	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
-	exit(-1);//
+	exit(127);//
 }

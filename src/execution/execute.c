@@ -99,21 +99,21 @@ void	execute_buiiltin(t_data *data, t_redir *exectlist)
 	env = env_to_array(data->env);
 	name = exectlist->cmd[0];
 	if (!ft_strcmp(name, "cd"))
-		ft_cd(data, exectlist->cmd);
+		data->last_exit_code = ft_cd(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "echo"))
-		ft_echo(exectlist->cmd);
+		data->last_exit_code = ft_echo(exectlist->cmd);
 	else if (!ft_strcmp(name, "env"))
-		ft_env(env);
+		data->last_exit_code = ft_env(env);
 	else if (!ft_strcmp(name, "exit"))
-		ft_exit(data, exectlist->cmd);
+		data->last_exit_code = ft_exit(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "export"))
-		ft_export(data, exectlist->cmd);
+		data->last_exit_code = ft_export(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "pwd"))
-		ft_pwd(data);
+		data->last_exit_code = ft_pwd(data);
 	else if (!ft_strcmp(name, "unset"))
-		ft_unset(data, exectlist->cmd);
+		data->last_exit_code = ft_unset(data, exectlist->cmd);
 	else if (!ft_strcmp(name, "shnake"))
-		shnake();
+		data->last_exit_code = shnake();
 	free_strarray(env);
 }
 
@@ -144,7 +144,8 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 		gctrl_terminate(data->gctrl);
 		signal(SIGINT, SIG_DFL);
 		execve(cmd_name, cmd, env);
-		printf("something something command not found\n");
+		data->last_exit_code = errno;
+		perror("");
 		free_arrays(cmd, env);
 	}
 	exit(0);
@@ -154,11 +155,18 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 void	execute(t_data *data, t_redir *execlist)
 {
 	pid_t	pid;
+	int		wstatus;
 	size_t	process_count;
 
 	process_count = 0;
 	if (is_only_builtin(execlist))
+	{
 		execute_buiiltin(data, execlist);
+		if (execlist->fd_in > 2)
+			close(execlist->fd_in);
+		if (execlist->fd_out > 2)
+			close(execlist->fd_out);
+	}
 	else
 	{
 		while (execlist->flag != RE_END)
@@ -176,11 +184,20 @@ void	execute(t_data *data, t_redir *execlist)
 				process_count ++;
 				execlist ++;
 			}
+			else
+			{
+				if (execlist->fd_in > 2)
+					close(execlist->fd_in);
+				if (execlist->fd_out > 2)
+					close(execlist->fd_out);
+				execlist ++;
+			}
 		}
 	}
 	while (process_count > 0)
 	{
-		waitpid(ANYPID, NULL, 0);
+		waitpid(ANYPID, &wstatus, 0);
+		data->last_exit_code = WEXITSTATUS(wstatus);
 		process_count--;
 	}
 }
