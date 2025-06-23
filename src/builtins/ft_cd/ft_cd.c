@@ -1,5 +1,5 @@
-#include "cd_utils.h"
 #include <minishell.h>
+#include "cd_utils.h"
 
 int	ft_cd(t_data *data, char **args)
 {

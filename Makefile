@@ -35,6 +35,9 @@ SRC 		:= 	src/enviroment/env_delete_node.c\
 			src/builtins/ft_cd/cd_target.c\
 			src/builtins/ft_cd/ft_cd.c\
 			src/builtins/shnake/shnake.c\
+			src/builtins/shnake/shnake_aux.c\
+			src/builtins/shnake/shnake_render.c\
+			src/builtins/shnake/shnake_ctrl.c\
 			src/heredoc/get_heredoc.c\
 			src/redirect/redirect.c\
 			src/redirect/redirect_aux.c\
