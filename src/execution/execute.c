@@ -135,16 +135,20 @@ static void	execute_comand(t_data *data, t_redir *execlist)
 	}
 	if (is_builtin(execlist))
 		execute_buiiltin(data, execlist);
-	cmd = dup_array(execlist->cmd);
-	cmd_name = identify_command(data, cmd[0],
-			env_find_node(data->env, "PATH"));
-	env = env_to_array(data->env);
-	gctrl_terminate(data->gctrl);
-	signal(SIGINT, SIG_DFL);
-	execve(cmd_name, cmd, env);
-	printf("something something command not found\n");
-	free_arrays(cmd, env);
+	else
+	{
+		cmd = dup_array(execlist->cmd);
+		cmd_name = identify_command(data, cmd[0],
+		env_find_node(data->env, "PATH"));
+		env = env_to_array(data->env);
+		gctrl_terminate(data->gctrl);
+		signal(SIGINT, SIG_DFL);
+		execve(cmd_name, cmd, env);
+		printf("something something command not found\n");
+		free_arrays(cmd, env);
+	}
 	exit(0);
+	
 }
 
 void	execute(t_data *data, t_redir *execlist)
