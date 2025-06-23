@@ -1,5 +1,5 @@
-#include <minishell.h>
 #include "cd_utils.h"
+#include <minishell.h>
 
 void	save_oldpwd(t_data *data, char *oldpwd)
 {
@@ -14,11 +14,11 @@ void	save_oldpwd(t_data *data, char *oldpwd)
 			oldpwd[0] = '\0';
 	}
 }
-// Nos sirve para guardar el dirct.actual antes de cambiar con cd.
-// incluso si el directorio ha sido eliminado.
-// Si getcwd falla, si el directorio es borrado porej.
-// En es caso usamos la variable $PWD del entorno como ultimo recurso.
-// Si no hay nada dejamos string vacía.
+// We use it to save the current dirct.current before changing with cd.
+// even if the directory has been deleted.
+// If getcwd fails, if the directory is deleted byej.
+// In this case we use the environment variable $PWD as a last resort.
+// If there is nothing we leave empty string.
 
 int	try_cd_fallback(t_data *data)
 {
@@ -40,9 +40,9 @@ int	try_cd_fallback(t_data *data)
 	}
 	return (1);
 }
-// Si estamos en un direct eliminado y hacemos cd..,
-// esta función intentará construir manualmnte un camino válido
-// agregando /.. hasta encontrar un directorio que si exista.
+// If you are in a deleted direct and cd..,
+// this function will try to manually construct a valid path
+// by adding /.. until it finds a directory that exists.
 
 int	handle_chdir(t_data *data, char *target, char *oldpwd)
 {
@@ -59,7 +59,7 @@ int	handle_chdir(t_data *data, char *target, char *oldpwd)
 	perror("minishell: cd");
 	return (1);
 }
-// Encapsula el proceso completo de cd incluyendo fallback + actualización.
-// Intenta chdir(target).
-// Si falla y el target es "..", intenta fallback manual.
-// Si alguna funciona, actualiza PWD y OLDPWD.
+// Encapsulates the entire cd process including fallback + update.
+// Try chdir(target).
+// If it fails and the target is "...", try manual fallback.
+// If either works, update PWD and OLDPWD.

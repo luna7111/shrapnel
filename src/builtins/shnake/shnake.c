@@ -1,18 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                    _.._  .           .     */
-/*   shnake.c                                       .' .-'`        *          */
-/*                                                 /  /       +        *      */
-/*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
-/*                                                 \  '.___.;       +         */
-/*   Created: 2025/05/30 22:25:17 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 14:51:53 by ldel-val          ``                     */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
-#include <termios.h>
-#include <sys/ioctl.h>
 
 void	shnake_sigint_handler(int sig)
 {

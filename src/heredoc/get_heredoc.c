@@ -21,7 +21,7 @@ char	*get_raw_heredoc(t_data *data, char *delim)
 	content = ft_strdup("");
 	line = hd_readline(data->gctrl);
 	gctrl_track_ptr(data->gctrl, content, LOOP_BLOCK);
-	while (ft_strcmp(line, delim) != '\n')
+	while (line != NULL && ft_strcmp(line, delim) != '\n' && g_exit_status != 130)
 	{
 		buf = content;
 		content = ft_strjoin(content, line);
@@ -30,6 +30,8 @@ char	*get_raw_heredoc(t_data *data, char *delim)
 		gctrl_free(data->gctrl, buf);
 		line = hd_readline(data->gctrl);
 	}
+	if (g_exit_status == 130)
+		g_exit_status = -1;
 	return (content);
 }
 
