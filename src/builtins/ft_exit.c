@@ -15,17 +15,17 @@ static int	is_numeric_arg(const char *str)
 	}
 	return (1);
 }
-// Verifica si el string es un número válido.
-// - Opcionalmente puede empezar con '+' o '-'
-// - Solo debe contener dígitos después.
+// Checks if the string is a valid number.
+// - May optionally start with '+' or '-'
+// - Must only contain trailing digits.
 
 static int	exit_error_too_many_args(void)
 {
 	ft_putendl_fd("minishell: exit: too many arguments", 2);
 	return (1);
 }
-// Maneja el caso de múltiples argumentos inválidos para exit.
-// Muestra error y NO sale del programa (comportamiento Bash).
+// Handles the case of multiple invalid arguments to exit.
+// Displays error and does NOT exit the program (Bash behaviour).
 
 int	ft_exit(t_data *data, char **args)
 {
@@ -49,7 +49,7 @@ int	ft_exit(t_data *data, char **args)
 	gctrl_terminate(data->gctrl);
 	exit(code);
 }
-//Built-in exit: termina el minishell.
-//- Si se pasa un argumento numérico: sale con ese código.
-//- Si el argumento no es numérico: error y sale con 255.
-//- Si hay más de un argumento: muestra error y no sale.
+//Built-in exit: terminates the minishell.
+//- If a numeric argument is passed: exits with that code.
+//- If the argument is not numeric: error and exit with 255.
+//- If there is more than one argument: error and no exit.

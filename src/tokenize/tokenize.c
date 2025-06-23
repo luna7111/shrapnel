@@ -1,5 +1,5 @@
-#include "tokenize.h"
 #include <minishell.h>
+#include "tokenize.h"
 
 static size_t	get_word_len(char *str)
 {

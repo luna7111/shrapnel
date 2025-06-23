@@ -1,5 +1,4 @@
 #include <minishell.h>
-#include <limits.h> 
 
 int	ft_pwd(t_data *data)
 {
@@ -22,14 +21,14 @@ int	ft_pwd(t_data *data)
 	}
 	return (0);
 }
-//Recibe el struct principal t_data que contiene la lista de entorno env.
-//Declara un buffer con tamaño máximo del path permitido. Se guarda el path del
-//direct. actual.
-//llama a getcwd para obtener el path actual. si falla perror.
-//imprime el path actual en la salida estándar (fd 1) y añade "\n".
-//Busca en tu lista enlazada de entorno la variable "PWD" usando tu función
-//env_find_node.
-//Si la variable PWD existe en la lista de entorno. Comienza el bloque para
-//actualizar PWD.
-// Libera el contenido anterior de PWD.
-//Copia el nuevo path al campo content de la variable PWD.
+// Receives the main struct t_data containing the environment list env.
+// Declares a buffer with maximum allowed path size. 
+// Saves the path from the current direct.
+// calls getcwd to get the current path. if perror fails.
+// prints the current path to standard output (fd 1) and adds "PWD".
+// Find in your environment linked list the variable "PWD" using your function
+// env_find_node.
+// If the variable PWD exists in the environment list. Start the block for
+// update PWD.
+// Release the previous contents of PWD.
+// Copy the new path to the content field of the PWD variable.
