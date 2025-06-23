@@ -1,5 +1,5 @@
-#include <minishell.h>
 #include "tokenize.h"
+#include <minishell.h>
 
 static size_t	get_word_len(char *str)
 {
@@ -25,11 +25,11 @@ static size_t	get_word_len(char *str)
 	return (i);
 }
 
-//Calculate length of a token.
-//Advance character by character until a ' ' separator is found.
-//If a quotation mark is found, advance until the closing character is found.
-//Used in extract_token() to find out 
-//how many characters to extract for a token.
+// Calculate length of a token.
+// Advance character by character until a ' ' separator is found.
+// If a quotation mark is found, advance until the closing character is found.
+// Used in extract_token() to find out
+// how many characters to extract for a token.
 
 static int	get_token_type(t_token *token, int last_type, int pretoken_type)
 {

@@ -53,6 +53,10 @@
 // types, macros
 # include <stddef.h>
 
+//ioctrl
+#include <termios.h>
+#include <sys/ioctl.h>
+
 ////////////////////////////
 //    Macros & enums    ////
 ////////////////////////////
@@ -242,5 +246,6 @@ void			sigint_handler(int sig);
 void			sigint_newline(int sig);
 void			sigquit_handler(int sig);
 void			set_handlers(void);
+void			sigint_hdoc(int sig);
 
 #endif

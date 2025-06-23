@@ -1,5 +1,5 @@
-#include <minishell.h>
 #include "cd_utils.h"
+#include <minishell.h>
 
 int	ft_cd(t_data *data, char **args)
 {
@@ -21,13 +21,13 @@ int	ft_cd(t_data *data, char **args)
 	return (0);
 }
 
-//Maneja errores, decide a dónde ir y actualiza el entorno.
-//oldpwd guardará el directorio antes del cambio(lo usamos como OLDPWD)
-//target será la ruta que queremos cambiar.
-//printh_path se activa solo si usamos cd -
-//Si se pasa más de un argumento muestra error.
-//Antes de hacer cd,obtenemos el path actual y guardamos en oldpwd con getcwd
-//Inicializamos el flag print_path a 0(falso).
-//llamamos a get_target_path para determinar donde queremos ir,cd,cd -,cd ruta.
-//llamamos a update_pwd_oldpwd que actualiza el PWD y OLDPWD en el entorno.
-//Si es cd -, imprime el nuevo path(PWD) en stdout, como hace bash.
+// handles errors, decides where to go and updates the environment.
+// oldpwd will save the directory before the change (we use it as OLDPWD)
+// target will be the path we want to change.
+// printh_path is enabled only if we use cd -
+// If more than one argument is passed it shows error.
+// Before doing cd,we get the current path and save to oldpwd with getcwd
+// Initialize the print_path flag to 0(false).
+// call get_target_path to determine where we want to go,cd,cd -,cd path.
+// call update_pwd_oldpwd which updates the PWD and OLDPWD in the environment.
+// If cd -, it prints the new path(PWD) to stdout, like bash does.

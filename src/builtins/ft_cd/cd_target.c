@@ -1,5 +1,5 @@
-#include <minishell.h>
 #include "cd_utils.h"
+#include <minishell.h>
 
 char	*get_target_path(t_data *data, char **args, int *print_path)
 {
@@ -30,15 +30,18 @@ char	*get_target_path(t_data *data, char **args, int *print_path)
 	return (args[1]);
 }
 
-//Determina a qué directorio cambiar según el argumento cd. cd, cd -, cd path.
-//Cuando escribe simplemente cd, sin args, busca la variable HOME.
-//Si existe retorna el valor de HOME como destino del cd.
-//Cuando el usuario escribe cd -. "volver al directorio anterior".
-//Busca la variable OLDPWD en el entorno.
-//Activa un flag para indicar que se debe imprimir el nuevo path tras el cambio
-//Devuelve el contenido de OLDPWD como path destino.
-//Si el argumento empieza con '~'.
-//Si $HOME no está definida, se imprime un error.
-//Construye una nueva ruta reemplazando ~ por el contenido de $HOME,
-//y devolviendo esa ruta combinada.
-//finalmente devolvemos el argumento literal, si no hay -, ni ~, ni está vacio.
+// Determines which directory to change to based on the cd argument. 
+// cd, cd -,cd path.
+// When simply typing cd, without args, looks for the variable HOME.
+// If it exists, returns the value of HOME as the destination of cd.
+// When the user types cd -. "return to previous directory".
+// Find the OLDPWD variable in the environment.
+// Activates a flag to indicate that the new path should be 
+// printed after the change
+// Returns the contents of OLDPWD as the destination path.
+// If the argument starts with '~'.
+// If $HOME is not defined, an error is printed.
+// Constructs a new path by replacing ~ with the contents of $HOME,
+// and returning that combined path.
+// Finally we return the literal argument, if there is no -, nor ~,
+// nor is it empty.
