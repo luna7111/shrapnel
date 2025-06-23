@@ -38,6 +38,7 @@ char	*get_heredoc(t_data *data, t_token *token)
 	char	*raw_content;
 	char	*content;
 
+	set_heredoc_handler();
 	raw_content = get_raw_heredoc(data, token->str);
 	if (token->quoted == 1)
 		return (raw_content);

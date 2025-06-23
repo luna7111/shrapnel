@@ -239,5 +239,6 @@ void	sigint_handler(int sig);
 void	sigint_newline(int sig);
 void	sigquit_handler(int sig);
 void    set_handlers(void);
+void	set_heredoc_handler(void);
 
 #endif

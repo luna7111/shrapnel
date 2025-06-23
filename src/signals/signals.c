@@ -1,29 +1,5 @@
 #include <minishell.h>
 
-void    ctrl_minishell(int signal)
-{
-    if (signal == SIGINT)
-    {
-        write(1, "\n", 1);
-        rl_replace_line("", 0);
-        rl_on_new_line();
-        g_exit_status = 130;
-    }
-    else if (signal == SIGQUIT)
-    {
-        rl_on_new_line();
-        rl_redisplay();
-        g_exit_status = 131;
-    }
-}
-//Imprime un salto de línea (\n) para que el prompt no se mezcle con lo que había antes.
-//Borra la línea actual de readline con rl_replace_line.
-//Usa rl_on_new_line() para mover el cursor.
-//Usa rl_redisplay() para mostrar el prompt limpio otra vez.
-//Guarda g_exit_status = 130, que representa una interrupción por señal.
-//Solo redibuja el prompt para ignorar visualmente la señal.
-//Asigna g_exit_status = 131, que representa terminación con SIGQUIT.
-
 void sigint_handler(int sig)
 {
     (void)sig;
@@ -33,12 +9,22 @@ void sigint_handler(int sig)
     rl_redisplay();
     g_exit_status = 130;
 }
+//Se activa cuando se pulsa Ctrl+C en el shell principal.
+//Imprime un salto de línea para mantener el prompt limpio.
+//Borra la línea actual de readline (rl_replace_line).
+//Mueve el cursor a la línea nueva (rl_on_new_line).
+//Redisplay para mostrar el prompt otra vez (rl_redisplay).
+//Asigna el código de salida 130 (128 + número de SIGINT).
+
 
 void sigint_newline(int sig)
 {
     (void)sig;
     write(1, "\n", 1);
 }
+//Se usa en procesos hijo (ej. cat) para que al pulsar Ctrl+C 
+//se imprima sólo un salto de línea.
+//No hace más (el proceso termina automáticamente por SIGINT).
 
 void sigquit_handler(int sig)
 {
@@ -47,9 +33,39 @@ void sigquit_handler(int sig)
     rl_redisplay();
     g_exit_status = 131;
 }
+//Se activa con Ctrl+\ en shell interactivo.
+//No termina el proceso, solo refresca el prompt.
+//Código de salida 131 (128 + SIGQUIT).
+
+void sigint_heredoc(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+    close(STDIN_FILENO); // Forzar readline a devolver NULL
+    g_exit_status = 130;
+}
+//Se llama cuando Ctrl+C se pulsa durante un heredoc (<<).
+//Imprime un salto de línea.
+//Cierra STDIN para forzar que readline() devuelva NULL y finalice el heredoc.
+//Código de salida 130.
+
 
 void    set_handlers(void)
 {
     signal(SIGINT, sigint_handler);
     signal(SIGQUIT, sigquit_handler);
+}
+//Registra los handlers del shell principal 
+//(sigint_handler y sigquit_handler)
+
+void set_heredoc_handler(void)
+{
+    signal(SIGINT, sigint_heredoc);
+    signal(SIGQUIT, SIG_IGN);
+}
+//
+void set_child_handlers(void)
+{
+    signal(SIGINT, sigint_newline);
+    signal(SIGQUIT, SIG_DFL);
 }
