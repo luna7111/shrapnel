@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:37:07 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:37:08 by ldel-val          ``                     */
+/*   Updated: 2025/06/26 17:27:45 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_cd(t_data *data, char **args)
 	char	*target;
 	int		print_path;
 
+	set_pwd(data);
 	if (args[1] && args[2])
 		return (cd_error_too_many_args());
 	save_oldpwd(data, oldpwd);
