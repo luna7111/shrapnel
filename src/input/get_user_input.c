@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:02 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:38:02 by ldel-val          ``                     */
+/*   Updated: 2025/06/26 17:31:41 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	input_has_content(char *input)
 {
 	if (input == NULL)
 		return (0);
-	while (*input == ' ')
+	while (*input == ' ' || *input == '"' || *input == '\'')
 		input++;
 	return (*input != '\0');
 }
