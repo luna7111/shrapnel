@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:41:59 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:42:00 by ldel-val          ``                     */
+/*   Updated: 2025/06/26 19:08:53 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ int				input_has_content(char *input);
 
 // syntax_check
 int				syntax_check(char *input);
+int				pretoken_check(t_pretoken *pretokens);
 int				token_check(t_token *tokens);
 // Get input
 char			*get_user_input(t_gctrl *gctrl, t_data *data);

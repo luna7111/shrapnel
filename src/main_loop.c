@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:34:04 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:34:05 by ldel-val          ``                     */
+/*   Updated: 2025/06/26 20:10:35 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	main_loop(t_data *data, t_iter *iter)
 	{
 		iter->pretokenized_input = pretokenize_input(data, iter->raw_input);
 		iter->tokens = tokenize(data, iter->pretokenized_input);
-		if (token_check(iter->tokens))
+		if (pretoken_check(iter->pretokenized_input)
+			&& token_check(iter->tokens))
 		{
 			iter->exec_list = redirect_tokens(data, iter->tokens);
 			if (g_exit_status != -1)
