@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:41:59 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/26 19:08:53 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 23:22:02 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ typedef struct s_data
 	t_gctrl			*gctrl;
 	t_enviroment	*env;
 	char			*last_input;
-	int				last_exit_code;
 }	t_data;
 
 /*
