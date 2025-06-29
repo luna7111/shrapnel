@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:38 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:38:40 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 21:57:32 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ static void	extract_tokens_from_pretoken(t_data *data, t_token **list,
 		i += len;
 	}
 }
-// Parte un t_pretoken en múltiples t_token reales.
-// Recorre pre->str, salta espacios.
-// Usa get_word_len() para saber cuánto medir.
-// Crea y añade el token con create_and_add_token().
-// Clasifica su tipo con get_token_type().
+// Breaks a t_pretoken into multiple t_tokens.
+//	Iterates pre->str, skips spaces.
+// Uses get_word_len() to know it's length.
+// Creates and adds create_and_add_token().
+// Classifies its type get_token_type().
 
 t_token	*tokenize(t_data *data, t_pretoken *input)
 {
@@ -121,18 +121,18 @@ t_token	*tokenize(t_data *data, t_pretoken *input)
 	extract_tokens_from_pretoken(data, &list, &input[i]);
 	return (list);
 }
-// función principal que recibe el array de t_pretoken y
-// devuelve la lista final de t_token.
-// Itera cada t_pretoken en input[].
-// Llama a extract_tokens_from_pretoken.
-// Retorna la lista final.
+// main function that receives the array of t_pretoken and
+// returns the final list of t_token.
+// Iterates each t_pretoken in input[].
+// Call extract_tokens_from_pretoken.
+// Returns the final list.
 
-// FLujo
-// tokenize → llama a extract_tokens_from_pretoken
+//Flow
+// tokenize → call extract_tokens_from_pretoken
 
-// extract_tokens_from_pretoken → usa get_word_len,
+// extract_tokens_from_pretoken → use get_word_len,
 // create_and_add_token, last_node, get_token_type
 
-// create_and_add_token → llama a new_node, token_add_back, unquote_node
+// create_and_add_token → call new_node, token_add_back, unquote_node
 
-// get_word_len y unquote_node → analizan contenido del string, manejan comillas
+// get_word_len and unquote_node → parse string content, handle quotes

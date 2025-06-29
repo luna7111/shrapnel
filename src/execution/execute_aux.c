@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:40:27 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:40:28 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 21:59:59 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	free_str_array(char **array)
 void	not_found_exit(t_data *data)
 {
 	printf("Command not found.\n");
-	gctrl_cleanup(data->gctrl, ALL_BLOCKS);
+	gctrl_terminate(data->gctrl);
+	rl_clear_history();
 	exit (127);
 }
 

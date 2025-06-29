@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:34:04 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/26 20:10:35 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 22:44:27 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 		if (main_loop(data, iter) == 0)
 			break ;
+	rl_clear_history();
 	gctrl_terminate(gctrl);
 	(void)argv;
 	(void)argc;

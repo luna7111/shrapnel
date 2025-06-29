@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:35:54 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:35:55 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 19:20:11 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_exit(t_data *data, char **args)
 		code = ft_atoi(args[1]);
 	}
 	gctrl_terminate(data->gctrl);
+	rl_clear_history();
 	exit(code);
 }
 //Built-in exit: terminates the minishell.
