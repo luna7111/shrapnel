@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:10 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:38:11 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 23:20:18 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	open_fd_in(t_data *data, t_token *tokens, int fd)
 			if (fd == -1)
 			{
 				perror(tokens->next->str);
-				data->last_exit_code = 1;
+				g_exit_status = 1;
 				return (fd);
 			}
 		}
@@ -109,11 +109,12 @@ int	open_fd_out(t_data *data, t_token *tokens, int fd)
 			if (fd == -1)
 			{
 				perror(tokens->next->str);
-				data->last_exit_code = 1;
+				g_exit_status = 1;
 				return (fd);
 			}
 		}
 		tokens = tokens->next;
 	}
 	return (fd);
+	(void)data;
 }

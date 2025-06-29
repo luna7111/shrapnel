@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:40:22 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/29 19:21:22 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 23:00:20 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	execute_system_command(t_data *data, t_redir *execlist)
 	rl_clear_history();
 	signal(SIGINT, SIG_DFL);
 	execve(cmd_name, cmd, env);
-	data->last_exit_code = errno;
+	g_exit_status = errno;
 	perror("");
 	free_arrays(cmd, env);
 }

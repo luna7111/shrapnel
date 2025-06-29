@@ -6,11 +6,13 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:34:04 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/29 22:44:27 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 22:59:37 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	g_exit_status = 0;
 
 static t_data	*init_data(t_gctrl *gctrl, char **env)
 {
@@ -19,7 +21,6 @@ static t_data	*init_data(t_gctrl *gctrl, char **env)
 	data = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_data));
 	data->last_input = NULL;
 	data->env = env_to_list(gctrl, env);
-	data->last_exit_code = 0;
 	return (data);
 }
 
@@ -31,8 +32,6 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 	iter->raw_input = NULL;
 	return (iter);
 }
-
-int	g_exit_status = 0;
 
 int	main_loop(t_data *data, t_iter *iter)
 {
@@ -71,6 +70,7 @@ int	main(int argc, char **argv, char **env)
 	iter = init_iter(gctrl);
 	set_shlvl(data);
 	set_pwd(data);
+	g_exit_status = 0;
 	while (1)
 		if (main_loop(data, iter) == 0)
 			break ;
