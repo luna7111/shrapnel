@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:02 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/26 17:31:41 by ldel-val          ``                     */
+/*   Updated: 2025/06/29 19:16:52 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*get_user_input(t_gctrl *gctrl, t_data *data)
 		prompt = ft_strjoin(MAGENTA, prompt);
 	}
 	gctrl_track_ptr(data->gctrl, prompt, LOOP_BLOCK);
-	printf(MAGENTA);
 	input = readline(prompt);
 	gctrl_track_ptr(gctrl, input, PROG_BLOCK);
 	history_insertion(gctrl, data, input);
