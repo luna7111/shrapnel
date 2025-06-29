@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:40:22 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:40:22 by ldel-val          ``                     */
+/*   Updated: 2025/06/26 20:13:28 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,28 @@ void	wait_for_processes(size_t nb)
 
 void	exec_only_builtin(t_data *data, t_redir *execlist)
 {
+	int	buf[2];
+
+	if (execlist->fd_in != STDIN)
+		buf[STDIN] = dup(STDIN);
+	if (execlist->fd_in != STDIN)
+		dup2(execlist->fd_in, STDIN);
+	if (execlist->fd_out != STDOUT)
+		buf[STDOUT] = dup(STDOUT);
+	if (execlist->fd_out != STDOUT)
+		dup2(execlist->fd_out, STDOUT);
 	set_underscore(data, execlist);
 	execute_builtin(data, execlist);
 	if (execlist->fd_in > 2)
 		close(execlist->fd_in);
 	if (execlist->fd_out > 2)
 		close(execlist->fd_out);
+	if (execlist->fd_in != STDIN)
+		dup2(buf[STDIN], STDIN);
+	if (execlist->fd_in != STDIN)
+		close(buf[STDIN]);
+	if (execlist->fd_out != STDOUT)
+		dup2(buf[STDOUT], STDOUT);
+	if (execlist->fd_out != STDOUT)
+		close(buf[STDOUT]);
 }
