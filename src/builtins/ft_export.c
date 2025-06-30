@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:36:08 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:36:09 by ldel-val          ``                     */
+/*   Updated: 2025/06/30 20:24:06 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	ft_export(t_data *data, char **args)
 	status = 0;
 	if (!args[1])
 	{
-		printf("aaa\n");
 		return (export_print_sorted(data));
 	}
 	while (args[i])
