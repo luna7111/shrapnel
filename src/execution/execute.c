@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:40:11 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/30 21:33:32 by ldel-val          ``                     */
+/*   Updated: 2025/06/30 22:37:05 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	clear_next_fds(t_redir *execlist)
 {
-	execlist++;	
+	execlist++;
 	while (execlist->flag != RE_END)
 	{
 		if (execlist->fd_in > 2)
@@ -38,6 +38,7 @@ void	execute_command(t_data *data, t_redir *execlist)
 		dup2(execlist->fd_out, STDOUT);
 		close(execlist->fd_out);
 	}
+	clear_next_fds(execlist);
 	if (is_builtin(execlist))
 		execute_builtin(data, execlist);
 	else
