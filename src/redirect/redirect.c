@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:15 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/23 21:38:16 by ldel-val          ``                     */
+/*   Updated: 2025/06/30 12:04:21 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_redir	redir_node(t_data *data, t_token *tokens, int fd_out, int fd_in)
 		node.fd_out = fd_out;
 		return (node);
 	}
-	node.fd_out = open_fd_out(data, tokens, fd_out);
+	node.fd_out = open_fd_out(tokens, fd_out);
 	if (node.fd_out == -1)
 	{
 		close(node.fd_in);

@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:10 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/29 23:20:18 by ldel-val          ``                     */
+/*   Updated: 2025/06/30 12:03:40 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	open_fd_in(t_data *data, t_token *tokens, int fd)
 	return (fd);
 }
 
-int	open_fd_out(t_data *data, t_token *tokens, int fd)
+int	open_fd_out(t_token *tokens, int fd)
 {
 	while (tokens && tokens->type != PIPE)
 	{
@@ -116,5 +116,4 @@ int	open_fd_out(t_data *data, t_token *tokens, int fd)
 		tokens = tokens->next;
 	}
 	return (fd);
-	(void)data;
 }
