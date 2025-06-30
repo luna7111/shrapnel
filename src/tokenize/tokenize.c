@@ -6,18 +6,22 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:38:38 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/29 21:57:32 by ldel-val          ``                     */
+/*   Updated: 2025/06/30 21:02:58 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include "tokenize.h"
 
-static size_t	get_word_len(char *str)
+static size_t	get_word_len(t_pretoken *pre, size_t start)
 {
 	size_t	i;
+	char	*str;
 
+	str = &pre->str[start];
 	i = 0;
+	if (pre->type == SYMBOL && !ft_strncmp(str, "<<", 2))
+		return (2);
 	while (str[i] && str[i] != ' ')
 	{
 		if (str[i] == '"')
@@ -92,7 +96,7 @@ static void	extract_tokens_from_pretoken(t_data *data, t_token **list,
 			i++;
 		if (!pre->str[i])
 			break ;
-		len = get_word_len(&pre->str[i]);
+		len = get_word_len(pre, i);
 		create_and_add_token(data, list, &pre->str[i], len);
 		last_node(*list)->type = get_token_type(last_node(*list), last_type,
 			pre->type);
