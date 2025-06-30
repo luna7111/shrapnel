@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:34:04 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/29 22:59:37 by ldel-val          ``                     */
+/*   Updated: 2025/06/30 14:15:19 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_iter	*init_iter(t_gctrl *gctrl)
 {
 	t_iter	*iter;
 
-	iter = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_data));
+	iter = gctrl_malloc(gctrl, PROG_BLOCK, sizeof(t_iter));
 	iter->raw_input = NULL;
 	return (iter);
 }
