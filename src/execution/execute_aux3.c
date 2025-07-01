@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:40:22 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/30 22:35:49 by ldel-val          ``                     */
+/*   Updated: 2025/07/01 09:03:28 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	execute_builtin(t_data *data, t_redir *exectlist)
 	else if (!ft_strcmp(name, "shnake"))
 		g_exit_status = shnake();
 	free_strarray(env);
-	rl_clear_history();
-	gctrl_terminate(data->gctrl);
 }
 
 void	execute_system_command(t_data *data, t_redir *execlist)

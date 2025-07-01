@@ -6,7 +6,7 @@
 /*   By: ldel-val <ldel-val@student.42madrid.com>  |  |           *           */
 /*                                                 \  '.___.;       +         */
 /*   Created: 2025/06/23 21:40:11 by ldel-val       '._  _.'   .        .     */
-/*   Updated: 2025/06/30 22:37:05 by ldel-val          ``                     */
+/*   Updated: 2025/07/01 09:01:34 by ldel-val          ``                     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	execute_command(t_data *data, t_redir *execlist)
 		execute_builtin(data, execlist);
 	else
 		execute_system_command(data, execlist);
+	rl_clear_history();
+	gctrl_terminate(data->gctrl);
 	exit(0);
 }
 
