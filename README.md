@@ -51,4 +51,4 @@ Sadly the speed of the snake depends entirely on CPU speed. It runs way too fast
 So, no library to directly check keyboard input BUT i had read(), ioctrl() and tcsetattr() which allowed me to put the terminal in raw mode (get input byte by byte instead of full lines like canonical mode) and check if there is any input to read before calling read() so the program doesn't get stuck waiting for any input to read.
 I also used a somewhat big buffer in the read() calls, this is to help clear the input so that if you push a key for a long time the program doesn't have to read every single byte.
 
-This part of the project was really fun to make! I always enjoy having to work without some of the things i usually take for granted. :D
+This part of the project was really fun to make! I always enjoy having to work without some of the things i usually take for granted :D.
