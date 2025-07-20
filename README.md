@@ -35,7 +35,7 @@ Here is a breakdown of the major components:
 - **Read-line input:** Shows a prompt to the user and waits for input.  
 - **Pretokenization:** To avoid environment variable contents to be interpreted as redirections or pipes, the input is sliced and assigned one of two flags (TEXT or SYMBOL). Then all environment variables are expanded.  
 - **Tokenization:** Input is again sliced, now with more descriptive identifiers (COMMAND, HEREDOC, FILENAME...)
-- **Redirection:** All the logic of pipes, redirections, heredocs, file descriptors and command arguments is managed here. I like to think about this step as generating a list of well structured instructions to make execution as easy and not a -mess(ish) as possible.
+- **Redirection:** All the logic of pipes, redirections, heredocs, file descriptors and command arguments is managed here. I like to think about this step as generating a list of well structured instructions to make execution as easy and not a mess(ish) as possible.
 - **Execution:** Finds the command in the PATH if it isn't a relative, or absolute path, or a built-in command. Duplicates the received file descriptors in the STDIN and STDOUT if necessary and executes the command, making sure to free all unneeded memory and file descriptors.
 
 <img width="833" height="629" alt="image" src="https://github.com/user-attachments/assets/ff2fc6b2-e9d7-4e01-b181-7e883d24997d" />
