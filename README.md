@@ -58,3 +58,10 @@ So, no library to directly check keyboard input BUT i had read(), ioctrl() and t
 I also used a somewhat big buffer in the read() calls, this is to help clear the input so that if you push a key for a long time the program doesn't have to read every single byte.
 
 This part of the project was really fun to make! I always enjoy having to work without some of the things i usually take for granted :D.
+
+---
+
+Here is a foto of us making this project!
+
+<img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/6bc21b73-d8b4-404f-a654-d962ef2d49cf" />
+
