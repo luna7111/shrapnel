@@ -40,6 +40,8 @@ Here is a breakdown of the major components:
 
 The shnake command was really fun to implement, since this project was made complying with the 42 Minishell subject constraints, I couldn't use any allowed functions you would expect to use when making a game, so here are some of the workarrounds i made:
 
+<img width="788" height="577" alt="image" src="https://github.com/user-attachments/assets/88454546-45aa-474f-8ace-e4509ab0abc9" />
+
 ### Random number generation
   
 To place apples at random grid positions, I needed pseudo-random numbers, but rand() and similar functions weren’t allowed.  
