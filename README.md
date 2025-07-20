@@ -2,6 +2,8 @@
 
 Shrapnel is a custom Unix-like shell that replicates core functionality of standard shells such as Bash, Dash and Sh.
 
+<img width="848" height="598" alt="image" src="https://github.com/user-attachments/assets/827fb2bb-c046-4ccd-abcb-61132464f11c" />
+
 ## Features
 
 Shrapnel supports the essential features you would expect from a shell. It handles both built-in and external commands with support for arguments, pipes, I/O redirection and enviromment variable expansion.
