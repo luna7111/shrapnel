@@ -38,6 +38,8 @@ Here is a breakdown of the major components:
 - **Redirection:** All the logic of pipes, redirections, heredocs, file descriptors and command arguments is managed here. I like to think about this step as generating a list of well structured instructions to make execution as easy and not a -mess(ish) as possible.
 - **Execution:** Finds the command in the PATH if it isn't a relative, or absolute path, or a built-in command. Duplicates the received file descriptors in the STDIN and STDOUT if necessary and executes the command, making sure to free all unneeded memory and file descriptors.
 
+<img width="833" height="629" alt="image" src="https://github.com/user-attachments/assets/ff2fc6b2-e9d7-4e01-b181-7e883d24997d" />
+
 ## Shnake
 
 The shnake command was really fun to implement, since this project was made complying with the 42 Minishell subject constraints, I couldn't use any allowed functions you would expect to use when making a game, so here are some of the workarrounds i made:
