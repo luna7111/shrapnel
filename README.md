@@ -9,6 +9,8 @@ Shrapnel is a custom Unix-like shell that replicates core functionality of stand
 Shrapnel supports the essential features you would expect from a shell. It handles both built-in and external commands with support for arguments, pipes, I/O redirection and enviromment variable expansion.
 As a little easter egg, if you run the "shnake" command inside shrapnel a built-in command-line snake game will show up, [more on that later :p](#shnake)
 
+<img width="824" height="606" alt="image" src="https://github.com/user-attachments/assets/6f8b6f0b-ef6f-4063-850e-5cf10adb7a73" />
+
 ## Built-in functions
 
 - **cd:** Changes the working directory of the program.  
