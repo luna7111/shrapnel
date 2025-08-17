@@ -16,7 +16,7 @@ As a little easter egg, if you run the "shnake" command inside shrapnel a built-
 - **cd:** Changes the working directory of the program.  
 - **echo:** Prints text and variables to the standard output.  
 - **env:** Displays the current environment variables.  
-- **exit:** Exits the Shrapnel with optional status codes.  
+- **exit:** Exits the Shrapnel shell with optional status codes.  
 - **export:** Sets or updates environment variables.  
 - **unset:** Removes environment variables.  
 - **pwd:** Displays the current working directory.  
